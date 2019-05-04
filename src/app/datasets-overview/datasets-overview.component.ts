@@ -96,6 +96,9 @@ export class DatasetsOverviewComponent implements OnInit {
               const displayDateGenerated: string = dateGenerated.getFullYear() + '-'
                 + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
 
+              //const datasetDescription: string = `<h2>`+ sparqlDatasetResult.source.value + `</h2>` 
+              //  + `<span>sparqlDatasetResult.description.value</span>`;
+
               tableArr.push({ datasetId: sparqlDatasetResult.source.value,
                 dateGenerated: displayDateGenerated,
                 triples: sparqlDatasetResult.statements.value,
