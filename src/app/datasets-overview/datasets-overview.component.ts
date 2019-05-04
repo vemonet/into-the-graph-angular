@@ -3,6 +3,8 @@ import { MatTableDataSource, MatSort } from '@angular/material';
 // TODO: remove? import { DataSource } from '@angular/cdk/table';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-datasets-overview',
   templateUrl: './datasets-overview.component.html',
@@ -14,7 +16,9 @@ export class DatasetsOverviewComponent implements OnInit {
   displayedColumns = [];
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router) { }
 
   /**
    * Pre-defined columns list for user table
@@ -49,9 +53,12 @@ export class DatasetsOverviewComponent implements OnInit {
     this.createTable();
   }
 
+  navigateTo(row: any) {
+    console.log(row);
+    this.router.navigate(['/dataset/' + row.datasetId]);
+  }
+
   createTable() {
-    //console.log(this.http.get('https://reqres.in/api/users'));
-    //console.log(this.http.get('http://dbpedia.org/sparql', { params: httpParams, headers: httpHeaders}));
 
     const httpHeaders = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded'

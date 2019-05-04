@@ -7,10 +7,13 @@
     <mat-table #table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
         <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.value}} </mat-header-cell>
-        <mat-cell *matCellDef="let element"> <div>{{element[column.id]}}</div> </mat-cell>
+        <mat-cell *matCellDef="let element">
+          {{element[column.id]}}
+          <!-- <a fxFlexFill [routerLink]="'/dataset/'+element[column.id]" class="mat-row-link"></a> -->
+        </mat-cell>
       </ng-container>
 
-      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns ->
       <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
           <div class="example-element-detail"
@@ -27,10 +30,11 @@
             </div>
           </div>
         </td>
-      </ng-container>
+      </ng-container-->
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" 
+        (click)="navigateTo(row)"></mat-row>
     </mat-table>
   </mat-card>
 

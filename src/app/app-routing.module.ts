@@ -3,9 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { DatasetsOverviewComponent } from './datasets-overview/datasets-overview.component';
 
 const routes: Routes = [
-  { path: '', component: DatasetsOverviewComponent}
-  //{ path: 'about', component: AboutComponent },
-  // For params: { path: 'contact/:id', component: AboutComponent}
+  { path: '', component: DatasetsOverviewComponent},
+  { path: 'dataset/:datasetId', component: DatasetsOverviewComponent}
 ];
 
 @NgModule({
