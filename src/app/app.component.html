@@ -8,7 +8,7 @@
     *ngIf="isHandset$ | async">
     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
   </button-->
-  <span class="topNavTitle"> {{ datasetId || "rdf-graph-explorer" }} </span>
+  <span class="topNavTitle"> {{ datasetsInfo.datasetSelected || "rdf-graph-explorer" }} </span>
 </mat-toolbar>
 <mat-sidenav-container class="sidenav-container">
   <!-- <app-nav></app-nav> doesn't work with mat-sidenav, so we need to put the nav here -->

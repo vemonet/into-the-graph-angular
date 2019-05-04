@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
+import { DatasetsInfoService } from '../../datasets-info.service';
 
 @Component({
   selector: 'app-dataset-details',
@@ -14,12 +15,14 @@ export class DatasetDetailsComponent implements OnInit {
   datasetId: string;
 
   constructor(
+    private datasetsInfo: DatasetsInfoService,
     private http: HttpClient,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
     console.log('ngOnInit');
-    this.datasetId = this.route.snapshot.paramMap.get('datasetId');
+    this.datasetsInfo.datasetSelected = this.route.snapshot.paramMap.get('datasetId');
+    this.datasetId = this.datasetsInfo.datasetSelected;
     console.log(this.datasetId);
     this.getDatasetInfos(this.datasetId);
   }
@@ -78,6 +81,7 @@ export class DatasetDetailsComponent implements OnInit {
               console.log('result SPARQL query:');
               console.log(sparqlDatasetResult);
           }
+          this.datasetsInfo.datasets = data['results']['bindings'][0];
           this.dataSource = data['results']['bindings'][0];
           console.log(this.dataSource);
           // this.dataSource.sort = this.sort;
