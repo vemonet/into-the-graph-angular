@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class DatasetsInfoService {
 
-  datasetSelected: string;
+  datasetSelected: any;
   datasets: any;
 
   constructor() { }
