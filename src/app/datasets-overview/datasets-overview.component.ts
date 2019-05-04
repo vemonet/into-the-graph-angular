@@ -77,7 +77,7 @@ export class DatasetsOverviewComponent implements OnInit {
             void:triples ?statements ;
             void:entities ?entities ;
             void:properties ?properties ;
-            dcterms:issued ?dateGenerated .
+            dct:issued ?dateGenerated .
           ?rdfDistribution void:classPartition [
             void:class rdfs:Class ;
             void:distinctSubjects ?classes
