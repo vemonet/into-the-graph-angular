@@ -3,7 +3,7 @@
 
 // Global background
 body {
-    background: #f5f5f5;
+    background: #fafafa;
 }
 
 // TODO: fix this to have dynamic margin
@@ -12,3 +12,12 @@ body {
     margin-left: 150px;
     margin-right: 150px;
 }
+
+// Custom font
+@import '~@angular/material/theming';
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$custom-typography: mat-typography-config(
+  $font-family: 'Montserrat'
+);
+@include angular-material-typography($custom-typography);
