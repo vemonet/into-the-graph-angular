@@ -27,7 +27,6 @@ export class DatasetDetailsComponent implements OnInit {
   getDatasetInfos(datasetId: any) {
     const httpHeaders = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded'
-      //'Accept': 'application/json'
     });
 
     const httpParams = new HttpParams()
@@ -39,11 +38,16 @@ export class DatasetDetailsComponent implements OnInit {
       PREFIX dcat: <http://www.w3.org/ns/dcat#>
       PREFIX void: <http://rdfs.org/ns/void#>
       PREFIX dc: <http://purl.org/dc/elements/1.1/>
-      SELECT ?source ?description ?dateGenerated ?statements ?entities ?properties ?classes ?graph
+      PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+      SELECT ?source ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes ?graph
       WHERE {
         GRAPH ?g {
-          ?dataset a dctypes:Dataset ; dct:description ?description ; idot:preferredPrefix ?source .
-          ?version dct:isVersionOf ?dataset ; dcat:distribution ?rdfDistribution .
+          ?dataset a dctypes:Dataset ;
+            dct:description ?description ;
+            foaf:page ?homepage ;
+            idot:preferredPrefix ?source .
+          ?version dct:isVersionOf ?dataset ; 
+            dcat:distribution ?rdfDistribution .
           ?rdfDistribution a void:Dataset ;
             dcat:accessURL ?graph ;
             void:triples ?statements ;
@@ -54,6 +58,7 @@ export class DatasetDetailsComponent implements OnInit {
             void:class rdfs:Class ;
             void:distinctSubjects ?classes
           ] .
+        FILTER(?source = "` + datasetId + `")
         }
       } ORDER BY DESC(?statements)`)
       .set('format', 'json');
@@ -73,7 +78,8 @@ export class DatasetDetailsComponent implements OnInit {
               console.log('result SPARQL query:');
               console.log(sparqlDatasetResult);
           }
-          this.dataSource = data['results']['bindings'];
+          this.dataSource = data['results']['bindings'][0];
+          console.log(this.dataSource);
           // this.dataSource.sort = this.sort;
        });
   }
