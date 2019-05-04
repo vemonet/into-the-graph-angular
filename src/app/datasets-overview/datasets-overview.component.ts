@@ -20,20 +20,28 @@ export class DatasetsOverviewComponent implements OnInit {
    * Pre-defined columns list for user table
    */
   columnNames = [{
-    id: 'position',
-    value: 'No.'
+    id: 'datasetId',
+    value: 'Dataset'
 
   }, {
-    id: 'name',
-    value: 'Name'
+    id: 'dateGenerated',
+    value: 'Date generated'
   },
   {
-    id: 'weight',
-    value: 'Weight'
+    id: 'triples',
+    value: '# of triples'
   },
   {
-    id: 'symbol',
-    value: 'Symbol'
+    id: 'entities',
+    value: '# of entities'
+  },
+  {
+    id: 'properties',
+    value: '# of properties'
+  },
+  {
+    id: 'classes',
+    value: '# of classes'
   }];
 
   ngOnInit() {
@@ -59,16 +67,17 @@ export class DatasetsOverviewComponent implements OnInit {
       PREFIX dcat: <http://www.w3.org/ns/dcat#>
       PREFIX void: <http://rdfs.org/ns/void#>
       PREFIX dc: <http://purl.org/dc/elements/1.1/>
-      SELECT ?source ?description ?statements ?entities ?properties ?classes ?graph
+      SELECT ?source ?description ?dateGenerated ?statements ?entities ?properties ?classes ?graph
       WHERE {
         GRAPH ?g {
           ?dataset a dctypes:Dataset ; dct:description ?description ; idot:preferredPrefix ?source .
           ?version dct:isVersionOf ?dataset ; dcat:distribution ?rdfDistribution .
-          ?rdfDistribution a void:Dataset ; 
-            dcat:accessURL ?graph ; 
+          ?rdfDistribution a void:Dataset ;
+            dcat:accessURL ?graph ;
             void:triples ?statements ;
             void:entities ?entities ;
-            void:properties ?properties .
+            void:properties ?properties ;
+            dcterms:issued ?dateGenerated .
           ?rdfDistribution void:classPartition [
             void:class rdfs:Class ;
             void:distinctSubjects ?classes
@@ -85,9 +94,13 @@ export class DatasetsOverviewComponent implements OnInit {
           console.log(data['results']['bindings']);
           for (const sparqlDatasetResult of data['results']['bindings']) {
               console.log(sparqlDatasetResult);
-              tableArr.push({ position: sparqlDatasetResult.entities.value,
-                name: sparqlDatasetResult.source.value,
-                weight: 1.0079, symbol: 'H' });
+              tableArr.push({ datasetId: sparqlDatasetResult.source.value,
+                dateGenerated: sparqlDatasetResult.dateGenerated.value,
+                triples: sparqlDatasetResult.statements.value,
+                entities: sparqlDatasetResult.entities.value,
+                properties: sparqlDatasetResult.properties.value,
+                classes: sparqlDatasetResult.classes.value
+               });
           }
           this.dataSource = new MatTableDataSource(tableArr);
           this.dataSource.sort = this.sort;
@@ -96,8 +109,10 @@ export class DatasetsOverviewComponent implements OnInit {
 }
 
 export interface Element {
-  position: number,
-  name: string,
-  weight: number,
-  symbol: string
+  datasetId: string;
+  dateGenerated: string;
+  triples: number;
+  entities: number;
+  properties: number;
+  classes: number;
 }
