@@ -1,8 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+// Global background
+body {
+    background: #f5f5f5;
+}
+
 // TODO: fix this to have dynamic margin
 .mainLayout {
+    text-align: center;
     margin-left: 150px;
     margin-right: 150px;
 }
