@@ -11,10 +11,12 @@ import { MatButtonModule,
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DatasetsOverviewComponent } from './datasets-overview/datasets-overview.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DatasetsOverviewComponent
   ],
   imports: [
     BrowserModule,
