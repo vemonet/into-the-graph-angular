@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 // TODO: remove? import { DataSource } from '@angular/cdk/table';
+// TODO: create a service to perform SPARQL queries?
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Router } from '@angular/router';
