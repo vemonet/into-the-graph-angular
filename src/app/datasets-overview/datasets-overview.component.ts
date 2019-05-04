@@ -86,12 +86,9 @@ export class DatasetsOverviewComponent implements OnInit {
       } ORDER BY DESC(?statements)`)
       .set('format', 'json');
 
-    console.log('get dbpedia');
     this.http.get('http://graphdb.dumontierlab.com/repositories/ncats-red-kg', { params: httpParams, headers: httpHeaders})
       .subscribe(data => {
           const tableArr: Element[] = [];
-          console.log(data);
-          console.log(data['results']['bindings']);
           for (const sparqlDatasetResult of data['results']['bindings']) {
               console.log(sparqlDatasetResult);
               const dateGenerated: Date = new Date(sparqlDatasetResult.dateGenerated.value);
