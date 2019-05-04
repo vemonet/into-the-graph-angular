@@ -15,9 +15,7 @@ body {
 
 // Custom font
 @import '~@angular/material/theming';
-// Define a custom typography config that overrides the font-family as well as the
-// `headlines` and `body-1` levels.
 $custom-typography: mat-typography-config(
-  $font-family: 'Montserrat'
+  $font-family: 'Open Sans'
 );
 @include angular-material-typography($custom-typography);
