@@ -21,15 +21,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DatasetsOverviewComponent } from './datasets-overview/datasets-overview.component';
 import { DatasetDetailsComponent } from './dataset-details/dataset-details.component';
-import { NavComponent } from './nav/nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
     AppComponent,
     DatasetsOverviewComponent,
-    DatasetDetailsComponent,
-    NavComponent
+    DatasetDetailsComponent
   ],
   imports: [
     BrowserModule,
