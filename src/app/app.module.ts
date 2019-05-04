@@ -7,7 +7,14 @@ import { MatButtonModule,
   MatToolbarModule,
   MatIconModule,
   MatCardModule,
-  MatCheckboxModule} from '@angular/material';
+  MatCheckboxModule,
+  MatProgressSpinnerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
+  MatSortModule,
+  MatTableModule
+} from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,13 +28,18 @@ import { DatasetsOverviewComponent } from './datasets-overview/datasets-overview
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatToolbarModule,
-    MatIconModule,
+    AppRoutingModule,
     MatCardModule,
-    MatCheckboxModule,
-    AppRoutingModule
+    MatProgressSpinnerModule,
+    MatMenuModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatSortModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
