@@ -53,12 +53,12 @@ export class DatasetsOverviewComponent implements OnInit {
     //console.log(this.http.get('https://reqres.in/api/users'));
     //console.log(this.http.get('http://dbpedia.org/sparql', { params: httpParams, headers: httpHeaders}));
 
-    let httpHeaders = new HttpHeaders({
+    const httpHeaders = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded'
       //'Accept': 'application/json'
     });
 
-    let httpParams = new HttpParams()
+    const httpParams = new HttpParams()
       .set('query', `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX dct: <http://purl.org/dc/terms/>
       PREFIX bl: <http://w3id.org/biolink/vocab/>
@@ -82,7 +82,7 @@ export class DatasetsOverviewComponent implements OnInit {
             void:class rdfs:Class ;
             void:distinctSubjects ?classes
           ] .
-        } 
+        }
       } ORDER BY DESC(?statements)`)
       .set('format', 'json');
 
@@ -94,8 +94,13 @@ export class DatasetsOverviewComponent implements OnInit {
           console.log(data['results']['bindings']);
           for (const sparqlDatasetResult of data['results']['bindings']) {
               console.log(sparqlDatasetResult);
+              const dateGenerated: Date = new Date(sparqlDatasetResult.dateGenerated.value);
+
+              const displayDateGenerated: string = dateGenerated.getFullYear() + '-'
+                + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
+
               tableArr.push({ datasetId: sparqlDatasetResult.source.value,
-                dateGenerated: sparqlDatasetResult.dateGenerated.value,
+                dateGenerated: displayDateGenerated,
                 triples: sparqlDatasetResult.statements.value,
                 entities: sparqlDatasetResult.entities.value,
                 properties: sparqlDatasetResult.properties.value,
