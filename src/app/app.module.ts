@@ -20,11 +20,13 @@ import { MatButtonModule,
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DatasetsOverviewComponent } from './datasets-overview/datasets-overview.component';
+import { DatasetDetailsComponent } from './dataset-details/dataset-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DatasetsOverviewComponent
+    DatasetsOverviewComponent,
+    DatasetDetailsComponent
   ],
   imports: [
     BrowserModule,
