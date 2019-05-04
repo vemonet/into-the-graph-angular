@@ -51,11 +51,33 @@ export class DatasetsOverviewComponent implements OnInit {
     });
 
     let httpParams = new HttpParams()
-      .set('query', 'SELECT * WHERE { <http://dbpedia.org/resource/Awolnation> ?pref ?obj } LIMIT 10')
+      .set('query', `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX dct: <http://purl.org/dc/terms/>
+      PREFIX bl: <http://w3id.org/biolink/vocab/>
+      PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+      PREFIX idot: <http://identifiers.org/idot/>
+      PREFIX dcat: <http://www.w3.org/ns/dcat#>
+      PREFIX void: <http://rdfs.org/ns/void#>
+      SELECT ?source ?statements ?entities ?properties ?classes ?graph
+      WHERE {
+        GRAPH ?g {
+          ?dataset a dctypes:Dataset ; idot:preferredPrefix ?source .
+          ?version dct:isVersionOf ?dataset ; dcat:distribution ?rdfDistribution .
+          ?rdfDistribution a void:Dataset ; 
+            dcat:accessURL ?graph ; 
+            void:triples ?statements ;
+            void:entities ?entities ;
+            void:properties ?properties .
+          ?rdfDistribution void:classPartition [
+            void:class rdfs:Class ;
+            void:distinctSubjects ?classes
+          ] .
+        } 
+      } ORDER BY DESC(?statements)`)
       .set('format', 'json');
 
     console.log('get dbpedia');
-    this.http.get('http://dbpedia.org/sparql', { params: httpParams, headers: httpHeaders})
+    this.http.get('http://graphdb.dumontierlab.com/repositories/ncats-red-kg', { params: httpParams, headers: httpHeaders})
       //.map(response => response.json())
       .subscribe(data => {
           console.log(data);
