@@ -35,6 +35,7 @@ export class DatasetsOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.displayedColumns = this.columnNames.map(x => x.id);
+    this.datasetsInfo.datasetSelected = null;
     this.createTable();
   }
 

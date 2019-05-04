@@ -15,10 +15,10 @@
   <mat-sidenav class="sidenav"
     mode="side"
     opened>
-  <mat-toolbar>Menu</mat-toolbar>
   <mat-nav-list>
     <mat-list-item (click)="navigateToDataset('')">
-      <h4 mat-line>Overview</h4>
+      <mat-icon mat-list-icon>home</mat-icon>
+      <h4 mat-line>Datasets overview</h4>
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item *ngFor="let dataset of datasetsInfo.datasets" (click)="navigateToDataset(dataset.source.value)">
