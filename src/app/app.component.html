@@ -17,9 +17,13 @@
     opened>
   <mat-toolbar>Menu</mat-toolbar>
   <mat-nav-list>
-    <a mat-list-item href="#">Link 1</a>
-    <a mat-list-item href="#">Link 2</a>
-    <a mat-list-item href="#">Link 3</a>
+    <mat-list-item (click)="navigateToDataset('')">
+      <h4 mat-line>Overview</h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item *ngFor="let dataset of datasetsInfo.datasets" (click)="navigateToDataset(dataset.source.value)">
+      <h4 mat-line>{{ dataset.source.value }}</h4>
+    </mat-list-item>
   </mat-nav-list>
 </mat-sidenav>
 
