@@ -1,2 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+// TODO: fix this to have dynamic margin
+.mainLayout {
+    margin-left: 150px;
+    margin-right: 150px;
+}
