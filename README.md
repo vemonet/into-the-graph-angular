@@ -2,6 +2,20 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
 
+## Build
+
+```shell
+docker build -t rdf-graph-explorer .
+```
+
+## Run
+
+```shell
+docker run -it -p 8081:80 rdf-graph-explorer
+```
+
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
