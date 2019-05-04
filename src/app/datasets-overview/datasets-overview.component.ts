@@ -20,20 +20,20 @@ export class DatasetsOverviewComponent implements OnInit {
    * Pre-defined columns list for user table
    */
   columnNames = [{
-    id: "position",
-    value: "No."
+    id: 'position',
+    value: 'No.'
 
   }, {
-    id: "name",
-    value: "Name"
+    id: 'name',
+    value: 'Name'
   },
   {
-    id: "weight",
-    value: "Weight"
+    id: 'weight',
+    value: 'Weight'
   },
   {
-    id: "symbol",
-    value: "Symbol"
+    id: 'symbol',
+    value: 'Symbol'
   }];
 
   ngOnInit() {
@@ -79,21 +79,19 @@ export class DatasetsOverviewComponent implements OnInit {
 
     console.log('get dbpedia');
     this.http.get('http://graphdb.dumontierlab.com/repositories/ncats-red-kg', { params: httpParams, headers: httpHeaders})
-      //.map(response => response.json())
       .subscribe(data => {
+          const tableArr: Element[] = [];
           console.log(data);
+          console.log(data['results']['bindings']);
+          for (const sparqlDatasetResult of data['results']['bindings']) {
+              console.log(sparqlDatasetResult);
+              tableArr.push({ position: sparqlDatasetResult.entities.value,
+                name: sparqlDatasetResult.source.value,
+                weight: 1.0079, symbol: 'H' });
+          }
+          this.dataSource = new MatTableDataSource(tableArr);
+          this.dataSource.sort = this.sort;
        });
-
-
-    let tableArr: Element[] = [{ position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-    { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-    { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' }
-    ];
-    this.dataSource = new MatTableDataSource(tableArr);
-    this.dataSource.sort = this.sort;
   }
 }
 
