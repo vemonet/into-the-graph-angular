@@ -16,6 +16,7 @@ import { MatButtonModule,
   MatTableModule,
   MatCheckboxModule, MatSidenavModule, MatListModule
 } from '@angular/material';
+import 'angular2-navigate-with-data';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

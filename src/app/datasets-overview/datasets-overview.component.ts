@@ -5,7 +5,6 @@ import { MatTableDataSource, MatSort } from '@angular/material';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { SparqlService } from '../../sparql.service';
 import { DatasetsInfoService } from '../../datasets-info.service';
 
 @Component({
@@ -15,13 +14,12 @@ import { DatasetsInfoService } from '../../datasets-info.service';
 })
 export class DatasetsOverviewComponent implements OnInit {
 
-  dataSource;
   displayedColumns = [];
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private router: Router,
-    private sparql: SparqlService,
+    private http: HttpClient,
     private datasetsInfo: DatasetsInfoService) { }
 
   /**
@@ -42,32 +40,76 @@ export class DatasetsOverviewComponent implements OnInit {
 
   navigateTo(row: any) {
     console.log(row);
-    this.router.navigate(['/dataset/' + row.datasetId]);
+    this.router.navigateByData({
+      url: ["/dataset/" + row.datasetId],
+      data: this.datasetsInfo.datasets,
+      //extras: {} - <NavigationExtras> type, optional parameter
+    });
   }
 
   createTable() {
-    this.datasetsInfo.datasets = this.sparql.getAllDatasets();
-    const tableArr: Element[] = [];
-    for (const sparqlDatasetResult of this.datasetsInfo.datasets) {
-        console.log(sparqlDatasetResult);
-        const dateGenerated: Date = new Date(sparqlDatasetResult.dateGenerated.value);
+    console.log('getAlldatasets and createTable:');
 
-        const displayDateGenerated: string = dateGenerated.getFullYear() + '-'
-          + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
+    const httpHeaders = new HttpHeaders({
+      'Content-type': 'application/x-www-form-urlencoded'
+      //'Accept': 'application/json'
+    });
 
-        //const datasetDescription: string = `<h2>`+ sparqlDatasetResult.source.value + `</h2>` 
-        //  + `<span>sparqlDatasetResult.description.value</span>`;
+    const httpParams = new HttpParams()
+      .set('query', `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX dct: <http://purl.org/dc/terms/>
+      PREFIX bl: <http://w3id.org/biolink/vocab/>
+      PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+      PREFIX idot: <http://identifiers.org/idot/>
+      PREFIX dcat: <http://www.w3.org/ns/dcat#>
+      PREFIX void: <http://rdfs.org/ns/void#>
+      PREFIX dc: <http://purl.org/dc/elements/1.1/>
+      PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+      SELECT ?source ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes ?graph
+      WHERE {
+        GRAPH ?g {
+          ?dataset a dctypes:Dataset ;
+            dct:description ?description ;
+            foaf:page ?homepage ;
+            idot:preferredPrefix ?source .
+          ?version dct:isVersionOf ?dataset ; 
+            dcat:distribution ?rdfDistribution .
+          ?rdfDistribution a void:Dataset ;
+            dcat:accessURL ?graph ;
+            void:triples ?statements ;
+            void:entities ?entities ;
+            void:properties ?properties ;
+            dct:issued ?dateGenerated .
+          ?rdfDistribution void:classPartition [
+            void:class rdfs:Class ;
+            void:distinctSubjects ?classes
+          ] .
+        }
+      } ORDER BY DESC(?statements)`)
+      .set('format', 'json');
 
-        tableArr.push({ datasetId: sparqlDatasetResult.source.value,
-          dateGenerated: displayDateGenerated,
-          triples: sparqlDatasetResult.statements.value,
-          entities: sparqlDatasetResult.entities.value,
-          properties: sparqlDatasetResult.properties.value,
-          classes: sparqlDatasetResult.classes.value
-          });
-    }
-    this.dataSource = new MatTableDataSource(tableArr);
-    this.dataSource.sort = this.sort;
+    this.http.get('http://graphdb.dumontierlab.com/repositories/ncats-red-kg', { params: httpParams, headers: httpHeaders})
+      .subscribe(data => {
+        this.datasetsInfo.datasets = data['results']['bindings'];
+        const tableArr: Element[] = [];
+        for (const sparqlDatasetResult of this.datasetsInfo.datasets) {
+            const dateGenerated: Date = new Date(sparqlDatasetResult.dateGenerated.value);
+            const displayDateGenerated: string = dateGenerated.getFullYear() + '-'
+              + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
+
+            tableArr.push({ datasetId: sparqlDatasetResult.source.value,
+              dateGenerated: displayDateGenerated,
+              triples: sparqlDatasetResult.statements.value,
+              entities: sparqlDatasetResult.entities.value,
+              properties: sparqlDatasetResult.properties.value,
+              classes: sparqlDatasetResult.classes.value
+              });
+        }
+        this.datasetsInfo.datasetsTableDataSource = new MatTableDataSource(tableArr);
+        this.datasetsInfo.datasetsTableDataSource.sort = this.sort;
+        console.log('datasetsInfo.datasetsTableDataSource OK');
+        console.log(this.datasetsInfo.datasets);
+      });
   }
 }
 

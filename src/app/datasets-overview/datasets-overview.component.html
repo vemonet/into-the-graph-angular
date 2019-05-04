@@ -4,7 +4,7 @@
   </h1>
 
   <mat-card>
-    <mat-table #table [dataSource]="dataSource" matSort>
+    <mat-table #table [dataSource]="datasetsInfo.datasetsTableDataSource" matSort>
       <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
         <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.value}} </mat-header-cell>
         <mat-cell *matCellDef="let element">
