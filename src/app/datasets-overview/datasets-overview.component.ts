@@ -58,10 +58,11 @@ export class DatasetsOverviewComponent implements OnInit {
       PREFIX idot: <http://identifiers.org/idot/>
       PREFIX dcat: <http://www.w3.org/ns/dcat#>
       PREFIX void: <http://rdfs.org/ns/void#>
-      SELECT ?source ?statements ?entities ?properties ?classes ?graph
+      PREFIX dc: <http://purl.org/dc/elements/1.1/>
+      SELECT ?source ?description ?statements ?entities ?properties ?classes ?graph
       WHERE {
         GRAPH ?g {
-          ?dataset a dctypes:Dataset ; idot:preferredPrefix ?source .
+          ?dataset a dctypes:Dataset ; dct:description ?description ; idot:preferredPrefix ?source .
           ?version dct:isVersionOf ?dataset ; dcat:distribution ?rdfDistribution .
           ?rdfDistribution a void:Dataset ; 
             dcat:accessURL ?graph ; 
