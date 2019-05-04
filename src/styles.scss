@@ -9,12 +9,20 @@ body {
 // TODO: fix this to have dynamic margin
 .mainLayout {
     text-align: center;
-    margin-left: 150px;
-    margin-right: 150px;
+    margin-left: 120px;
+    margin-right: 120px;
 }
 
-.mat-display-1 {
-  margin-top: 60px;
+// title on top nav bar
+.topNavTitle {
+  margin: 0 auto;
+  font-size: larger;
+}
+
+// title on main page
+h1.mat-display-1 {
+  margin-top: 25px !important;
+  margin-bottom: 20px !important;
 }
 
 // Custom font
