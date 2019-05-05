@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Deactivate animations: import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule,
   MatMenuModule,
   MatToolbarModule,
@@ -35,6 +36,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    FlexLayoutModule,
     MatCardModule,
     MatProgressSpinnerModule,
     MatMenuModule,
