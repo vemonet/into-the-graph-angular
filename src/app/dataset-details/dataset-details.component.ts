@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { DatasetsInfoService } from '../../datasets-info.service';
@@ -7,28 +7,19 @@ import { DatasetsInfoService } from '../../datasets-info.service';
   selector: 'app-dataset-details',
   templateUrl: './dataset-details.component.html',
   styleUrls: ['./dataset-details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DatasetDetailsComponent implements OnInit {
 
-  numberOfTicks = 0;
-
   constructor(
-    private ref: ChangeDetectorRef,
     private router: Router,
     private route: ActivatedRoute,
-    private datasetsInfo: DatasetsInfoService) {
-      setInterval(() => {
-        this.numberOfTicks++;
-        // require view to be updated
-        this.ref.markForCheck();
-      }, 1000);
-     }
+    private datasetsInfo: DatasetsInfoService) { }
 
   ngOnInit() {
     console.log('ngOnInit');
     this.datasetsInfo.datasets = this.router.getNavigatedData().datasets;
     //this.datasetsInfo.datasetSelected = this.router.getNavigatedData().datasetSelected;
+    // Should be done by the sender
     console.log(this.datasetsInfo.datasets);
 
     // Keep only the info of the selected dataset
