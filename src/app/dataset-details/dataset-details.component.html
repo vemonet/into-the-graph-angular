@@ -2,8 +2,11 @@
   <h1 class="mat-display-1">
     {{ datasetsInfo.datasetSelected.source.value }}
   </h1>
-  <p>
+  <mat-card style="width: 70%;">
     {{ datasetsInfo.datasetSelected.description.value }}
+  </mat-card>
+  <p style="margin-top: 15px;">
+    <b>Generated on: </b>{{datasetsInfo.datasetSelected.displayDateGenerated}}
   </p>
   <p>
     <b>Homepage: </b><a href="{{datasetsInfo.datasetSelected.homepage.value}}">{{datasetsInfo.datasetSelected.homepage.value}}</a>

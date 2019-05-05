@@ -60,19 +60,21 @@ export class SparqlService {
       .subscribe(data => {
         this.datasetsInfo.datasets = data['results']['bindings'];
         const tableArr: Element[] = [];
-        for (const sparqlDatasetResult of this.datasetsInfo.datasets) {
-            const dateGenerated: Date = new Date(sparqlDatasetResult.dateGenerated.value);
-            const displayDateGenerated: string = dateGenerated.getFullYear() + '-'
-              + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
+        //for (const sparqlDatasetResult of this.datasetsInfo.datasets) {
+        this.datasetsInfo.datasets.forEach((sparqlDatasetResult: any, index: number) => {
+          const dateGenerated: Date = new Date(sparqlDatasetResult.dateGenerated.value);
+          const displayDateGenerated: string = dateGenerated.getFullYear() + '-'
+            + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
+          this.datasetsInfo.datasets[index].displayDateGenerated = displayDateGenerated;
 
-            tableArr.push({ datasetId: sparqlDatasetResult.source.value,
-              dateGenerated: displayDateGenerated,
-              triples: sparqlDatasetResult.statements.value,
-              entities: sparqlDatasetResult.entities.value,
-              properties: sparqlDatasetResult.properties.value,
-              classes: sparqlDatasetResult.classes.value
-              });
-        }
+          tableArr.push({ datasetId: sparqlDatasetResult.source.value,
+            dateGenerated: displayDateGenerated,
+            triples: sparqlDatasetResult.statements.value,
+            entities: sparqlDatasetResult.entities.value,
+            properties: sparqlDatasetResult.properties.value,
+            classes: sparqlDatasetResult.classes.value
+          });
+        });
         let arr = [];
         const datasetArray = this.datasetsInfo.datasets;
         Object.keys(datasetArray).map(function(key){
