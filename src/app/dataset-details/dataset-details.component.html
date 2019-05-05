@@ -1,4 +1,4 @@
-<div class="mainLayout" fxLayout="column" fxLayoutWrap>
+<div *ngIf="datasetsInfo.datasetSelected !== undefined" class="mainLayout" fxLayout="column" fxLayoutWrap>
   <h1 class="mat-display-1">
     {{ datasetsInfo.datasetSelected.source.value }}
   </h1>
