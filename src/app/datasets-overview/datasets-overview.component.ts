@@ -39,16 +39,6 @@ export class DatasetsOverviewComponent implements OnInit {
     this.createTable();
   }
 
-  navigateTo(row: any) {
-    // TODO: same navigeTo for all?
-    console.log(row);
-    this.router.navigateByData({
-      url: ["/dataset/" + row.datasetId],
-      data: {datasets: this.datasetsInfo.datasets},
-      //extras: {} - <NavigationExtras> type, optional parameter
-    });
-  }
-
   createTable() {
     console.log('getAlldatasets and createTable:');
 

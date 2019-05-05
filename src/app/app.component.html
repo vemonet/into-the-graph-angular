@@ -16,12 +16,12 @@
     mode="side"
     opened>
   <mat-nav-list>
-    <mat-list-item (click)="navigateToDataset('')">
+    <mat-list-item (click)="datasetsInfo.navigateTo('')">
       <mat-icon mat-list-icon>home</mat-icon>
       <h4 mat-line>Datasets overview</h4>
     </mat-list-item>
     <mat-divider></mat-divider>
-    <mat-list-item *ngFor="let dataset of datasetsInfo.datasets" (click)="navigateToDataset(dataset.source.value)">
+    <mat-list-item *ngFor="let dataset of datasetsInfo.datasets" (click)="datasetsInfo.navigateTo(dataset.source.value)">
       <h4 mat-line>{{ dataset.source.value }}</h4>
     </mat-list-item>
   </mat-nav-list>
