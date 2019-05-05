@@ -16,8 +16,12 @@ export class DatasetDetailsComponent implements OnInit {
     private datasetsInfo: DatasetsInfoService) { }
 
   ngOnInit() {
-    console.log('ngOnInit');
+    console.log('ngOnInit dataset-detail');
     this.datasetsInfo.datasets = this.router.getNavigatedData().datasets;
+    this.datasetsInfo.arrayDatasetsNav = this.router.getNavigatedData().arrayDatasetsNav;
+    console.log(this.datasetsInfo.datasets);
+    console.log(this.datasetsInfo.arrayDatasetsNav);
+    this.datasetsInfo.filteredArrayDatasetsNav = this.router.getNavigatedData().filteredArrayDatasetsNav;
     //this.datasetsInfo.datasetSelected = this.router.getNavigatedData().datasetSelected;
     // Should be done by the sender
     console.log(this.datasetsInfo.datasets);
@@ -29,6 +33,5 @@ export class DatasetDetailsComponent implements OnInit {
     console.log(this.datasetsInfo.datasetSelected);
     //this.datasetsInfo.datasetSelected = this.datasetsInfo.datasets.datasetId(this.datasetId);
   }
-
 
 }

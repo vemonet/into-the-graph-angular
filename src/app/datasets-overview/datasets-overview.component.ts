@@ -101,6 +101,17 @@ export class DatasetsOverviewComponent implements OnInit {
               classes: sparqlDatasetResult.classes.value
               });
         }
+        let arr = [];
+        const datasetArray = this.datasetsInfo.datasets;
+        Object.keys(datasetArray).map(function(key){
+          arr.push(datasetArray[key].source.value);
+          return arr;
+        });
+        this.datasetsInfo.arrayDatasetsNav = arr;
+        this.datasetsInfo.filteredArrayDatasetsNav = this.datasetsInfo.arrayDatasetsNav;
+        console.log('arrayDatasetsNav:');
+        console.log(this.datasetsInfo.arrayDatasetsNav);
+
         this.datasetsInfo.datasetsTableDataSource = new MatTableDataSource(tableArr);
         this.datasetsInfo.datasetsTableDataSource.sort = this.sort;
         console.log('datasetsInfo.datasetsTableDataSource OK');

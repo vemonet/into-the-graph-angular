@@ -9,6 +9,8 @@ export class DatasetsInfoService {
   datasetSelected: any;
   datasets: any;
   datasetsTableDataSource: any;
+  arrayDatasetsNav: any;
+  filteredArrayDatasetsNav: any;
 
   constructor(private router: Router) { }
 
@@ -24,7 +26,10 @@ export class DatasetsInfoService {
 
     this.router.navigateByData({
       url: [urlPath],
-      data: {datasets: this.datasets, datasetSelected: this.datasetSelected}
+      data: {datasets: this.datasets,
+        datasetSelected: this.datasetSelected,
+        arrayDatasetsNav: this.arrayDatasetsNav,
+        filteredArrayDatasetsNav: this.filteredArrayDatasetsNav}
     });
   }
 }
