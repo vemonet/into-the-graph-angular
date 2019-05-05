@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { DatasetsInfoService } from '../datasets-info.service';
 
 @Component({
@@ -10,7 +9,6 @@ import { DatasetsInfoService } from '../datasets-info.service';
 export class AppComponent {
   title = 'rdf-graph-explorer';
 
-  constructor(private datasetsInfo: DatasetsInfoService,
-              private router: Router) { }
+  constructor(private datasetsInfo: DatasetsInfoService) { }
 
 }
