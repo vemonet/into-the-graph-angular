@@ -39,6 +39,10 @@ export class DatasetsOverviewComponent implements OnInit {
     this.createTable();
   }
 
+  applyFilter(filterValue: string) {
+    this.datasetsInfo.datasetsTableDataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   createTable() {
     console.log('getAlldatasets and createTable:');
 

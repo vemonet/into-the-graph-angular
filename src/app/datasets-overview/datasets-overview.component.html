@@ -4,6 +4,10 @@
   </h1>
 
   <mat-card>
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+
     <mat-table #table [dataSource]="datasetsInfo.datasetsTableDataSource" matSort>
       <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
         <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.value}} </mat-header-cell>
