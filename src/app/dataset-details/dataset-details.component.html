@@ -1,12 +1,12 @@
 <div class="mainLayout" fxLayout="column" fxLayoutWrap>
   <h1 class="mat-display-1">
-    {{ datasetId }}
+    {{ datasetsInfo.datasetSelected.source.value }}
   </h1>
   <p>
-    {{ dataSource.description.value }}
+    {{ datasetsInfo.datasetSelected.description.value }}
   </p>
   <p>
-    <b>Homepage: </b><a href="{{dataSource.homepage.value}}">{{dataSource.homepage.value}}</a>
+    <b>Homepage: </b><a href="{{datasetsInfo.datasetSelected.homepage.value}}">{{datasetsInfo.datasetSelected.homepage.value}}</a>
   </p>
 
   <!-- <mat-form-field class="search-form">

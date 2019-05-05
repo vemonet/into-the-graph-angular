@@ -40,10 +40,11 @@ export class DatasetsOverviewComponent implements OnInit {
   }
 
   navigateTo(row: any) {
+    // TODO: same navigeTo for all?
     console.log(row);
     this.router.navigateByData({
       url: ["/dataset/" + row.datasetId],
-      data: this.datasetsInfo.datasets,
+      data: {datasets: this.datasetsInfo.datasets},
       //extras: {} - <NavigationExtras> type, optional parameter
     });
   }
