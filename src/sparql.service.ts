@@ -16,8 +16,7 @@ export class SparqlService {
               private datasetsInfo: DatasetsInfoService) { }
 
   getAllDatasetsInfo(overviewComponent: any, datasetId: string) {
-    console.log('getAlldatasets and createTable. datasetId:');
-    console.log(datasetId);
+    console.log('getAllDatasetsInfo (execute SPARQL query)');
 
     const httpHeaders = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded'
@@ -89,10 +88,8 @@ export class SparqlService {
         if (datasetId != null) {
           this.datasetsInfo.datasetSelected = this.datasetsInfo.datasets
             .filter(datasetFilter => datasetFilter.source.value === datasetId)[0];
-          console.log('dataset selected OKOK');
-          console.log(this.datasetsInfo.datasetSelected);
         }
-        console.log('datasetsInfo.datasetsTableDataSource OK. datasetsInfo:');
+        console.log('After getting the SPARQL query in sparql.service. datasetsInfo:');
         console.log(this.datasetsInfo);
       });
   }

@@ -1,8 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort } from '@angular/material';
-// TODO: remove? import { DataSource } from '@angular/cdk/table';
-// TODO: create a service to perform SPARQL queries?
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { MatSort } from '@angular/material';
 
 import { DatasetsInfoService } from '../../datasets-info.service';
 import { SparqlService } from '../../sparql.service';
@@ -18,7 +15,6 @@ export class DatasetsOverviewComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private http: HttpClient,
     private sparql: SparqlService,
     private datasetsInfo: DatasetsInfoService) { }
 
