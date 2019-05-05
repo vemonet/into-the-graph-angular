@@ -17,18 +17,17 @@ export class DatasetDetailsComponent implements OnInit {
 
   ngOnInit() {
     console.log('ngOnInit dataset-detail');
-    this.datasetsInfo.datasets = this.router.getNavigatedData().datasets;
-    this.datasetsInfo.arrayDatasetsNav = this.router.getNavigatedData().arrayDatasetsNav;
-    console.log(this.datasetsInfo.datasets);
-    console.log(this.datasetsInfo.arrayDatasetsNav);
-    this.datasetsInfo.filteredArrayDatasetsNav = this.router.getNavigatedData().filteredArrayDatasetsNav;
+    const navigatedData = this.router.getNavigatedData();
+    this.datasetsInfo.datasets = navigatedData.datasets;
+    this.datasetsInfo.datasetSelected = navigatedData.datasetSelected;
+    this.datasetsInfo.arrayDatasetsNav = navigatedData.arrayDatasetsNav;
+    this.datasetsInfo.filteredArrayDatasetsNav = navigatedData.filteredArrayDatasetsNav;
     //this.datasetsInfo.datasetSelected = this.router.getNavigatedData().datasetSelected;
     // Should be done by the sender
-    console.log(this.datasetsInfo.datasets);
 
-    // Keep only the info of the selected dataset
-    this.datasetsInfo.datasetSelected = this.datasetsInfo.datasets.filter(
-      dataset => dataset.source.value === this.route.snapshot.paramMap.get('datasetId'))[0];
+    // Do it in services. But will be required to come directly in the dataset page
+    //this.datasetsInfo.datasetSelected = this.datasetsInfo.datasets.filter(
+    //  dataset => dataset.source.value === this.route.snapshot.paramMap.get('datasetId'))[0];
     console.log('Selected dataset:');
     console.log(this.datasetsInfo.datasetSelected);
     //this.datasetsInfo.datasetSelected = this.datasetsInfo.datasets.datasetId(this.datasetId);

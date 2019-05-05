@@ -107,6 +107,7 @@ export class DatasetsOverviewComponent implements OnInit {
           arr.push(datasetArray[key].source.value);
           return arr;
         });
+        // REMOVE: this.datasetsInfo.arrayDatasetsNav = arr.slice();
         this.datasetsInfo.arrayDatasetsNav = arr;
         this.datasetsInfo.filteredArrayDatasetsNav = this.datasetsInfo.arrayDatasetsNav;
         console.log('arrayDatasetsNav:');
