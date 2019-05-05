@@ -10,12 +10,12 @@
   </button-->
   <span class="topNavTitle"> {{datasetsInfo.datasetSelected?(datasetsInfo.datasetSelected.source.value):"rdf-graph-explorer" }} </span>
 </mat-toolbar>
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container style="display: flex; flex-direction: column; height: 100vh;" class="sidenav-container" >
   <!-- <app-nav></app-nav> doesn't work with mat-sidenav, so we need to put the nav here -->
-  <mat-sidenav class="sidenav"
+  <mat-sidenav class="sidenav" 
     mode="side"
     opened>
-  <mat-nav-list>
+  <mat-nav-list >
     <mat-list-item (click)="datasetsInfo.navigateTo('')">
       <mat-icon mat-list-icon>home</mat-icon>
       <h4 mat-line>Datasets overview</h4>
@@ -31,10 +31,10 @@
   </mat-nav-list>
 </mat-sidenav>
 
-  <mat-sidenav-content layout="column">
-    <section class="mat-typography" layout="column">
+  <mat-sidenav-content >
+    <section class="mat-typography" >
       <!-- Main component -->
-      <router-outlet></router-outlet>
+      <router-outlet ></router-outlet>
     </section>
   </mat-sidenav-content>
 </mat-sidenav-container>
