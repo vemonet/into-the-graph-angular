@@ -3,7 +3,6 @@ import { MatTableDataSource, MatSort } from '@angular/material';
 // TODO: remove? import { DataSource } from '@angular/cdk/table';
 // TODO: create a service to perform SPARQL queries?
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 import { DatasetsInfoService } from '../../datasets-info.service';
 
@@ -18,13 +17,9 @@ export class DatasetsOverviewComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private router: Router,
     private http: HttpClient,
     private datasetsInfo: DatasetsInfoService) { }
 
-  /**
-   * Pre-defined columns list for user table
-   */
   columnNames = [
     { id: 'datasetId', value: 'Dataset' }, 
     { id: 'dateGenerated', value: 'Date generated' },
@@ -39,7 +34,7 @@ export class DatasetsOverviewComponent implements OnInit {
     this.createTable();
   }
 
-  applyFilter(filterValue: string) {
+  applyFilterTable(filterValue: string) {
     this.datasetsInfo.datasetsTableDataSource.filter = filterValue.trim().toLowerCase();
   }
 
@@ -107,16 +102,12 @@ export class DatasetsOverviewComponent implements OnInit {
           arr.push(datasetArray[key].source.value);
           return arr;
         });
-        // REMOVE: this.datasetsInfo.arrayDatasetsNav = arr.slice();
         this.datasetsInfo.arrayDatasetsNav = arr;
         this.datasetsInfo.filteredArrayDatasetsNav = this.datasetsInfo.arrayDatasetsNav;
-        console.log('arrayDatasetsNav:');
-        console.log(this.datasetsInfo.arrayDatasetsNav);
-
         this.datasetsInfo.datasetsTableDataSource = new MatTableDataSource(tableArr);
         this.datasetsInfo.datasetsTableDataSource.sort = this.sort;
-        console.log('datasetsInfo.datasetsTableDataSource OK');
-        console.log(this.datasetsInfo.datasets);
+        console.log('datasetsInfo.datasetsTableDataSource OK. datasetsInfo:');
+        console.log(this.datasetsInfo);
       });
   }
 }

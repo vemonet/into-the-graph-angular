@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { DatasetsInfoService } from '../../datasets-info.service';
 
@@ -12,18 +12,16 @@ export class DatasetDetailsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private datasetsInfo: DatasetsInfoService) { }
 
   ngOnInit() {
-    console.log('ngOnInit dataset-detail');
+    console.log('ngOnInit dataset-detail. datasetsInfo:');
     const navigatedData = this.router.getNavigatedData();
     this.datasetsInfo.datasets = navigatedData.datasets;
     this.datasetsInfo.datasetSelected = navigatedData.datasetSelected;
     this.datasetsInfo.arrayDatasetsNav = navigatedData.arrayDatasetsNav;
     this.datasetsInfo.filteredArrayDatasetsNav = navigatedData.filteredArrayDatasetsNav;
-    //this.datasetsInfo.datasetSelected = this.router.getNavigatedData().datasetSelected;
-    // Should be done by the sender
+    console.log(this.datasetsInfo);
 
     // Do it in services. But will be required to come directly in the dataset page
     //this.datasetsInfo.datasetSelected = this.datasetsInfo.datasets.filter(

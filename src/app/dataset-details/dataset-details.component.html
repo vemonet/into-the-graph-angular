@@ -9,12 +9,6 @@
     <b>Homepage: </b><a href="{{datasetsInfo.datasetSelected.homepage.value}}">{{datasetsInfo.datasetSelected.homepage.value}}</a>
   </p>
 
-  <!-- <mat-form-field class="search-form">
-    <input matInput placeholder="Search Picture" type="text">
-  </mat-form-field>
-  <button button="submit" mat-raised-button color="primary">Search</button>
-  <br> -->
-
   <!-- <div fxLayout="row" fxFlex.md="70" fxLayoutWrap class="card-deck-container mat-elevation-z4"> -->
   <div fxLayout="row" fxLayoutWrap>
     <div fxFlex *ngFor="let countInGraph of ['statements', 'entities', 'properties', 'classes']" class="card-item">
