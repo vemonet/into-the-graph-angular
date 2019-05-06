@@ -14,11 +14,14 @@ docker build -t rdf-graph-explorer .
 docker run -it -p 8081:80 rdf-graph-explorer
 ```
 
-
-
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```shell
+npm install
+ng serve
+```
+
+Navigate to [http://localhost:4200/](http://localhost:4200/). The app *should* automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
