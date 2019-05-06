@@ -12,6 +12,8 @@ import { DatasetsInfoService } from './datasets-info.service';
 })
 export class SparqlService {
 
+  private sparqlEndpoint: string = 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg';
+
   constructor(private http: HttpClient,
               private datasetsInfo: DatasetsInfoService) { }
 
@@ -56,7 +58,7 @@ export class SparqlService {
       } ORDER BY DESC(?statements)`)
       .set('format', 'json');
 
-    this.http.get('http://graphdb.dumontierlab.com/repositories/ncats-red-kg', { params: httpParams, headers: httpHeaders})
+    this.http.get(this.sparqlEndpoint, { params: httpParams, headers: httpHeaders})
       .subscribe(data => {
         this.datasetsInfo.datasets = data['results']['bindings'];
         const tableArr: Element[] = [];
