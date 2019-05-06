@@ -26,6 +26,7 @@ export class DatasetDetailsComponent implements OnInit {
       this.sparql.getAllDatasetsInfo(null, this.route.snapshot.paramMap.get('datasetId'));
     } else {
       // Get datasets infos from data passed through router
+      this.datasetsInfo.hashAll = navigatedData.hashAll;
       this.datasetsInfo.datasets = navigatedData.datasets;
       this.datasetsInfo.datasetSelected = navigatedData.datasetSelected;
       this.datasetsInfo.arrayDatasetsNav = navigatedData.arrayDatasetsNav;

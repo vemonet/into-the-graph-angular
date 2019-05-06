@@ -6,8 +6,9 @@ import { Router } from '@angular/router';
 })
 export class DatasetsInfoService {
 
-  datasetSelected: any;
+  hashAll: any = {};
   datasets: any;
+  datasetSelected: any;
   datasetsTableDataSource: any;
   arrayDatasetsNav: any;
   filteredArrayDatasetsNav: any;
@@ -26,7 +27,8 @@ export class DatasetsInfoService {
 
     this.router.navigateByData({
       url: [urlPath],
-      data: {datasets: this.datasets,
+      data: {hashAll: this.hashAll,
+        datasets: this.datasets,
         datasetSelected: this.datasetSelected,
         arrayDatasetsNav: this.arrayDatasetsNav,
         filteredArrayDatasetsNav: this.filteredArrayDatasetsNav}

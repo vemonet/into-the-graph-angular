@@ -12,13 +12,7 @@ export class AppComponent {
   constructor(private datasetsInfo: DatasetsInfoService) { }
 
   applyFilterNav(filterValue: string) {
-    let arr = [];
-    const datasetArray = this.datasetsInfo.datasets;
-    Object.keys(datasetArray).map(function(key){
-      arr.push(datasetArray[key].source.value);
-      return arr;
-    });
-    this.datasetsInfo.arrayDatasetsNav = arr;
+    this.datasetsInfo.arrayDatasetsNav = Object.keys(this.datasetsInfo.hashAll);
 
     this.datasetsInfo.arrayDatasetsNav = this.datasetsInfo.arrayDatasetsNav
       .filter(item => item.includes(filterValue.trim().toLowerCase()));

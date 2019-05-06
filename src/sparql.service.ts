@@ -58,34 +58,42 @@ export class SparqlService {
       } ORDER BY DESC(?statements)`)
       .set('format', 'json');
 
+    // TODO: SPARQL query to get all relations infos
+    // And only generate one entry per dataset in datasetsInfo.dataset
+    // Use Hash instead of Array?
+
     this.http.get(this.sparqlEndpoint, { params: httpParams, headers: httpHeaders})
       .subscribe(data => {
         this.datasetsInfo.datasets = data['results']['bindings'];
+
         const tableArr: Element[] = [];
-        //for (const sparqlDatasetResult of this.datasetsInfo.datasets) {
         this.datasetsInfo.datasets.forEach((sparqlDatasetResult: any, index: number) => {
+          // Be careful when multiple entries for a source
           const dateGenerated: Date = new Date(sparqlDatasetResult.dateGenerated.value);
           const displayDateGenerated: string = dateGenerated.getFullYear() + '-'
             + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
           this.datasetsInfo.datasets[index].displayDateGenerated = displayDateGenerated;
 
-          tableArr.push({ datasetId: sparqlDatasetResult.source.value,
-            dateGenerated: displayDateGenerated,
-            triples: sparqlDatasetResult.statements.value,
-            entities: sparqlDatasetResult.entities.value,
-            properties: sparqlDatasetResult.properties.value,
-            classes: sparqlDatasetResult.classes.value
-          });
+          this.datasetsInfo.hashAll[sparqlDatasetResult.source.value] = this.datasetsInfo.datasets[index];
         });
-        let arr = [];
-        const datasetArray = this.datasetsInfo.datasets;
-        Object.keys(datasetArray).map(function(key){
-          arr.push(datasetArray[key].source.value);
-          return arr;
-        });
-        this.datasetsInfo.arrayDatasetsNav = arr;
-        this.datasetsInfo.filteredArrayDatasetsNav = this.datasetsInfo.arrayDatasetsNav;
+        this.datasetsInfo.arrayDatasetsNav = Object.keys(this.datasetsInfo.hashAll);
+        // REMOVE: this.datasetsInfo.filteredArrayDatasetsNav = this.datasetsInfo.arrayDatasetsNav;
         this.datasetsInfo.datasetsTableDataSource = new MatTableDataSource(tableArr);
+        // Now generate array from hash to remove duplicates
+        this.datasetsInfo.datasets = [];
+
+        for (const key in this.datasetsInfo.hashAll) {
+          if (this.datasetsInfo.hashAll.hasOwnProperty(key)) {
+            this.datasetsInfo.datasets.push(this.datasetsInfo.hashAll[key]);
+            tableArr.push({ datasetId: this.datasetsInfo.hashAll[key].source.value,
+              dateGenerated: this.datasetsInfo.hashAll[key].displayDateGenerated,
+              triples: this.datasetsInfo.hashAll[key].statements.value,
+              entities: this.datasetsInfo.hashAll[key].entities.value,
+              properties: this.datasetsInfo.hashAll[key].properties.value,
+              classes: this.datasetsInfo.hashAll[key].classes.value
+            });
+          }
+        }
         if (overviewComponent != null) {
           this.datasetsInfo.datasetsTableDataSource.sort = overviewComponent.sort;
         }
