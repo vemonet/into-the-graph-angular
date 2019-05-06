@@ -38,10 +38,12 @@
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;" 
-        (click)="datasetsInfo.navigateTo(row.datasetId)"></mat-row>
+        (click)="datasetsInfo.navigateTo(row.datasetId)"
+        matTooltip="{{datasetsInfo.hashAll[row['datasetId']].description.value}}"
+        aria-label="displays a tooltip"></mat-row>
     </mat-table>
   </mat-card>
 
   <br>
-  <button mat-raised-button color="primary">Primary</button>
+  <button mat-raised-button matTooltip="Info about the action" color="primary">Primary</button>
 </div>

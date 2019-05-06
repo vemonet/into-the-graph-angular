@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTooltipModule } from '@angular/material/tooltip';
 // Deactivate animations: import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -34,6 +35,7 @@ import { LayoutModule } from '@angular/cdk/layout';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    MatTooltipModule,
     AppRoutingModule,
     HttpClientModule,
     FlexLayoutModule,
