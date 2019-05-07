@@ -32,10 +32,8 @@ export class DatasetDetailsComponent implements OnInit {
     { id: 'class2', value: 'Class 2' },
     { id: 'classCount2', value: '# of class 2' }];
 
+  //ngAfterViewInit() {
   ngOnInit() {
-  }
-
-  ngAfterViewInit() {
     this.displayedColumns = this.columnNames.map(x => x.id);
     console.log('before ngOnInit dataset-detail. datasetsInfo:');
     const navigatedData = this.router.getNavigatedData();
@@ -45,11 +43,7 @@ export class DatasetDetailsComponent implements OnInit {
       this.sparql.getAllDatasetsInfo(null, this, this.route.snapshot.paramMap.get('datasetId'));
     } else {
       // Get datasets infos from data passed through router
-      this.datasetsInfo.hashAll = navigatedData.hashAll;
-      this.datasetsInfo.datasets = navigatedData.datasets;
-      this.datasetsInfo.datasetSelected = navigatedData.datasetSelected;
-      this.datasetsInfo.arrayDatasetsNav = navigatedData.arrayDatasetsNav;
-      this.datasetsInfo.filteredArrayDatasetsNav = navigatedData.filteredArrayDatasetsNav;
+      this.datasetsInfo = navigatedData;
     }
     console.log('after ngOnInit dataset-detail. datasetsInfo:')
     console.log(this.datasetsInfo);

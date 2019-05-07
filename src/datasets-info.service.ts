@@ -28,11 +28,7 @@ export class DatasetsInfoService {
 
     this.router.navigateByData({
       url: [urlPath],
-      data: {hashAll: this.hashAll,
-        datasets: this.datasets,
-        datasetSelected: this.datasetSelected,
-        arrayDatasetsNav: this.arrayDatasetsNav,
-        filteredArrayDatasetsNav: this.filteredArrayDatasetsNav}
+      data: { datasetsInfo: this }
     });
   }
 }
