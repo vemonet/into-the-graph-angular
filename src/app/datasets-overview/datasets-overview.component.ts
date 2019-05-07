@@ -29,7 +29,7 @@ export class DatasetsOverviewComponent implements OnInit {
   ngOnInit() {
     this.displayedColumns = this.columnNames.map(x => x.id);
     this.datasetsInfo.datasetSelected = null;
-    this.sparql.getAllDatasetsInfo(this, null);
+    this.sparql.getAllDatasetsInfo(this, null, null);
   }
 
   applyFilterTable(filterValue: string) {

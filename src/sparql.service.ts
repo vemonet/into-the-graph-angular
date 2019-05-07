@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
 import 'rxjs/add/operator/map';
-import { map } from 'rxjs/operators';
 
 import { DatasetsInfoService } from './datasets-info.service';
 
@@ -17,7 +16,7 @@ export class SparqlService {
   constructor(private http: HttpClient,
               private datasetsInfo: DatasetsInfoService) { }
 
-  getAllDatasetsInfo(overviewComponent: any, datasetId: string) {
+  getAllDatasetsInfo(overviewComponent: any, detailComponent: any, datasetId: string) {
     console.log('getAllDatasetsInfo (execute SPARQL query)');
 
     const httpHeaders = new HttpHeaders({
@@ -25,6 +24,7 @@ export class SparqlService {
       //'Accept': 'application/json'
     });
 
+    // Define SPARQL query to retrieve informations on datasets
     const httpParams = new HttpParams()
       .set('query', `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX dct: <http://purl.org/dc/terms/>
@@ -56,7 +56,6 @@ export class SparqlService {
             void:class rdfs:Class ;
             void:distinctSubjects ?classes
           ] .
-      
           ?rdfDistribution void:propertyPartition [
               void:property ?relationWith ;
               void:classPartition [
@@ -71,15 +70,12 @@ export class SparqlService {
       } ORDER BY DESC(?statements)`)
       .set('format', 'json');
 
-    // TODO: SPARQL query to get all relations infos
-    // And only generate one entry per dataset in datasetsInfo.dataset
-    // Use Hash instead of Array?
-
+    // Execute SPARQL query using HTTP GET
     this.http.get(this.sparqlEndpoint, { params: httpParams, headers: httpHeaders})
       .subscribe(data => {
         const sparqlResultArray = data['results']['bindings'];
-        //this.datasetsInfo.datasets = data['results']['bindings'];
 
+        // Map the SPARQL query results to an object for each dataset in datasetsInfo.hashAll
         sparqlResultArray.forEach((sparqlResultRow: any, index: number) => {
           const datasetId = sparqlResultRow.source.value;
           if (this.datasetsInfo.hashAll[datasetId] == null){
@@ -98,6 +94,7 @@ export class SparqlService {
           if (this.datasetsInfo.hashAll[datasetId].relationsArray == null) {
             this.datasetsInfo.hashAll[datasetId].relationsArray = [];
           }
+          // Get relations for each dataset
           this.datasetsInfo.hashAll[datasetId].relationsArray.push({
             classCount1: sparqlResultRow.classCount1,
             class1: sparqlResultRow.class1,
@@ -109,22 +106,14 @@ export class SparqlService {
           const dateGenerated: Date = new Date(sparqlResultRow.dateGenerated.value);
           this.datasetsInfo.hashAll[datasetId].displayDateGenerated = dateGenerated.getFullYear() + '-'
             + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
-          // this.datasetsInfo.datasets[index].displayDateGenerated = displayDateGenerated;
-          // this.datasetsInfo.datasets[index].relations = [];
-
-          // Now that the dataset object have been built, we define it in the dataset hash
-          //this.datasetsInfo.hashAll[sparqlResultRow.source.value] = this.datasetsInfo.datasets[index];
         });
-        this.datasetsInfo.datasets = [];
-        for (let key in this.datasetsInfo.hashAll) {
-          if (this.datasetsInfo.hashAll[key] != null) {
-            this.datasetsInfo.datasets.push(this.datasetsInfo.hashAll[key]);
-          }
+
+        if (datasetId != null) {
+          this.datasetsInfo.datasetSelected = this.datasetsInfo.hashAll[datasetId];
         }
-        console.log('after SPARQL query with relations');
-        console.log(this.datasetsInfo);
+
+        // Now generate array and tables for overview and relations from hash to avoid duplicates
         this.datasetsInfo.arrayDatasetsNav = Object.keys(this.datasetsInfo.hashAll);
-        // Now generate array and tables from hash to avoid duplicates
         this.datasetsInfo.datasets = [];
         const tableArr: Element[] = [];
         for (const key in this.datasetsInfo.hashAll) {
@@ -148,15 +137,28 @@ export class SparqlService {
               });
             });
             this.datasetsInfo.hashAll[key].relationsTableDataSource = new MatTableDataSource(relationsArr);
+            //this.datasetsInfo.datasetSelected.relationsTableDataSource = new MatTableDataSource(relationsArr);
+            if (detailComponent != null) {
+              //this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
+              console.log('detailComponent:');
+              console.log(detailComponent);
+              //console.log(detailComponent.sortRelations);
+              //this.datasetsInfo.datasetSelected.relationsTableDataSource.sort = detailComponent['sortRelations'];
+
+              // This one should work but says detailComponent is undefined:
+              //this.datasetsInfo.hashAll[key].relationsTableDataSource.sortRelations = detailComponent.sortRelations;
+              //this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
+              this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
+            }
           }
         }
         this.datasetsInfo.datasetsTableDataSource = new MatTableDataSource(tableArr);
+        // Sort for overview and define selected dataset if a dataset has been selected
         if (overviewComponent != null) {
+          console.log('overviewComponent:');
+          console.log(overviewComponent);
+          console.log(overviewComponent.sort);
           this.datasetsInfo.datasetsTableDataSource.sort = overviewComponent.sort;
-        }
-        if (datasetId != null) {
-          this.datasetsInfo.datasetSelected = this.datasetsInfo.datasets
-            .filter(datasetFilter => datasetFilter.source.value === datasetId)[0];
         }
         console.log('After getting the SPARQL query in sparql.service. datasetsInfo:');
         console.log(this.datasetsInfo);

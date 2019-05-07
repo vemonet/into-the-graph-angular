@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSort } from '@angular/material';
 
@@ -14,6 +14,10 @@ export class DatasetDetailsComponent implements OnInit {
 
   displayedColumns = [];
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+    this.datasetsInfo.datasetSelected.relationsTableDataSource.sort = this.sort;
+  }
 
   constructor(
     private router: Router,
@@ -26,16 +30,19 @@ export class DatasetDetailsComponent implements OnInit {
     { id: 'class1', value: 'Class 1' },
     { id: 'relationWith', value: 'Have relation with' },
     { id: 'class2', value: 'Class 2' },
-    { id: 'classCount2', value: '# of class 2' },
-    { id: 'classes', value: '# of classes' }];
+    { id: 'classCount2', value: '# of class 2' }];
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    this.displayedColumns = this.columnNames.map(x => x.id);
     console.log('before ngOnInit dataset-detail. datasetsInfo:');
     const navigatedData = this.router.getNavigatedData();
     if (navigatedData == null) {
       // Execute SPARQL query to get datasets infos
       console.log('no navigatedData. execute sparql');
-      this.sparql.getAllDatasetsInfo(null, this.route.snapshot.paramMap.get('datasetId'));
+      this.sparql.getAllDatasetsInfo(null, this, this.route.snapshot.paramMap.get('datasetId'));
     } else {
       // Get datasets infos from data passed through router
       this.datasetsInfo.hashAll = navigatedData.hashAll;
@@ -46,7 +53,6 @@ export class DatasetDetailsComponent implements OnInit {
     }
     console.log('after ngOnInit dataset-detail. datasetsInfo:')
     console.log(this.datasetsInfo);
-    this.displayedColumns = this.columnNames.map(x => x.id);
   }
 
   applyFilterRelationsTable(filterValue: string) {

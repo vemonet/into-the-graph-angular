@@ -1,4 +1,5 @@
 <div *ngIf="datasetsInfo.datasetSelected !== undefined" class="mainLayout" style="text-align: left;" fxLayout="column" fxLayoutWrap>
+<!-- <div class="mainLayout" style="text-align: left;" fxLayout="column" fxLayoutWrap> -->
   <h1 class="mat-display-1">
     {{ datasetsInfo.datasetSelected.source.value }}
   </h1>
@@ -29,6 +30,7 @@
       <input matInput (keyup)="applyFilterRelationsTable($event.target.value)" placeholder="Filter">
     </mat-form-field>
 
+    <!-- <mat-table #table [dataSource]="datasetsInfo.hashAll[datasetsInfo.datasetSelected.source.value].relationsTableDataSource" matSort> -->
     <mat-table #table [dataSource]="datasetsInfo.datasetSelected.relationsTableDataSource" matSort>
       <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
         <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.value}} </mat-header-cell>
