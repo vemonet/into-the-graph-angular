@@ -26,11 +26,11 @@ export class DatasetDetailsComponent implements OnInit {
     private datasetsInfo: DatasetsInfoService) { }
 
   columnNames = [
-    { id: 'classCount1', value: '# of class 1' },
-    { id: 'class1', value: 'Class 1' },
+    { id: 'classCount1', value: '# of instance of subject' },
+    { id: 'class1', value: 'Subject class' },
     { id: 'relationWith', value: 'Have relation with' },
-    { id: 'class2', value: 'Class 2' },
-    { id: 'classCount2', value: '# of class 2' }];
+    { id: 'class2', value: 'Object class' },
+    { id: 'classCount2', value: '# of instance of object' }];
 
   //ngAfterViewInit() {
   ngOnInit() {
