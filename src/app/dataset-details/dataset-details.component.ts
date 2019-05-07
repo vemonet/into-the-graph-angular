@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatSort } from '@angular/material';
 
 import { DatasetsInfoService } from '../../datasets-info.service';
 import { SparqlService } from '../../sparql.service';
@@ -11,11 +12,22 @@ import { SparqlService } from '../../sparql.service';
 })
 export class DatasetDetailsComponent implements OnInit {
 
+  displayedColumns = [];
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private sparql: SparqlService,
     private datasetsInfo: DatasetsInfoService) { }
+
+  columnNames = [
+    { id: 'classCount1', value: '# of class 1' },
+    { id: 'class1', value: 'Class 1' },
+    { id: 'relationWith', value: 'Have relation with' },
+    { id: 'class2', value: 'Class 2' },
+    { id: 'classCount2', value: '# of class 2' },
+    { id: 'classes', value: '# of classes' }];
 
   ngOnInit() {
     console.log('before ngOnInit dataset-detail. datasetsInfo:');
@@ -34,5 +46,10 @@ export class DatasetDetailsComponent implements OnInit {
     }
     console.log('after ngOnInit dataset-detail. datasetsInfo:')
     console.log(this.datasetsInfo);
+    this.displayedColumns = this.columnNames.map(x => x.id);
+  }
+
+  applyFilterRelationsTable(filterValue: string) {
+    this.datasetsInfo.datasetSelected.relationsTableDataSource.filter = filterValue.trim().toLowerCase();
   }
 }

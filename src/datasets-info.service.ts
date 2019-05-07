@@ -10,6 +10,7 @@ export class DatasetsInfoService {
   datasets: any;
   datasetSelected: any;
   datasetsTableDataSource: any;
+  relationsTableDataSource: any;
   arrayDatasetsNav: any;
   filteredArrayDatasetsNav: any;
 

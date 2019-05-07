@@ -35,7 +35,9 @@ export class SparqlService {
       PREFIX void: <http://rdfs.org/ns/void#>
       PREFIX dc: <http://purl.org/dc/elements/1.1/>
       PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-      SELECT ?source ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes ?graph
+      PREFIX void-ext: <http://ldf.fi/void-ext#>
+      SELECT ?source ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes ?graph 
+        ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
       WHERE {
         GRAPH ?g {
           ?dataset a dctypes:Dataset ;
@@ -54,6 +56,17 @@ export class SparqlService {
             void:class rdfs:Class ;
             void:distinctSubjects ?classes
           ] .
+      
+          ?rdfDistribution void:propertyPartition [
+              void:property ?relationWith ;
+              void:classPartition [
+                  void:class ?class1 ;
+                  void:distinctSubjects ?classCount1 ;
+              ];
+              void-ext:objectClassPartition [
+                void:class ?class2 ;
+                void:distinctObjects ?classCount2 ;
+          ]] . 
         }
       } ORDER BY DESC(?statements)`)
       .set('format', 'json');
@@ -64,24 +77,56 @@ export class SparqlService {
 
     this.http.get(this.sparqlEndpoint, { params: httpParams, headers: httpHeaders})
       .subscribe(data => {
-        this.datasetsInfo.datasets = data['results']['bindings'];
+        const sparqlResultArray = data['results']['bindings'];
+        //this.datasetsInfo.datasets = data['results']['bindings'];
 
-        const tableArr: Element[] = [];
-        this.datasetsInfo.datasets.forEach((sparqlDatasetResult: any, index: number) => {
+        sparqlResultArray.forEach((sparqlResultRow: any, index: number) => {
+          const datasetId = sparqlResultRow.source.value;
+          if (this.datasetsInfo.hashAll[datasetId] == null){
+            this.datasetsInfo.hashAll[datasetId] = {};
+            this.datasetsInfo.hashAll[datasetId].datasetId = datasetId;
+            this.datasetsInfo.hashAll[datasetId].source = sparqlResultRow.source;
+          }
+          this.datasetsInfo.hashAll[datasetId].description = sparqlResultRow.description;
+          this.datasetsInfo.hashAll[datasetId].homepage = sparqlResultRow.homepage;
+          this.datasetsInfo.hashAll[datasetId].dateGenerated = sparqlResultRow.dateGenerated;
+          this.datasetsInfo.hashAll[datasetId].statements = sparqlResultRow.statements;
+          this.datasetsInfo.hashAll[datasetId].entities = sparqlResultRow.entities;
+          this.datasetsInfo.hashAll[datasetId].properties = sparqlResultRow.properties;
+          this.datasetsInfo.hashAll[datasetId].classes = sparqlResultRow.classes;
+          this.datasetsInfo.hashAll[datasetId].graph = sparqlResultRow.graph;
+          if (this.datasetsInfo.hashAll[datasetId].relationsArray == null) {
+            this.datasetsInfo.hashAll[datasetId].relationsArray = [];
+          }
+          this.datasetsInfo.hashAll[datasetId].relationsArray.push({
+            classCount1: sparqlResultRow.classCount1,
+            class1: sparqlResultRow.class1,
+            relationWith: sparqlResultRow.relationWith,
+            classCount2: sparqlResultRow.classCount2,
+            class2: sparqlResultRow.class2
+          });
           // Be careful when multiple entries for a source
-          const dateGenerated: Date = new Date(sparqlDatasetResult.dateGenerated.value);
-          const displayDateGenerated: string = dateGenerated.getFullYear() + '-'
+          const dateGenerated: Date = new Date(sparqlResultRow.dateGenerated.value);
+          this.datasetsInfo.hashAll[datasetId].displayDateGenerated = dateGenerated.getFullYear() + '-'
             + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
-          this.datasetsInfo.datasets[index].displayDateGenerated = displayDateGenerated;
+          // this.datasetsInfo.datasets[index].displayDateGenerated = displayDateGenerated;
+          // this.datasetsInfo.datasets[index].relations = [];
 
-          this.datasetsInfo.hashAll[sparqlDatasetResult.source.value] = this.datasetsInfo.datasets[index];
+          // Now that the dataset object have been built, we define it in the dataset hash
+          //this.datasetsInfo.hashAll[sparqlResultRow.source.value] = this.datasetsInfo.datasets[index];
         });
-        this.datasetsInfo.arrayDatasetsNav = Object.keys(this.datasetsInfo.hashAll);
-        // REMOVE: this.datasetsInfo.filteredArrayDatasetsNav = this.datasetsInfo.arrayDatasetsNav;
-        this.datasetsInfo.datasetsTableDataSource = new MatTableDataSource(tableArr);
-        // Now generate array from hash to remove duplicates
         this.datasetsInfo.datasets = [];
-
+        for (let key in this.datasetsInfo.hashAll) {
+          if (this.datasetsInfo.hashAll[key] != null) {
+            this.datasetsInfo.datasets.push(this.datasetsInfo.hashAll[key]);
+          }
+        }
+        console.log('after SPARQL query with relations');
+        console.log(this.datasetsInfo);
+        this.datasetsInfo.arrayDatasetsNav = Object.keys(this.datasetsInfo.hashAll);
+        // Now generate array and tables from hash to avoid duplicates
+        this.datasetsInfo.datasets = [];
+        const tableArr: Element[] = [];
         for (const key in this.datasetsInfo.hashAll) {
           if (this.datasetsInfo.hashAll.hasOwnProperty(key)) {
             this.datasetsInfo.datasets.push(this.datasetsInfo.hashAll[key]);
@@ -92,8 +137,20 @@ export class SparqlService {
               properties: this.datasetsInfo.hashAll[key].properties.value,
               classes: this.datasetsInfo.hashAll[key].classes.value
             });
+            const relationsArr: RelationElement[] = [];
+            this.datasetsInfo.hashAll[key].relationsArray.forEach( (element) => {
+              relationsArr.push({
+                classCount1: element.classCount1.value,
+                class1: element.class1.value,
+                relationWith: element.relationWith.value,
+                class2: element.class2.value,
+                classCount2: element.classCount2.value
+              });
+            });
+            this.datasetsInfo.hashAll[key].relationsTableDataSource = new MatTableDataSource(relationsArr);
           }
         }
+        this.datasetsInfo.datasetsTableDataSource = new MatTableDataSource(tableArr);
         if (overviewComponent != null) {
           this.datasetsInfo.datasetsTableDataSource.sort = overviewComponent.sort;
         }
@@ -114,4 +171,12 @@ export interface Element {
   entities: number;
   properties: number;
   classes: number;
+}
+
+export interface RelationElement {
+  classCount1: number;
+  class1: string;
+  relationWith: string;
+  class2: string;
+  classCount2: number;
 }
