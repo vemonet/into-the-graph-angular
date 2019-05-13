@@ -138,27 +138,47 @@ export class SparqlService {
                 classCount2: element.classCount2.value
               });
               // Generate the hash for the ngx-graph
-              this.datasetsInfo.hashAll[key].ngxGraph.nodes.push(
-                {
-                  id: element.class1.value,
-                  label: element.class1.value,
+              console.log('hashes:');
+              console.log(this.cleanUrl(element.class1.value));
+              console.log(this.cleanUrl(element.class2.value));
+              // TODO: We need to generate a hash to make sure nodes are uniques
+              if (this.cleanUrl(element.class1.value) !== this.cleanUrl(element.class2.value)) {
+                relationCount = relationCount + 1;
+
+                // avoid duplicate nodes
+                if (this.datasetsInfo.hashAll[key].ngxGraph.nodes.findIndex(x => x.id === this.cleanUrl(element.class1.value)) === -1) {
+                  this.datasetsInfo.hashAll[key].ngxGraph.nodes.push(
+                    {
+                      id: this.cleanUrl(element.class1.value),
+                      label: element.class1.value,
+                      dimension: {
+                        height: '30.38461685180664',
+                        width: '344.6153869628906'
+                      }
+                    }
+                  );
                 }
-              );
-              this.datasetsInfo.hashAll[key].ngxGraph.nodes.push(
-                {
-                  id: element.class2.value,
-                  label: element.class2.value,
+                if (this.datasetsInfo.hashAll[key].ngxGraph.nodes.findIndex(x => x.id === this.cleanUrl(element.class2.value)) === -1) {
+                  this.datasetsInfo.hashAll[key].ngxGraph.nodes.push(
+                    {
+                      id: this.cleanUrl(element.class2.value),
+                      label: element.class2.value,
+                      dimension: {
+                        height: '30.38461685180664',
+                        width: '344.6153869628906'
+                      }
+                    }
+                  );
                 }
-              );
-              this.datasetsInfo.hashAll[key].ngxGraph.links.push(
-                {
-                  id: relationCount,
-                  source: element.class1.value,
-                  target: element.class2.value,
-                  label: element.relationWith.value
-                }
-              );
-              relationCount = relationCount + 1;
+                this.datasetsInfo.hashAll[key].ngxGraph.links.push(
+                  {
+                    id: relationCount.toString(),
+                    source: this.cleanUrl(element.class1.value),
+                    target: this.cleanUrl(element.class2.value),
+                    label: element.relationWith.value
+                  }
+                );
+              }
             });
             this.datasetsInfo.hashAll[key].relationsTableDataSource = new MatTableDataSource(relationsArr);
             //this.datasetsInfo.datasetSelected.relationsTableDataSource = new MatTableDataSource(relationsArr);
@@ -190,6 +210,10 @@ export class SparqlService {
         console.log('After getting the SPARQL query in sparql.service. datasetsInfo:');
         console.log(this.datasetsInfo);
       });
+  }
+
+  private cleanUrl(urlToClean: string) {
+    return urlToClean.replace(/\//gi, '').replace(':', '');
   }
 }
 

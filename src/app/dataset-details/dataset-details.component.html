@@ -66,18 +66,20 @@
   </mat-card>
 
   <mat-card style="margin-top: 15px; height: 500px;">
-    
-      <ngx-graph
-      class="chart-container"
-      [links]="datasetsInfo.datasetSelected.ngxGraph.links"
-      [nodes]="datasetsInfo.datasetSelected.ngxGraph.nodes"
+      <!-- [links]="datasetsInfo.datasetSelected.ngxGraph.links"
+      [nodes]="datasetsInfo.datasetSelected.ngxGraph.nodes" 
       [clusters]="[
         {
           id: 'third',
           label: 'Cluster node',
-          childNodeIds: ['c1', 'c2']
+          childNodeIds: ['node1', 'node2']
         }
-      ]"
+      ]"-->
+      <ngx-graph
+      class="chart-container"
+      [links]="datasetsInfo.datasetSelected.ngxGraph.links"
+      [nodes]="datasetsInfo.datasetSelected.ngxGraph.nodes"
+      [clusters]="[]"
       layout="dagreCluster"
     >
       <ng-template #defsTemplate>
@@ -103,7 +105,7 @@
       <ng-template #nodeTemplate let-node>
         <svg:g class="node" matTooltip="{{node.label}}">
           <svg:circle [attr.r]="node.dimension.width/2" [attr.cx]="node.dimension.width/2" [attr.cy]="node.dimension.width/2" [attr.fill]="node.data.color" />
-          <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height / 2">{{node.label}}</svg:text>
+          <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height/ 2">{{node.label}}</svg:text>
         </svg:g>
       </ng-template>
     
