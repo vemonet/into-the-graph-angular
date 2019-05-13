@@ -69,7 +69,6 @@
     
       <ngx-graph
       class="chart-container"
-      [view]="[500, 550]"
       [links]="[
         {
           id: 'a',
@@ -135,10 +134,6 @@
         <svg:g
           class="node cluster"
         >
-        <!-- ngx-tooltip
-          [tooltipPlacement]="'top'"
-          [tooltipType]="'tooltip'"
-          [tooltipTitle]="cluster.label" -->
           <svg:rect
             rx="5"
             ry="5"
@@ -150,8 +145,7 @@
       </ng-template>
     
       <ng-template #nodeTemplate let-node>
-        <svg:g class="node">
-          <!-- ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'" [tooltipTitle]="node.label" -->
+        <svg:g class="node" matTooltip="{{node.label}}">
           <svg:rect
             [attr.width]="node.dimension.width"
             [attr.height]="node.dimension.height"
