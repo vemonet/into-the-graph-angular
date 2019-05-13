@@ -65,56 +65,12 @@
     </mat-table>
   </mat-card>
 
-  <mat-card style="margin-top: 15px;">
+  <mat-card style="margin-top: 15px; height: 500px;">
     
       <ngx-graph
       class="chart-container"
-      [links]="[
-        {
-          id: 'a',
-          source: 'first',
-          target: 'second',
-          label: 'is parent of'
-        }, {
-          id: 'b',
-          source: 'first',
-          target: 'c1',
-          label: 'custom label'
-        }, {
-          id: 'd',
-          source: 'first',
-          target: 'c2',
-          label: 'custom label'
-        }, {
-          id: 'e',
-          source: 'c1',
-          target: 'd',
-          label: 'first link'
-        }, {
-          id: 'f',
-          source: 'c1',
-          target: 'd',
-          label: 'second link'
-        }
-      ]"
-      [nodes]="[
-        {
-          id: 'first',
-          label: 'A'
-        }, {
-          id: 'second',
-          label: 'B'
-        }, {
-          id: 'c1',
-          label: 'C1'
-        }, {
-          id: 'c2',
-          label: 'C2'
-        }, {
-          id: 'd',
-          label: 'D'
-        }
-      ]"
+      [links]="ngxGraph.links"
+      [nodes]="ngxGraph.nodes"
       [clusters]="[
         {
           id: 'third',

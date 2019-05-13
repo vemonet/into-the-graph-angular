@@ -22,7 +22,7 @@ export class DatasetDetailsComponent implements OnInit {
   }
 
   // ngx-graph
-  hierarchialGraph = {nodes: [], links: []}
+  ngxGraph = {nodes: [], links: []}
   curve = shape.curveBundle.beta(1);
 
   constructor(
@@ -63,7 +63,7 @@ export class DatasetDetailsComponent implements OnInit {
   }
 
   showGraph() {
-    this.hierarchialGraph.nodes = [
+    this.ngxGraph.nodes = [
     {
       id: 'start',
       label: 'scan',
@@ -95,30 +95,37 @@ export class DatasetDetailsComponent implements OnInit {
     }
     ];
 
-    this.hierarchialGraph.links = [
+    this.ngxGraph.links = [
     {
+      id: 'a',
       source: 'start',
       target: '1',
       label: 'Process#1'
     }, {
+      id: 'b',
       source: 'start',
       target: '2',
       label: 'Process#2'
     }, {
+      id: 'c',
       source: '1',
       target: '3',
       label: 'Process#3'
     }, {
+      id: 'd',
       source: '2',
       target: '4',
       label: 'Process#4'
     }, {
+      id: 'e',
       source: '2',
       target: '6',
       label: 'Process#6'
     }, {
+      id: 'f',
       source: '3',
-      target: '5'
+      target: '5',
+      label: 'second link'
     }
     ];
 
