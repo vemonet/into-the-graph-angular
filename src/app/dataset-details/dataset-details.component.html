@@ -143,7 +143,15 @@
           />
         </svg:g>
       </ng-template>
+
+      <ng-template #nodeTemplate let-node>
+        <svg:g class="node" matTooltip="{{node.label}}">
+          <svg:circle [attr.r]="node.dimension.width/2" [attr.cx]="node.dimension.width/2" [attr.cy]="node.dimension.width/2" [attr.fill]="node.data.color" />
+          <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height / 2">{{node.label}}</svg:text>
+        </svg:g>
+      </ng-template>
     
+      <!-- Use Rectangles:
       <ng-template #nodeTemplate let-node>
         <svg:g class="node" matTooltip="{{node.label}}">
           <svg:rect
@@ -155,7 +163,7 @@
             {{node.label}}
           </svg:text>
         </svg:g>
-      </ng-template>
+      </ng-template> -->
     
       <ng-template #linkTemplate let-link>
         <svg:g class="edge">
