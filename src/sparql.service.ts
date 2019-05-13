@@ -108,9 +108,6 @@ export class SparqlService {
             + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
         });
 
-        if (datasetId != null) {
-          this.datasetsInfo.datasetSelected = this.datasetsInfo.hashAll[datasetId];
-        }
 
         // Now generate array and tables for overview and relations from hash to avoid duplicates
         this.datasetsInfo.arrayDatasetsNav = Object.keys(this.datasetsInfo.hashAll);
@@ -118,7 +115,9 @@ export class SparqlService {
         const tableArr: Element[] = [];
         for (const key in this.datasetsInfo.hashAll) {
           if (this.datasetsInfo.hashAll.hasOwnProperty(key)) {
+            // Add dataset hash to an array of datasets (to have array and hash available)
             this.datasetsInfo.datasets.push(this.datasetsInfo.hashAll[key]);
+            // Generate the array for datasets details tables
             tableArr.push({ datasetId: this.datasetsInfo.hashAll[key].source.value,
               dateGenerated: this.datasetsInfo.hashAll[key].displayDateGenerated,
               triples: this.datasetsInfo.hashAll[key].statements.value,
@@ -127,7 +126,10 @@ export class SparqlService {
               classes: this.datasetsInfo.hashAll[key].classes.value
             });
             const relationsArr: RelationElement[] = [];
+            let relationCount = 0;
+            this.datasetsInfo.hashAll[key].ngxGraph = {nodes: [], links: []};
             this.datasetsInfo.hashAll[key].relationsArray.forEach( (element) => {
+              // Generate the array for datasets relations tables
               relationsArr.push({
                 classCount1: element.classCount1.value,
                 class1: element.class1.value,
@@ -135,6 +137,28 @@ export class SparqlService {
                 class2: element.class2.value,
                 classCount2: element.classCount2.value
               });
+              // Generate the hash for the ngx-graph
+              this.datasetsInfo.hashAll[key].ngxGraph.nodes.push(
+                {
+                  id: element.class1.value,
+                  label: element.class1.value,
+                }
+              );
+              this.datasetsInfo.hashAll[key].ngxGraph.nodes.push(
+                {
+                  id: element.class2.value,
+                  label: element.class2.value,
+                }
+              );
+              this.datasetsInfo.hashAll[key].ngxGraph.links.push(
+                {
+                  id: relationCount,
+                  source: element.class1.value,
+                  target: element.class2.value,
+                  label: element.relationWith.value
+                }
+              );
+              relationCount = relationCount + 1;
             });
             this.datasetsInfo.hashAll[key].relationsTableDataSource = new MatTableDataSource(relationsArr);
             //this.datasetsInfo.datasetSelected.relationsTableDataSource = new MatTableDataSource(relationsArr);
@@ -151,6 +175,9 @@ export class SparqlService {
               this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
             }
           }
+        }
+        if (datasetId != null) {
+          this.datasetsInfo.datasetSelected = this.datasetsInfo.hashAll[datasetId];
         }
         this.datasetsInfo.datasetsTableDataSource = new MatTableDataSource(tableArr);
         // Sort for overview and define selected dataset if a dataset has been selected

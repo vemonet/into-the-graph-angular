@@ -22,7 +22,7 @@ export class DatasetDetailsComponent implements OnInit {
   }
 
   // ngx-graph
-  ngxGraph = {nodes: [], links: []}
+  ngxGraph = {nodes: [], links: []};
   curve = shape.curveBundle.beta(1);
 
   constructor(
@@ -59,7 +59,7 @@ export class DatasetDetailsComponent implements OnInit {
     }
     console.log('after ngOnInit dataset-detail. datasetsInfo:')
     console.log(this.datasetsInfo);
-    this.showGraph();
+    //this.showGraph();
   }
 
   showGraph() {
@@ -67,31 +67,24 @@ export class DatasetDetailsComponent implements OnInit {
     {
       id: 'start',
       label: 'scan',
-      position: 'x0'
     }, {
       id: '1',
       label: 'Event#a',
-      position: 'x1'
     }, {
       id: '2',
       label: 'Event#x',
-      position: 'x2'
     }, {
       id: '3',
       label: 'Event#b',
-      position: 'x3'
     }, {
       id: '4',
       label: 'Event#c',
-      position: 'x4'
     }, {
       id: '5',
       label: 'Event#y',
-      position: 'x5'
     }, {
       id: '6',
       label: 'Event#z',
-      position: 'x6'
     }
     ];
 
