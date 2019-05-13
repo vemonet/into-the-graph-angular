@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <mat-card>
+  <mat-card style="margin-top: 15px;">
     <mat-form-field>
       <input matInput (keyup)="applyFilterRelationsTable($event.target.value)" placeholder="Filter">
     </mat-form-field>
@@ -63,5 +63,37 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         <!-- (click)="datasetsInfo.navigateTo(row.datasetId)"></mat-row> -->
     </mat-table>
+  </mat-card>
+
+  <mat-card style="margin-top: 15px;">
+    <ngx-graph
+      class="chart-container"
+      [links]="[
+        {
+          id: 'a',
+          source: 'first',
+        target: 'second',
+          label: 'is parent of'
+        }, {
+          id: 'b',
+          source: 'first',
+          target: 'third',
+          label: 'custom label'
+        }
+      ]"
+      [nodes]="[
+        {
+          id: 'first',
+          label: 'A'
+        }, {
+          id: 'second',
+          label: 'B'
+        }, {
+          id: 'third',
+          label: 'C'
+        }
+      ]"
+    >
+    </ngx-graph>
   </mat-card>
 </div>

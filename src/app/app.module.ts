@@ -19,6 +19,7 @@ import { MatButtonModule,
   MatCheckboxModule, MatSidenavModule, MatListModule
 } from '@angular/material';
 import 'angular2-navigate-with-data';
+import { NgxGraphModule } from '@swimlane/ngx-graph';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -53,7 +54,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     MatCheckboxModule,
     LayoutModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    NgxGraphModule
   ],
   providers: [],
   bootstrap: [AppComponent]

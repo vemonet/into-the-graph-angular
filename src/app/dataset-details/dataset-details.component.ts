@@ -16,7 +16,6 @@ export class DatasetDetailsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatSort) set matSort(ms: MatSort) {
     this.sort = ms;
-    this.datasetsInfo.datasetSelected.relationsTableDataSource.sort = this.sort;
   }
 
   constructor(
@@ -44,6 +43,12 @@ export class DatasetDetailsComponent implements OnInit {
     } else {
       // Get datasets infos from data passed through router
       this.datasetsInfo = navigatedData;
+    }
+    if (this.datasetsInfo.datasetSelected !== undefined) {
+      this.datasetsInfo.datasetSelected.relationsTableDataSource.sort = this.sort;
+      console.log('ngOnInit dataset-details: datasetSelected.relationsTableDataSource sorted');
+    } else {
+      console.log('ngOnInit dataset-details: datasetSelected undefined');
     }
     console.log('after ngOnInit dataset-detail. datasetsInfo:')
     console.log(this.datasetsInfo);
