@@ -3,15 +3,14 @@
 }
 
 .sidenav {
-  width: 200px;
-}
-
-.sidenav .mat-toolbar {
-  background: inherit;
+  width: 250px;
+  box-shadow: 3px 0 6px rgba(0,0,0,.24);
 }
 
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
   z-index: 1;
+  /*(Change) background: #007bff;
+  color: #fff; */
 }
