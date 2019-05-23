@@ -3,11 +3,20 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="!(isHandset$ | async)">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <mat-list-item (click)="datasetsInfo.navigateTo('')">
+        <mat-icon mat-list-icon>home</mat-icon>
+        <h4 mat-line>Datasets overview</h4>
+      </mat-list-item>
+      <!-- <mat-divider></mat-divider> -->
+      <!-- <md-input #myInput placeholder="Item name..." (input)="filterItem(myInput.value)"></md-input> -->
+      <mat-form-field>
+        <input matInput (keyup)="applyFilterNav($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+      <mat-list-item *ngFor="let dataset of datasetsInfo.arrayDatasetsNav" (click)="datasetsInfo.navigateTo(dataset)">
+        <h4 mat-line>{{ dataset }}</h4>
+      </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -20,7 +29,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>rdf-graph-explorer</span>
+      <span>{{datasetsInfo.datasetSelected?(datasetsInfo.datasetSelected.source.value):"rdf-graph-explorer" }}</span>
     </mat-toolbar>
     <!-- To be able to put the content in <app-main-nav> -->
     <ng-content></ng-content>
