@@ -3,42 +3,10 @@
 }
 
 // ngx-graph CSS
-.graph {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none; }
-  .graph .edge {
-    stroke: #666;
-    fill: none; }
-    .graph .edge .edge-label {
-      stroke: none;
-      font-size: 12px;
-      fill: #666; }
-  .graph .panning-rect {
-    fill: transparent;
-    cursor: move; }
-  .graph .node-group .node:focus {
-    outline: none; }.graph {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none; }
-  .graph .edge {
-    stroke: #666;
-    fill: none; }
-    .graph .edge .edge-label {
-      stroke: none;
-      font-size: 12px;
-      fill: #666; }
-  .graph .panning-rect {
-    fill: transparent;
-    cursor: move; }
-  .graph .node-group .node:focus {
-    outline: none; }
-
-.edge {
-    path  {
-      stroke: #666 !important;
-    }
-  }
+ngx-cytoscape {
+  height: 50vh;
+  float: left;
+  position: relative;
+  border: solid #21c0c0;
+  width: 50em;
+}

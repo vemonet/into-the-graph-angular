@@ -21,9 +21,29 @@ export class DatasetDetailsComponent implements OnInit {
     this.sort = ms;
   }
 
-  // ngx-graph
-  ngxGraph = {nodes: [], links: []};
-  curve = shape.curveBundle.beta(1);
+  graphData = {
+      nodes: [
+          {data: {id: 'j', name: 'Jerry', faveColor: '#6FB1FC', faveShape: 'triangle'}},
+          {data: {id: 'e', name: 'Elaine', faveColor: '#EDA1ED', faveShape: 'ellipse'}},
+          {data: {id: 'k', name: 'Kramer', faveColor: '#86B342', faveShape: 'octagon'}},
+          {data: {id: 'g', name: 'George', faveColor: '#F5A45D', faveShape: 'rectangle'}}
+      ],
+      edges: [
+          {data: {source: 'j', target: 'e', faveColor: '#6FB1FC'}},
+          {data: {source: 'j', target: 'k', faveColor: '#6FB1FC'}},
+          {data: {source: 'j', target: 'g', faveColor: '#6FB1FC'}},
+
+          {data: {source: 'e', target: 'j', faveColor: '#EDA1ED'}},
+          {data: {source: 'e', target: 'k', faveColor: '#EDA1ED'}},
+
+          {data: {source: 'k', target: 'j', faveColor: '#86B342'}},
+          {data: {source: 'k', target: 'e', faveColor: '#86B342'}},
+          {data: {source: 'k', target: 'g', faveColor: '#86B342'}},
+
+          {data: {source: 'g', target: 'j', faveColor: '#F5A45D'}}
+      ]
+  };
+
 
   constructor(
     private router: Router,
@@ -63,64 +83,64 @@ export class DatasetDetailsComponent implements OnInit {
   }
 
   showGraph() {
-    this.ngxGraph.nodes = [
-    {
-      id: 'start',
-      label: 'scan',
-    }, {
-      id: '1',
-      label: 'Event#a',
-    }, {
-      id: '2',
-      label: 'Event#x',
-    }, {
-      id: '3',
-      label: 'Event#b',
-    }, {
-      id: '4',
-      label: 'Event#c',
-    }, {
-      id: '5',
-      label: 'Event#y',
-    }, {
-      id: '6',
-      label: 'Event#z',
-    }
-    ];
+    // this.ngxGraph.nodes = [
+    // {
+    //   id: 'start',
+    //   label: 'scan',
+    // }, {
+    //   id: '1',
+    //   label: 'Event#a',
+    // }, {
+    //   id: '2',
+    //   label: 'Event#x',
+    // }, {
+    //   id: '3',
+    //   label: 'Event#b',
+    // }, {
+    //   id: '4',
+    //   label: 'Event#c',
+    // }, {
+    //   id: '5',
+    //   label: 'Event#y',
+    // }, {
+    //   id: '6',
+    //   label: 'Event#z',
+    // }
+    // ];
 
-    this.ngxGraph.links = [
-    {
-      id: 'a',
-      source: 'start',
-      target: '1',
-      label: 'Process#1'
-    }, {
-      id: 'b',
-      source: 'start',
-      target: '2',
-      label: 'Process#2'
-    }, {
-      id: 'c',
-      source: '1',
-      target: '3',
-      label: 'Process#3'
-    }, {
-      id: 'd',
-      source: '2',
-      target: '4',
-      label: 'Process#4'
-    }, {
-      id: 'e',
-      source: '2',
-      target: '6',
-      label: 'Process#6'
-    }, {
-      id: 'f',
-      source: '3',
-      target: '5',
-      label: 'second link'
-    }
-    ];
+    // this.ngxGraph.links = [
+    // {
+    //   id: 'a',
+    //   source: 'start',
+    //   target: '1',
+    //   label: 'Process#1'
+    // }, {
+    //   id: 'b',
+    //   source: 'start',
+    //   target: '2',
+    //   label: 'Process#2'
+    // }, {
+    //   id: 'c',
+    //   source: '1',
+    //   target: '3',
+    //   label: 'Process#3'
+    // }, {
+    //   id: 'd',
+    //   source: '2',
+    //   target: '4',
+    //   label: 'Process#4'
+    // }, {
+    //   id: 'e',
+    //   source: '2',
+    //   target: '6',
+    //   label: 'Process#6'
+    // }, {
+    //   id: 'f',
+    //   source: '3',
+    //   target: '5',
+    //   label: 'second link'
+    // }
+    // ];
 
   }
 
