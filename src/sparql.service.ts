@@ -127,7 +127,7 @@ export class SparqlService {
             });
             const relationsArr: RelationElement[] = [];
             let relationCount = 0;
-            this.datasetsInfo.hashAll[key].ngxGraph = {nodes: [], links: []};
+            this.datasetsInfo.hashAll[key].ngxGraph = {nodes: [], edges: []};
             this.datasetsInfo.hashAll[key].relationsArray.forEach( (element) => {
               // Generate the array for datasets relations tables
               relationsArr.push({
@@ -148,35 +148,24 @@ export class SparqlService {
                 // avoid duplicate nodes
                 if (this.datasetsInfo.hashAll[key].ngxGraph.nodes.findIndex(x => x.id === this.cleanUrl(element.class1.value)) === -1) {
                   this.datasetsInfo.hashAll[key].ngxGraph.nodes.push(
-                    {
-                      id: this.cleanUrl(element.class1.value),
-                      label: element.class1.value,
-                      dimension: {
-                        height: '30.38461685180664',
-                        width: '344.6153869628906'
-                      }
-                    }
+                    {data: {id: this.cleanUrl(element.class1.value), name: element.class1.value, 
+                      faveColor: '#F5A45D', faveShape: 'rectangle'}}
                   );
                 }
                 if (this.datasetsInfo.hashAll[key].ngxGraph.nodes.findIndex(x => x.id === this.cleanUrl(element.class2.value)) === -1) {
                   this.datasetsInfo.hashAll[key].ngxGraph.nodes.push(
-                    {
-                      id: this.cleanUrl(element.class2.value),
-                      label: element.class2.value,
-                      dimension: {
-                        height: '30.38461685180664',
-                        width: '344.6153869628906'
-                      }
-                    }
+                    {data: {id: this.cleanUrl(element.class2.value), name: element.class2.value, 
+                      faveColor: '#F5A45D', faveShape: 'rectangle'}}
                   );
                 }
-                this.datasetsInfo.hashAll[key].ngxGraph.links.push(
-                  {
-                    id: relationCount.toString(),
-                    source: this.cleanUrl(element.class1.value),
-                    target: this.cleanUrl(element.class2.value),
-                    label: element.relationWith.value
-                  }
+                this.datasetsInfo.hashAll[key].ngxGraph.edges.push(
+                  {data: {source: this.cleanUrl(element.class1.value), target: this.cleanUrl(element.class2.value), faveColor: '#6FB1FC'}}
+                  // {
+                  //   id: relationCount.toString(),
+                  //   source: this.cleanUrl(element.class1.value),
+                  //   target: this.cleanUrl(element.class2.value),
+                  //   label: element.relationWith.value
+                  // }
                 );
               }
             });
