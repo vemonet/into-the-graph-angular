@@ -26,12 +26,14 @@ import { AppComponent } from './app.component';
 import { DatasetsOverviewComponent } from './datasets-overview/datasets-overview.component';
 import { DatasetDetailsComponent } from './dataset-details/dataset-details.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MainNavComponent } from './main-nav/main-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DatasetsOverviewComponent,
-    DatasetDetailsComponent
+    DatasetDetailsComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,

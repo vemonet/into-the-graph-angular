@@ -1,5 +1,5 @@
 <!-- NavBars defined here -->
-<mat-toolbar color="primary">
+<!-- <mat-toolbar color="primary">
   <!--button
     type="button"
     aria-label="Toggle sidenav"
@@ -7,11 +7,11 @@
     (click)="drawer.toggle()"
     *ngIf="isHandset$ | async">
     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-  </button-->
+  </button--
   <span class="topNavTitle"> {{datasetsInfo.datasetSelected?(datasetsInfo.datasetSelected.source.value):"rdf-graph-explorer" }} </span>
 </mat-toolbar>
 <mat-sidenav-container style="display: flex; flex-direction: column; height: 100vh;" class="sidenav-container" >
-  <!-- <app-nav></app-nav> doesn't work with mat-sidenav, so we need to put the nav here -->
+  <!-- <app-nav></app-nav> doesn't work with mat-sidenav, so we need to put the nav here --
   <mat-sidenav class="sidenav" 
     mode="side"
     opened>
@@ -20,8 +20,8 @@
       <mat-icon mat-list-icon>home</mat-icon>
       <h4 mat-line>Datasets overview</h4>
     </mat-list-item>
-    <!-- <mat-divider></mat-divider> -->
-    <!-- <md-input #myInput placeholder="Item name..." (input)="filterItem(myInput.value)"></md-input> -->
+    <!-- <mat-divider></mat-divider> --
+    <!-- <md-input #myInput placeholder="Item name..." (input)="filterItem(myInput.value)"></md-input> --
     <mat-form-field>
       <input matInput (keyup)="applyFilterNav($event.target.value)" placeholder="Filter">
     </mat-form-field>
@@ -33,8 +33,11 @@
 
   <mat-sidenav-content >
     <section class="mat-typography" >
-      <!-- Main component -->
       <router-outlet ></router-outlet>
     </section>
   </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container>-->
+<app-main-nav>
+  <!-- Main component -->
+  <router-outlet ></router-outlet>
+</app-main-nav>
