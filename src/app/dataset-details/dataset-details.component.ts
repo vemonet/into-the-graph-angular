@@ -2,9 +2,6 @@ import { Component, OnInit, ViewChild, AfterViewInit, ViewEncapsulation } from '
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSort } from '@angular/material';
 
-import { NgxGraphModule } from '@swimlane/ngx-graph';
-import * as shape from 'd3-shape';
-
 import { DatasetsInfoService } from '../../datasets-info.service';
 import { SparqlService } from '../../sparql.service';
 
@@ -61,16 +58,22 @@ export class DatasetDetailsComponent implements OnInit {
   //ngAfterViewInit() {
   ngOnInit() {
     this.displayedColumns = this.columnNames.map(x => x.id);
-    console.log('before ngOnInit dataset-detail. datasetsInfo:');
-    const navigatedData = this.router.getNavigatedData();
-    if (navigatedData == null) {
-      // Execute SPARQL query to get datasets infos
-      console.log('no navigatedData. execute sparql');
-      this.sparql.getAllDatasetsInfo(null, this, this.route.snapshot.paramMap.get('datasetId'));
-    } else {
-      // Get datasets infos from data passed through router
-      this.datasetsInfo = navigatedData;
-    }
+    console.log('before ngOnInit dataset-detail. getNavigatedData:');
+    // this.route
+    //   .data
+    //   .subscribe(v => this.datasetsInfo = v.datasetsInfo);
+    
+    // const navigatedData = this.router.getNavigatedData();
+    // console.log(navigatedData);
+    // if (navigatedData == null) {
+    //   // Execute SPARQL query to get datasets infos
+    //   console.log('no navigatedData. execute sparql');
+    //   this.sparql.getAllDatasetsInfo(null, this, this.route.snapshot.paramMap.get('datasetId'));
+    // } else {
+    //   // Get datasets infos from data passed through router
+    //   this.datasetsInfo = navigatedData;
+    // }
+    this.sparql.getAllDatasetsInfo(null, this, this.route.snapshot.paramMap.get('datasetId'));
     if (this.datasetsInfo.datasetSelected !== undefined) {
       this.datasetsInfo.datasetSelected.relationsTableDataSource.sort = this.sort;
       console.log('ngOnInit dataset-details: datasetSelected.relationsTableDataSource sorted');
