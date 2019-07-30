@@ -14,6 +14,10 @@ docker build -t rdf-graph-explorer .
 docker run -it -p 8081:80 rdf-graph-explorer
 ```
 
+At the moment rdf-graph-explorer use by default the SPARQL endpoint http://graphdb.dumontierlab.com/repositories/ncats-red-kg, using precomputed HCLS statistics.
+
+The SPARQL endpoint can be changed in `src/sparql.service.ts`
+
 ## Development server
 
 ```shell

@@ -36,7 +36,7 @@ export class SparqlService {
       PREFIX dc: <http://purl.org/dc/elements/1.1/>
       PREFIX foaf: <http://xmlns.com/foaf/0.1/>
       PREFIX void-ext: <http://ldf.fi/void-ext#>
-      SELECT ?source ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes ?graph 
+      SELECT DISTINCT ?source ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes ?graph
         ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
       WHERE {
         GRAPH ?g {
