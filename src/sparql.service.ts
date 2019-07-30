@@ -25,7 +25,7 @@ export class SparqlService {
     });
 
     // Define SPARQL query to retrieve informations on datasets
-    const httpParams = new HttpParams()
+    const datasetSparqlHttpParams = new HttpParams()
       .set('query', `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX dct: <http://purl.org/dc/terms/>
       PREFIX bl: <http://w3id.org/biolink/vocab/>
@@ -37,7 +37,6 @@ export class SparqlService {
       PREFIX foaf: <http://xmlns.com/foaf/0.1/>
       PREFIX void-ext: <http://ldf.fi/void-ext#>
       SELECT DISTINCT ?source ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes ?graph
-        ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
       WHERE {
         GRAPH ?g {
           ?dataset a dctypes:Dataset ;
@@ -56,6 +55,30 @@ export class SparqlService {
             void:class rdfs:Class ;
             void:distinctSubjects ?classes
           ] .
+        }
+      } ORDER BY DESC(?statements)`)
+      .set('format', 'json');
+
+    const relationSparqlHttpParams = new HttpParams()
+      .set('query', `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX dct: <http://purl.org/dc/terms/>
+      PREFIX bl: <http://w3id.org/biolink/vocab/>
+      PREFIX dctypes: <http://purl.org/dc/dcmitype/>
+      PREFIX idot: <http://identifiers.org/idot/>
+      PREFIX dcat: <http://www.w3.org/ns/dcat#>
+      PREFIX void: <http://rdfs.org/ns/void#>
+      PREFIX dc: <http://purl.org/dc/elements/1.1/>
+      PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+      PREFIX void-ext: <http://ldf.fi/void-ext#>
+      SELECT DISTINCT ?source ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+      WHERE {
+        GRAPH ?g {
+          ?dataset a dctypes:Dataset ;
+            idot:preferredPrefix ?source .
+          ?version dct:isVersionOf ?dataset ; 
+            dcat:distribution ?rdfDistribution .
+          ?rdfDistribution a void:Dataset ;
+            dcat:accessURL ?graph .
           ?rdfDistribution void:propertyPartition [
               void:property ?relationWith ;
               void:classPartition [
@@ -65,23 +88,25 @@ export class SparqlService {
               void-ext:objectClassPartition [
                 void:class ?class2 ;
                 void:distinctObjects ?classCount2 ;
-          ]] . 
+          ]] .
         }
-      } ORDER BY DESC(?statements)`)
+      } ORDER BY DESC(?classCount1)`)
       .set('format', 'json');
 
     // Execute SPARQL query using HTTP GET
-    this.http.get(this.sparqlEndpoint, { params: httpParams, headers: httpHeaders})
+    this.http.get(this.sparqlEndpoint, { params: datasetSparqlHttpParams, headers: httpHeaders})
       .subscribe(data => {
         const sparqlResultArray = data['results']['bindings'];
+        this.datasetsInfo.hashAll = {};
 
         // Map the SPARQL query results to an object for each dataset in datasetsInfo.hashAll
         sparqlResultArray.forEach((sparqlResultRow: any, index: number) => {
           const datasetId = sparqlResultRow.source.value;
-          if (this.datasetsInfo.hashAll[datasetId] == null){
+          if (this.datasetsInfo.hashAll[datasetId] == null) {
             this.datasetsInfo.hashAll[datasetId] = {};
             this.datasetsInfo.hashAll[datasetId].datasetId = datasetId;
             this.datasetsInfo.hashAll[datasetId].source = sparqlResultRow.source;
+            this.datasetsInfo.hashAll[datasetId].relationsArray = [];
           }
           this.datasetsInfo.hashAll[datasetId].description = sparqlResultRow.description;
           this.datasetsInfo.hashAll[datasetId].homepage = sparqlResultRow.homepage;
@@ -91,113 +116,121 @@ export class SparqlService {
           this.datasetsInfo.hashAll[datasetId].properties = sparqlResultRow.properties;
           this.datasetsInfo.hashAll[datasetId].classes = sparqlResultRow.classes;
           this.datasetsInfo.hashAll[datasetId].graph = sparqlResultRow.graph;
-          if (this.datasetsInfo.hashAll[datasetId].relationsArray == null) {
-            this.datasetsInfo.hashAll[datasetId].relationsArray = [];
-          }
-          // Get relations for each dataset
-          this.datasetsInfo.hashAll[datasetId].relationsArray.push({
-            classCount1: sparqlResultRow.classCount1,
-            class1: sparqlResultRow.class1,
-            relationWith: sparqlResultRow.relationWith,
-            classCount2: sparqlResultRow.classCount2,
-            class2: sparqlResultRow.class2
-          });
           // Be careful when multiple entries for a source
           const dateGenerated: Date = new Date(sparqlResultRow.dateGenerated.value);
           this.datasetsInfo.hashAll[datasetId].displayDateGenerated = dateGenerated.getFullYear() + '-'
             + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
+          // TO REMOVE: if (this.datasetsInfo.hashAll[datasetId].relationsArray == null) {
+          //  this.datasetsInfo.hashAll[datasetId].relationsArray = [];
+          //}
         });
 
-
-        // Now generate array and tables for overview and relations from hash to avoid duplicates
-        this.datasetsInfo.arrayDatasetsNav = Object.keys(this.datasetsInfo.hashAll);
-        this.datasetsInfo.datasets = [];
-        const tableArr: Element[] = [];
-        for (const key in this.datasetsInfo.hashAll) {
-          if (this.datasetsInfo.hashAll.hasOwnProperty(key)) {
-            // Add dataset hash to an array of datasets (to have array and hash available)
-            this.datasetsInfo.datasets.push(this.datasetsInfo.hashAll[key]);
-            // Generate the array for datasets details tables
-            tableArr.push({ datasetId: this.datasetsInfo.hashAll[key].source.value,
-              dateGenerated: this.datasetsInfo.hashAll[key].displayDateGenerated,
-              triples: this.datasetsInfo.hashAll[key].statements.value,
-              entities: this.datasetsInfo.hashAll[key].entities.value,
-              properties: this.datasetsInfo.hashAll[key].properties.value,
-              classes: this.datasetsInfo.hashAll[key].classes.value
-            });
-            const relationsArr: RelationElement[] = [];
-            let relationCount = 0;
-            this.datasetsInfo.hashAll[key].ngxGraph = {nodes: [], edges: []};
-            this.datasetsInfo.hashAll[key].relationsArray.forEach( (element) => {
-              // Generate the array for datasets relations tables
-              relationsArr.push({
-                classCount1: element.classCount1.value,
-                class1: element.class1.value,
-                relationWith: element.relationWith.value,
-                class2: element.class2.value,
-                classCount2: element.classCount2.value
+        // Get relations for each dataset
+        this.http.get(this.sparqlEndpoint, { params: relationSparqlHttpParams, headers: httpHeaders})
+          .subscribe(relationData => {
+            const relationSparqlResultArray = relationData['results']['bindings'];
+            relationSparqlResultArray.forEach((sparqlResultRow: any, index: number) => {
+              const datasetId = sparqlResultRow.source.value;
+              this.datasetsInfo.hashAll[datasetId].relationsArray.push({
+                classCount1: sparqlResultRow.classCount1,
+                class1: sparqlResultRow.class1,
+                relationWith: sparqlResultRow.relationWith,
+                classCount2: sparqlResultRow.classCount2,
+                class2: sparqlResultRow.class2
               });
-              // Generate the hash for the ngx-graph
-              console.log('hashes:');
-              console.log(this.cleanUrl(element.class1.value));
-              console.log(this.cleanUrl(element.class2.value));
-              // TODO: We need to generate a hash to make sure nodes are uniques
-              if (this.cleanUrl(element.class1.value) !== this.cleanUrl(element.class2.value)) {
-                relationCount = relationCount + 1;
-
-                // avoid duplicate nodes
-                if (this.datasetsInfo.hashAll[key].ngxGraph.nodes.findIndex(x => x.id === this.cleanUrl(element.class1.value)) === -1) {
-                  this.datasetsInfo.hashAll[key].ngxGraph.nodes.push(
-                    {data: {id: this.cleanUrl(element.class1.value), name: element.class1.value, 
-                      faveColor: '#F5A45D', faveShape: 'rectangle'}}
-                  );
-                }
-                if (this.datasetsInfo.hashAll[key].ngxGraph.nodes.findIndex(x => x.id === this.cleanUrl(element.class2.value)) === -1) {
-                  this.datasetsInfo.hashAll[key].ngxGraph.nodes.push(
-                    {data: {id: this.cleanUrl(element.class2.value), name: element.class2.value, 
-                      faveColor: '#F5A45D', faveShape: 'rectangle'}}
-                  );
-                }
-                this.datasetsInfo.hashAll[key].ngxGraph.edges.push(
-                  {data: {source: this.cleanUrl(element.class1.value), target: this.cleanUrl(element.class2.value), faveColor: '#6FB1FC'}}
-                  // {
-                  //   id: relationCount.toString(),
-                  //   source: this.cleanUrl(element.class1.value),
-                  //   target: this.cleanUrl(element.class2.value),
-                  //   label: element.relationWith.value
-                  // }
-                );
-              }
             });
-            this.datasetsInfo.hashAll[key].relationsTableDataSource = new MatTableDataSource(relationsArr);
-            //this.datasetsInfo.datasetSelected.relationsTableDataSource = new MatTableDataSource(relationsArr);
-            if (detailComponent != null) {
-              //this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
-              console.log('detailComponent:');
-              console.log(detailComponent);
-              //console.log(detailComponent.sortRelations);
-              //this.datasetsInfo.datasetSelected.relationsTableDataSource.sort = detailComponent['sortRelations'];
 
-              // This one should work but says detailComponent is undefined:
-              //this.datasetsInfo.hashAll[key].relationsTableDataSource.sortRelations = detailComponent.sortRelations;
-              //this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
-              this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
+            // Now generate array and tables for overview and relations from hash to avoid duplicates
+            this.datasetsInfo.arrayDatasetsNav = Object.keys(this.datasetsInfo.hashAll);
+            this.datasetsInfo.datasets = [];
+            const tableArr: Element[] = [];
+            for (const key in this.datasetsInfo.hashAll) {
+              if (this.datasetsInfo.hashAll.hasOwnProperty(key)) {
+                // Add dataset hash to an array of datasets (to have array and hash available)
+                this.datasetsInfo.datasets.push(this.datasetsInfo.hashAll[key]);
+                // Generate the array for datasets details tables
+                tableArr.push({ datasetId: this.datasetsInfo.hashAll[key].source.value,
+                  dateGenerated: this.datasetsInfo.hashAll[key].displayDateGenerated,
+                  triples: this.datasetsInfo.hashAll[key].statements.value,
+                  entities: this.datasetsInfo.hashAll[key].entities.value,
+                  properties: this.datasetsInfo.hashAll[key].properties.value,
+                  classes: this.datasetsInfo.hashAll[key].classes.value
+                });
+                const relationsArr: RelationElement[] = [];
+                let relationCount = 0;
+                this.datasetsInfo.hashAll[key].ngxGraph = {nodes: [], edges: []};
+                this.datasetsInfo.hashAll[key].relationsArray.forEach( (element) => {
+                  // Generate the array for datasets relations tables
+                  relationsArr.push({
+                    classCount1: element.classCount1.value,
+                    class1: element.class1.value,
+                    relationWith: element.relationWith.value,
+                    class2: element.class2.value,
+                    classCount2: element.classCount2.value
+                  });
+                  // Generate the hash for the ngx-graph
+                  console.log('hashes:');
+                  console.log(this.cleanUrl(element.class1.value));
+                  console.log(this.cleanUrl(element.class2.value));
+                  // TODO: We need to generate a hash to make sure nodes are uniques. Or try 2 SPARQL queries
+                  if (this.cleanUrl(element.class1.value) !== this.cleanUrl(element.class2.value)) {
+                    relationCount = relationCount + 1;
+
+                    // avoid duplicate nodes
+                    if (this.datasetsInfo.hashAll[key].ngxGraph.nodes.findIndex(x => x.id === this.cleanUrl(element.class1.value)) === -1) {
+                      this.datasetsInfo.hashAll[key].ngxGraph.nodes.push(
+                        {data: {id: this.cleanUrl(element.class1.value), name: element.class1.value, 
+                          faveColor: '#F5A45D', faveShape: 'rectangle'}}
+                      );
+                    }
+                    if (this.datasetsInfo.hashAll[key].ngxGraph.nodes.findIndex(x => x.id === this.cleanUrl(element.class2.value)) === -1) {
+                      this.datasetsInfo.hashAll[key].ngxGraph.nodes.push(
+                        {data: {id: this.cleanUrl(element.class2.value), name: element.class2.value, 
+                          faveColor: '#F5A45D', faveShape: 'rectangle'}}
+                      );
+                    }
+                    this.datasetsInfo.hashAll[key].ngxGraph.edges.push(
+                      {data: {source: this.cleanUrl(element.class1.value), target: this.cleanUrl(element.class2.value), faveColor: '#6FB1FC'}}
+                      // {
+                      //   id: relationCount.toString(),
+                      //   source: this.cleanUrl(element.class1.value),
+                      //   target: this.cleanUrl(element.class2.value),
+                      //   label: element.relationWith.value
+                      // }
+                    );
+                  }
+                });
+                this.datasetsInfo.hashAll[key].relationsTableDataSource = new MatTableDataSource(relationsArr);
+                //this.datasetsInfo.datasetSelected.relationsTableDataSource = new MatTableDataSource(relationsArr);
+                if (detailComponent != null) {
+                  //this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
+                  console.log('detailComponent:');
+                  console.log(detailComponent);
+                  //console.log(detailComponent.sortRelations);
+                  //this.datasetsInfo.datasetSelected.relationsTableDataSource.sort = detailComponent['sortRelations'];
+
+                  // This one should work but says detailComponent is undefined:
+                  //this.datasetsInfo.hashAll[key].relationsTableDataSource.sortRelations = detailComponent.sortRelations;
+                  //this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
+                  this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
+                }
+              }
             }
-          }
-        }
-        if (datasetId != null) {
-          this.datasetsInfo.datasetSelected = this.datasetsInfo.hashAll[datasetId];
-        }
-        this.datasetsInfo.datasetsTableDataSource = new MatTableDataSource(tableArr);
-        // Sort for overview and define selected dataset if a dataset has been selected
-        if (overviewComponent != null) {
-          console.log('overviewComponent:');
-          console.log(overviewComponent);
-          console.log(overviewComponent.sort);
-          this.datasetsInfo.datasetsTableDataSource.sort = overviewComponent.sort;
-        }
-        console.log('After getting the SPARQL query in sparql.service. datasetsInfo:');
-        console.log(this.datasetsInfo);
+            if (datasetId != null) {
+              this.datasetsInfo.datasetSelected = this.datasetsInfo.hashAll[datasetId];
+            }
+            this.datasetsInfo.datasetsTableDataSource = new MatTableDataSource(tableArr);
+            // Sort for overview and define selected dataset if a dataset has been selected
+            if (overviewComponent != null) {
+              console.log('overviewComponent:');
+              console.log(overviewComponent);
+              console.log(overviewComponent.sort);
+              this.datasetsInfo.datasetsTableDataSource.sort = overviewComponent.sort;
+            }
+            console.log('After getting the SPARQL query in sparql.service. datasetsInfo:');
+            console.log(this.datasetsInfo);
+
+          });
       });
   }
 
