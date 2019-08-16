@@ -27,13 +27,15 @@ import { DatasetsOverviewComponent } from './datasets-overview/datasets-overview
 import { DatasetDetailsComponent } from './dataset-details/dataset-details.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MainNavComponent } from './main-nav/main-nav.component';
+import { SparqlComponent } from './sparql/sparql.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DatasetsOverviewComponent,
     DatasetDetailsComponent,
-    MainNavComponent
+    MainNavComponent,
+    SparqlComponent
   ],
   imports: [
     BrowserModule,

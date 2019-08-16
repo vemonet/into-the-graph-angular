@@ -27,10 +27,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/css/yasgui.min.css"
             ],
             "scripts": [
-              "node_modules/cytoscape/dist/cytoscape.min.js"
+              "node_modules/cytoscape/dist/cytoscape.min.js",
+              "src/assets/js/yasgui.min.js"
             ],
             "es5BrowserSupport": true
           },
