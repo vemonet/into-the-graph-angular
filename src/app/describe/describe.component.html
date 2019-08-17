@@ -1,5 +1,6 @@
-<div *ngIf="describeHash != undefined" class="mainLayout" style="text-align: left;" fxLayout="column" fxLayoutWrap>
-  <!-- <div class="mainLayout" style="text-align: left;" fxLayout="column" fxLayoutWrap> -->
+<div fxLayout="row" fxLayoutAlign="center">
+  <div class="container"  fxLayout="column" fxFlex="80%" fxFlex.xs="100%" fxLayoutWrap fxLayoutGap="3%" style="text-align: left;"
+  *ngIf="describeHash != undefined">
     <h1 class="mat-display-1" [innerHTML]="sparql.shortenUri(uriToDescribe)">
     </h1>
     <mat-card *ngFor="let describeGraph of Object.keys(describeHash)" class="mat-elevation-z8" style="margin-bottom: 60px;">
@@ -67,4 +68,5 @@
         </mat-card>
       </div>    
     </mat-card>
+  </div>
 </div>

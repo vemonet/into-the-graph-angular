@@ -16,6 +16,7 @@ export class SparqlService {
   public prefixRegistry = {
     bl: 'http://w3id.org/biolink/vocab/',
     biolink: 'https://w3id.org/biolink/vocab/',
+    d2s: 'https://w3id.org/data2services/',
     rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
     rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
     dc: 'http://purl.org/dc/elements/1.1/',
