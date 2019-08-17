@@ -284,8 +284,10 @@ export class SparqlService {
   // resolve URI namespace to use a prefix and add link to full URI
   public getUrlHtml(urlToRender: string) {
     if (urlToRender.startsWith('http://') || urlToRender.startsWith('https://')) {
-      // TODO: make it a variable
-      const beginUrlToDisplay = `<a href="http://localhost:4200/describe?uri=` + urlToRender + `">`;
+      // TODO: make describe endpoint URL it a variable
+      const beginUrlToDisplay = `<a style="text-decoration: none; color: inherit;"
+      href="http://localhost:4200/describe?uri=` + urlToRender + `">`;
+
       for (const prefix in this.prefixRegistry) {
         if (urlToRender.startsWith(this.prefixRegistry[prefix])) {
           return beginUrlToDisplay + urlToRender.replace(this.prefixRegistry[prefix], prefix + ':') + '</a>';

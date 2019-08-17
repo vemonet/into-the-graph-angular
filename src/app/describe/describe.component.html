@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <div class="container"  fxLayout="column" fxFlex="80%" fxFlex.xs="100%" fxLayoutWrap fxLayoutGap="3%" style="text-align: left;"
   *ngIf="describeHash != undefined">
-    <h1 class="mat-display-1" [innerHTML]="sparql.getUrlHtml(uriToDescribe)">
+    <h1 [innerHTML]="sparql.getUrlHtml(uriToDescribe)">
     </h1>
 
     <!-- class="mat-elevation-z8" -->
@@ -13,7 +13,6 @@
           [innerHTML]="sparql.getUrlHtml(describeGraph)">
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <!-- <mat-divider></mat-divider> -->
 
         <mat-tab-group>
           <mat-tab label="As subject">
