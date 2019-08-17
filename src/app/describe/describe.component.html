@@ -3,7 +3,7 @@
     <h1 class="mat-display-1">
       {{ uriToDescribe }}
     </h1>
-    <mat-card *ngFor="let describeGraph of Object.keys(describeHash)" style="margin-bottom: 20px;">
+    <mat-card *ngFor="let describeGraph of Object.keys(describeHash)" class="mat-elevation-z8" style="margin-bottom: 20px;">
       <mat-card-title class="md-card-title">{{describeGraph}}</mat-card-title>
       <div class="card-text-content">
         <mat-list>
@@ -14,15 +14,19 @@
             </p>
           </mat-list-item>
         </mat-list>
-        <p>As object:</p>
-        <mat-list>
-            <mat-list-item *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asObject)">
-              <h2 matLine> {{describeProperty}} </h2>
-              <p matLine *ngFor="let describeAsObject of describeHash[describeGraph].asObject[describeProperty]">
-                <span> {{describeAsObject}} </span>
-              </p>
-            </mat-list-item>
-          </mat-list>
+        <mat-card class="mat-elevation-z8" style="margin-top: 20px;">
+          <mat-card-title class="md-card-title">As Object</mat-card-title>
+          <div class="card-text-content">
+            <mat-list>
+              <mat-list-item *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asObject)">
+                <h2 matLine> {{describeProperty}} </h2>
+                <p matLine *ngFor="let describeAsObject of describeHash[describeGraph].asObject[describeProperty]">
+                  <span> {{describeAsObject}} </span>
+                </p>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </mat-card>
       </div>    
     </mat-card>
 </div>
