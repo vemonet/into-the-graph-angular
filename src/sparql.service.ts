@@ -234,6 +234,29 @@ export class SparqlService {
       });
   }
 
+  describeUri(uriToDescribe: string) {
+    console.log('DescribeURI: ' + uriToDescribe);
+
+    const httpHeaders = new HttpHeaders({
+      'Content-type': 'application/x-www-form-urlencoded'
+    });
+
+    // Define SPARQL query to retrieve statements about the URI to describe
+    const describeSparqlHttpParams = new HttpParams()
+      .set('query', `SELECT distinct ?predicate ?object ?graph
+      WHERE {
+        GRAPH ?graph {
+          <http://identifiers.org/uniprot/O00222> ?predicate ?object .
+        }
+      }`)
+      .set('format', 'json');
+
+    // Execute SPARQL query using HTTP GET
+    return this.http.get(this.sparqlEndpoint, { params: describeSparqlHttpParams, headers: httpHeaders});
+    }
+
+
+
   private cleanUrl(urlToClean: string) {
     return urlToClean.replace(/\//gi, '').replace(':', '');
   }
