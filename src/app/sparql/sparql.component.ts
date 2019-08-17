@@ -71,7 +71,7 @@ export class SparqlComponent implements AfterViewInit {
   ngAfterViewInit() {
     YASGUI.defaults.yasqe.sparql.endpoint = 'http://graphdb.dumontierlab.com/repositories/test';
     // var config = {"api":{"urlShortener":"//yasgui.org/shorten"}};
-    let yasgui = YASGUI(document.getElementById('yasguiDiv'));
+    const yasgui = YASGUI(document.getElementById('yasguiDiv'));
     yasgui.addTab('statisticsTab');
     yasgui.selectTab('statisticsTab').rename('Graphs statistics');
     yasgui.selectTab('statisticsTab').setQuery(this.statisticsQuery);
