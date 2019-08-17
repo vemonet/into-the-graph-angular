@@ -199,7 +199,8 @@ export class SparqlService {
                       );
                     }
                     this.datasetsInfo.hashAll[key].ngxGraph.edges.push(
-                      {data: {source: this.cleanUrl(element.class1.value), target: this.cleanUrl(element.class2.value), faveColor: '#6FB1FC'}}
+                      {data: {source: this.cleanUrl(element.class1.value), faveColor: '#6FB1FC',
+                      target: this.cleanUrl(element.class2.value)}}
                       // {
                       //   id: relationCount.toString(),
                       //   source: this.cleanUrl(element.class1.value),
@@ -210,17 +211,17 @@ export class SparqlService {
                   }
                 });
                 this.datasetsInfo.hashAll[key].relationsTableDataSource = new MatTableDataSource(relationsArr);
-                //this.datasetsInfo.datasetSelected.relationsTableDataSource = new MatTableDataSource(relationsArr);
+                // this.datasetsInfo.datasetSelected.relationsTableDataSource = new MatTableDataSource(relationsArr);
                 if (detailComponent != null) {
-                  //this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
+                  // this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
                   console.log('detailComponent:');
                   console.log(detailComponent);
-                  //console.log(detailComponent.sortRelations);
-                  //this.datasetsInfo.datasetSelected.relationsTableDataSource.sort = detailComponent['sortRelations'];
+                  // console.log(detailComponent.sortRelations);
+                  // this.datasetsInfo.datasetSelected.relationsTableDataSource.sort = detailComponent['sortRelations'];
 
                   // This one should work but says detailComponent is undefined:
-                  //this.datasetsInfo.hashAll[key].relationsTableDataSource.sortRelations = detailComponent.sortRelations;
-                  //this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
+                  // this.datasetsInfo.hashAll[key].relationsTableDataSource.sortRelations = detailComponent.sortRelations;
+                  // this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
                   this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
                 }
               }
