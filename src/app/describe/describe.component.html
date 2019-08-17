@@ -6,11 +6,14 @@
     <mat-card *ngFor="let describeGraph of Object.keys(describeHash)" style="margin-bottom: 20px;">
       <mat-card-title class="md-card-title">{{describeGraph}}</mat-card-title>
       <div class="card-text-content">
-        tesst
+        <mat-list>
+          <mat-list-item *ngFor="let describeProperty of Object.keys(describeHash[describeGraph])">
+            <h2 matLine> {{describeProperty}} </h2>
+            <p matLine *ngFor="let describeObject of describeHash[describeGraph][describeProperty]">
+              <span> {{describeObject}} </span>
+            </p>
+          </mat-list-item>
+        </mat-list>
       </div>    
     </mat-card>
 </div>
-
-<p>
-  describe works!
-</p>
