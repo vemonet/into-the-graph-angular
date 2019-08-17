@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SparqlService } from '../../sparql.service';
 
+import {MatExpansionModule} from '@angular/material/expansion';
+
 @Component({
   selector: 'app-describe',
   templateUrl: './describe.component.html',

@@ -282,19 +282,29 @@ export class SparqlService {
   }
 
   // resolve URI namespace to use a prefix and add link to full URI
-  public shortenUri(uriToShorten: string) {
-    if (uriToShorten.startsWith('http://') || uriToShorten.startsWith('https://')) {
+  public getUrlHtml(urlToRender: string) {
+    if (urlToRender.startsWith('http://') || urlToRender.startsWith('https://')) {
       // TODO: make it a variable
-      const beginUrlToDisplay = `<a href="http://localhost:4200/describe?uri=` + uriToShorten + `">`;
+      const beginUrlToDisplay = `<a href="http://localhost:4200/describe?uri=` + urlToRender + `">`;
       for (const prefix in this.prefixRegistry) {
-        if (uriToShorten.startsWith(this.prefixRegistry[prefix])) {
-          return beginUrlToDisplay + uriToShorten.replace(this.prefixRegistry[prefix], prefix + ':') + '</a>';
+        if (urlToRender.startsWith(this.prefixRegistry[prefix])) {
+          return beginUrlToDisplay + urlToRender.replace(this.prefixRegistry[prefix], prefix + ':') + '</a>';
         }
       }
-      return beginUrlToDisplay + uriToShorten + '</a>';
+      return beginUrlToDisplay + urlToRender + '</a>';
     }
-    return uriToShorten;
+    return urlToRender;
   }
+
+  // only resolve URI namespace to use a prefix (to factorise)
+  // public shortenUri(uriToShorten: string) {
+  //   for (const prefix in this.prefixRegistry) {
+  //     if (uriToShorten.startsWith(this.prefixRegistry[prefix])) {
+  //       return uriToShorten.replace(this.prefixRegistry[prefix], prefix + ':');
+  //     }
+  //   }
+  //   return uriToShorten;
+  // }
 }
 
 export interface Element {

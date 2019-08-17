@@ -16,7 +16,8 @@ import { MatButtonModule,
   MatSelectModule,
   MatSortModule,
   MatTableModule,
-  MatCheckboxModule, MatSidenavModule, MatListModule
+  MatCheckboxModule, MatSidenavModule, MatListModule,
+  MatExpansionModule
 } from '@angular/material';
 import 'angular2-navigate-with-data';
 import { CytoscapeModule } from 'ngx-cytoscape';
@@ -63,6 +64,7 @@ import { FooterComponent } from './footer/footer.component';
     LayoutModule,
     MatSidenavModule,
     MatListModule,
+    MatExpansionModule,
     CytoscapeModule
   ],
   providers: [],

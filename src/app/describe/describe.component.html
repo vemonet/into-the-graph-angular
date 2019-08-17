@@ -1,72 +1,79 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <div class="container"  fxLayout="column" fxFlex="80%" fxFlex.xs="100%" fxLayoutWrap fxLayoutGap="3%" style="text-align: left;"
   *ngIf="describeHash != undefined">
-    <h1 class="mat-display-1" [innerHTML]="sparql.shortenUri(uriToDescribe)">
+    <h1 class="mat-display-1" [innerHTML]="sparql.getUrlHtml(uriToDescribe)">
     </h1>
-    <mat-card *ngFor="let describeGraph of Object.keys(describeHash)" class="mat-elevation-z8" style="margin-bottom: 60px;">
-      <mat-card-title class="md-card-title" style="margin-bottom: 30px;"
-      [innerHTML]="sparql.shortenUri(describeGraph)">
-      </mat-card-title>
-      <div class="card-text-content">
-        <div fxLayout="row" fxLayoutWrap
-        *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asSubject)">
-          <div fxFlex="50%" style="text-align: right; padding-right: 60px;">
-            <h3 matLine [innerHTML]="sparql.shortenUri(describeProperty)"></h3>
-          </div>
-          <mat-divider [vertical]="true" style="margin-bottom: 15px; margin-top: 5px; margin-right: 20px;"></mat-divider>
-          <div fxFlex="50%">
-            <h3 matLine style="margin-bottom: 5px;"
-            *ngFor="let describeAsSubject of describeHash[describeGraph].asSubject[describeProperty]"
-            [innerHTML]="sparql.shortenUri(describeAsSubject)">
-            </h3>
-          </div>
-        </div>
 
-        <mat-card class="mat-elevation-z8" style="margin-top: 20px;">
-          <mat-card-title class="md-card-title">As an object</mat-card-title>
-          <div class="card-text-content" style="text-align: center;">
-            <div fxLayout="row" fxLayoutWrap style="padding-top: 20px; padding-bottom: 20px;"
-            *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asObject)">
-
-              <div fxFlex="33%">
-                <h3 matLine style="text-align: right; padding-right: 20px; margin-bottom: 5px;"
-                *ngFor="let describeAsObject of describeHash[describeGraph].asObject[describeProperty]"
-                [innerHTML]="sparql.shortenUri(describeAsObject)">
-                </h3>
-              </div>
-              <mat-divider [vertical]="true" style="margin-bottom: 15px; margin-top: 5px; margin-right: 20px;"></mat-divider>
-              <div fxFlex="33%">
-                <h3 matLine [innerHTML]="sparql.shortenUri(describeProperty)"></h3>
-              </div>
-              <div fxFlex="33%">
-                <h3 matLine [innerHTML]="sparql.shortenUri(uriToDescribe)"></h3>
-              </div>
+    <!-- class="mat-elevation-z8" -->
+    <mat-accordion [multi]="true">
+      <mat-expansion-panel [expanded]="true"
+      *ngFor="let describeGraph of Object.keys(describeHash)">
+        <mat-expansion-panel-header>
+          <mat-panel-title style="margin-bottom: 30px;"
+          [innerHTML]="sparql.getUrlHtml(describeGraph)">
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>
+          <div fxLayout="row" fxLayoutWrap
+          *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asSubject)">
+            <div fxFlex="50%" style="text-align: right; padding-right: 60px;">
+              <h3 matLine [innerHTML]="sparql.getUrlHtml(describeProperty)"></h3>
+            </div>
+            <mat-divider [vertical]="true" style="margin-bottom: 15px; margin-top: 5px; margin-right: 20px;"></mat-divider>
+            <div fxFlex="50%">
+              <h3 matLine style="margin-bottom: 5px;"
+              *ngFor="let describeAsSubject of describeHash[describeGraph].asSubject[describeProperty]"
+              [innerHTML]="sparql.getUrlHtml(describeAsSubject)">
+              </h3>
             </div>
           </div>
-        </mat-card>
 
-        <mat-card class="mat-elevation-z8" style="margin-top: 20px;">
-          <mat-card-title class="md-card-title">As a predicate</mat-card-title>
-          <div class="card-text-content" style="text-align: center;">
-            <div fxLayout="row" fxLayoutWrap style="padding-top: 20px; padding-bottom: 20px;"
-            *ngFor="let describeSubject of Object.keys(describeHash[describeGraph].asPredicate)">
+          <mat-card class="mat-elevation-z8" style="margin-top: 20px;">
+            <mat-card-title class="md-card-title">As an object</mat-card-title>
+            <div class="card-text-content" style="text-align: center;">
+              <div fxLayout="row" fxLayoutWrap style="padding-top: 20px; padding-bottom: 20px;"
+              *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asObject)">
 
-              <div fxFlex="33%">
-                <h3 matLine [innerHTML]="sparql.shortenUri(describeSubject)"></h3>
-              </div>
-              <div fxFlex="33%">
-                <h3 matLine [innerHTML]="sparql.shortenUri(uriToDescribe)"></h3>
-              </div>
-              <div fxFlex="33%">
-                <h3 matLine style="text-align: right; padding-right: 20px; margin-bottom: 5px;"
-                *ngFor="let describeAsPredicate of describeHash[describeGraph].asPredicate[describeSubject]"
-                [innerHTML]="sparql.shortenUri(describeAsPredicate)">
-                </h3>
+                <div fxFlex="33%">
+                  <h3 matLine style="text-align: right; padding-right: 20px; margin-bottom: 5px;"
+                  *ngFor="let describeAsObject of describeHash[describeGraph].asObject[describeProperty]"
+                  [innerHTML]="sparql.getUrlHtml(describeAsObject)">
+                  </h3>
+                </div>
+                <mat-divider [vertical]="true" style="margin-bottom: 15px; margin-top: 5px; margin-right: 20px;"></mat-divider>
+                <div fxFlex="33%">
+                  <h3 matLine [innerHTML]="sparql.getUrlHtml(describeProperty)"></h3>
+                </div>
+                <div fxFlex="33%">
+                  <h3 matLine [innerHTML]="sparql.getUrlHtml(uriToDescribe)"></h3>
+                </div>
               </div>
             </div>
-          </div>
-        </mat-card>
-      </div>    
-    </mat-card>
+          </mat-card>
+
+          <mat-card class="mat-elevation-z8" style="margin-top: 20px;">
+            <mat-card-title class="md-card-title">As a predicate</mat-card-title>
+            <div class="card-text-content" style="text-align: center;">
+              <div fxLayout="row" fxLayoutWrap style="padding-top: 20px; padding-bottom: 20px;"
+              *ngFor="let describeSubject of Object.keys(describeHash[describeGraph].asPredicate)">
+
+                <div fxFlex="33%">
+                  <h3 matLine [innerHTML]="sparql.getUrlHtml(describeSubject)"></h3>
+                </div>
+                <div fxFlex="33%">
+                  <h3 matLine [innerHTML]="sparql.getUrlHtml(uriToDescribe)"></h3>
+                </div>
+                <div fxFlex="33%">
+                  <h3 matLine style="text-align: right; padding-right: 20px; margin-bottom: 5px;"
+                  *ngFor="let describeAsPredicate of describeHash[describeGraph].asPredicate[describeSubject]"
+                  [innerHTML]="sparql.getUrlHtml(describeAsPredicate)">
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </mat-card>
+        </div>    
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>
