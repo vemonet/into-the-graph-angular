@@ -31,9 +31,9 @@ export class DescribeComponent implements OnInit {
         // {graph1: {asSubject: {property1: [object1, object2]}, asObject: {property1: [subject1]}}}
         sparqlResultArray.forEach((sparqlResultRow: any, index: number) => {
           // SPO case. Described URI is the subject
-          if ('object' in sparqlResultRow) {
+          if (!('subject' in sparqlResultRow)) {
             if (!(sparqlResultRow.graph.value in this.describeHash)) {
-              this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}};
+              this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {}};
             }
             if (!(sparqlResultRow.predicate.value in this.describeHash[sparqlResultRow.graph.value].asSubject)) {
               this.describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value] = [];
@@ -42,14 +42,25 @@ export class DescribeComponent implements OnInit {
           }
 
           // OPS case. Described URI is the object
-          if ('subject' in sparqlResultRow) {
+          if (!('object' in sparqlResultRow)) {
             if (!(sparqlResultRow.graph.value in this.describeHash)) {
-              this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}};
+              this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {}};
             }
             if (!(sparqlResultRow.predicate.value in this.describeHash[sparqlResultRow.graph.value].asObject)) {
               this.describeHash[sparqlResultRow.graph.value].asObject[sparqlResultRow.predicate.value] = [];
             }
             this.describeHash[sparqlResultRow.graph.value].asObject[sparqlResultRow.predicate.value].push(sparqlResultRow.subject.value);
+          }
+
+          // Described URI is the predicate (PSO?)
+          if (!('predicate' in sparqlResultRow)) {
+            if (!(sparqlResultRow.graph.value in this.describeHash)) {
+              this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {}};
+            }
+            if (!(sparqlResultRow.subject.value in this.describeHash[sparqlResultRow.graph.value].asPredicate)) {
+              this.describeHash[sparqlResultRow.graph.value].asPredicate[sparqlResultRow.subject.value] = [];
+            }
+            this.describeHash[sparqlResultRow.graph.value].asPredicate[sparqlResultRow.subject.value].push(sparqlResultRow.object.value);
           }
         });
         console.log('describe object:');

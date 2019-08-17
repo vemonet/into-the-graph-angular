@@ -43,6 +43,28 @@
             </div>
           </div>
         </mat-card>
+
+        <mat-card class="mat-elevation-z8" style="margin-top: 20px;">
+          <mat-card-title class="md-card-title">As a predicate</mat-card-title>
+          <div class="card-text-content" style="text-align: center;">
+            <div fxLayout="row" fxLayoutWrap style="padding-top: 20px; padding-bottom: 20px;"
+            *ngFor="let describeSubject of Object.keys(describeHash[describeGraph].asPredicate)">
+
+              <div fxFlex="33%">
+                <h3 matLine [innerHTML]="sparql.shortenUri(describeSubject)"></h3>
+              </div>
+              <div fxFlex="33%">
+                <h3 matLine [innerHTML]="sparql.shortenUri(uriToDescribe)"></h3>
+              </div>
+              <div fxFlex="33%">
+                <h3 matLine style="text-align: right; padding-right: 20px; margin-bottom: 5px;"
+                *ngFor="let describeAsPredicate of describeHash[describeGraph].asPredicate[describeSubject]"
+                [innerHTML]="sparql.shortenUri(describeAsPredicate)">
+                </h3>
+              </div>
+            </div>
+          </div>
+        </mat-card>
       </div>    
     </mat-card>
 </div>

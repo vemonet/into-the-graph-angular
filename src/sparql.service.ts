@@ -263,8 +263,12 @@ export class SparqlService {
             GRAPH ?graph {
               ?subject ?predicate <` + uriToDescribe + `> .
             }
-        }
-    }`).set('format', 'json');
+        } UNION {
+          GRAPH ?graph {
+            ?subject <` + uriToDescribe + `> ?object .
+          }
+      }
+    } LIMIT 1000`).set('format', 'json');
 
     // Execute SPARQL query using HTTP GET
     return this.http.get(this.sparqlEndpoint, { params: describeSparqlHttpParams, headers: httpHeaders});
