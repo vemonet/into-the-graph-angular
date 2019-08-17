@@ -1,11 +1,10 @@
 <div *ngIf="describeHash != undefined" class="mainLayout" style="text-align: left;" fxLayout="column" fxLayoutWrap>
   <!-- <div class="mainLayout" style="text-align: left;" fxLayout="column" fxLayoutWrap> -->
-    <h1 class="mat-display-1">
-      {{ uriToDescribe }}
+    <h1 class="mat-display-1" [innerHTML]="sparql.shortenUri(uriToDescribe)">
     </h1>
     <mat-card *ngFor="let describeGraph of Object.keys(describeHash)" class="mat-elevation-z8" style="margin-bottom: 60px;">
-      <mat-card-title class="md-card-title" style="margin-bottom: 30px;">
-        {{describeGraph}}
+      <mat-card-title class="md-card-title" style="margin-bottom: 30px;"
+      [innerHTML]="sparql.shortenUri(describeGraph)">
       </mat-card-title>
       <div class="card-text-content">
         <div fxLayout="row" fxLayoutWrap
