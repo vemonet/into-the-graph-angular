@@ -246,7 +246,7 @@ export class SparqlService {
       .set('query', `SELECT distinct ?predicate ?object ?graph
       WHERE {
         GRAPH ?graph {
-          <http://identifiers.org/uniprot/O00222> ?predicate ?object .
+          <` + uriToDescribe + `> ?predicate ?object .
         }
       }`)
       .set('format', 'json');
