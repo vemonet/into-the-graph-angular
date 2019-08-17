@@ -5,7 +5,7 @@
     </h1>
 
     <!-- class="mat-elevation-z8" -->
-    <mat-accordion [multi]="true">
+    <mat-accordion [multi]="true" class="mat-elevation-z8">
       <mat-expansion-panel [expanded]="true"
       *ngFor="let describeGraph of Object.keys(describeHash)">
         <mat-expansion-panel-header>
@@ -13,6 +13,7 @@
           [innerHTML]="sparql.getUrlHtml(describeGraph)">
           </mat-panel-title>
         </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
         <div>
           <div fxLayout="row" fxLayoutWrap
           *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asSubject)">
