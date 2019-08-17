@@ -8,6 +8,7 @@ import { SparqlService } from '../../sparql.service';
   styleUrls: ['./describe.component.scss']
 })
 export class DescribeComponent implements OnInit {
+  Object = Object; // To iterate over hash in html
   uriToDescribe: string;
   describeHash: {};
 
@@ -17,7 +18,6 @@ export class DescribeComponent implements OnInit {
     ) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.uriToDescribe = params.uri;
-      console.log(this.uriToDescribe); // Print the parameter to the console. 
     });
   }
 
@@ -27,17 +27,17 @@ export class DescribeComponent implements OnInit {
         const sparqlResultArray = data['results']['bindings'];
         this.describeHash = {};
 
-        // Map the SPARQL query results to an object for each dataset in datasetsInfo.hashAll
+        // Build describe object {graph1: {property1: [object1, object2]}}
         sparqlResultArray.forEach((sparqlResultRow: any, index: number) => {
-          if (this.describeHash[sparqlResultRow.graph.value] == null) {
+          if (!(sparqlResultRow.graph.value in this.describeHash)) {
             this.describeHash[sparqlResultRow.graph.value] = {};
           }
-          if (this.describeHash[sparqlResultRow.graph.value][sparqlResultRow.predicate.value] == null) {
+          if (!(sparqlResultRow.predicate.value in this.describeHash[sparqlResultRow.graph.value])) {
             this.describeHash[sparqlResultRow.graph.value][sparqlResultRow.predicate.value] = [];
           }
           this.describeHash[sparqlResultRow.graph.value][sparqlResultRow.predicate.value].push(sparqlResultRow.object.value);
         });
-        console.log('test describe');
+        console.log('describe object:');
         console.log(this.describeHash);
       });
   }

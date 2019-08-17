@@ -1,8 +1,14 @@
-<div *ngIf="uriToDescribe != undefined" class="mainLayout" style="text-align: left;" fxLayout="column" fxLayoutWrap>
+<div *ngIf="describeHash != undefined" class="mainLayout" style="text-align: left;" fxLayout="column" fxLayoutWrap>
   <!-- <div class="mainLayout" style="text-align: left;" fxLayout="column" fxLayoutWrap> -->
     <h1 class="mat-display-1">
       {{ uriToDescribe }}
     </h1>
+    <mat-card *ngFor="let describeGraph of Object.keys(describeHash)">
+      <mat-card-title class="md-card-title">{{describeGraph}}</mat-card-title>
+      <div class="card-text-content">
+        tesst
+      </div>    
+    </mat-card>
 </div>
 
 <p>
