@@ -8,10 +8,14 @@
     <mat-icon mat-list-icon>share</mat-icon>
     <span mat-h1>SPARQL</span>
   </a>
-  <!-- <div class="flex-spacer"></div> -->
   <a mat-button routerLink="/describe" [queryParams]="{uri:'http://identifiers.org/uniprot/O00222'}" aria-label="Describe URI">
     <mat-icon mat-list-icon>search</mat-icon>
     Describe URI
+  </a>
+  <div class="flex-spacer"></div>
+  <a mat-button href="https://github.com/MaastrichtU-IDS/rdf-graph-explorer" target="_blank" aria-label="Source on GitHub">
+    <mat-icon mat-list-icon>code</mat-icon>
+    Source on GitHub
   </a>
 </mat-toolbar>
 <ng-content></ng-content>
