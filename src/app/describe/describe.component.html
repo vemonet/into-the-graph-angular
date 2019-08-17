@@ -11,27 +11,28 @@
         <div fxLayout="row" fxLayoutWrap
         *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asSubject)">
           <div fxFlex="50%" style="text-align: right; padding-right: 60px;">
-            <h3 matLine> {{describeProperty}} </h3>
+            <h3 matLine> {{sparql.shortenUri(describeProperty)}} </h3>
           </div>
           <div fxFlex="50%">
             <h3 matLine style="margin-bottom: 5px;"
             *ngFor="let describeAsSubject of describeHash[describeGraph].asSubject[describeProperty]">
-              {{describeAsSubject}}
+              {{sparql.shortenUri(describeAsSubject)}}
             </h3>
           </div>
         </div>
+
         <mat-card class="mat-elevation-z8" style="margin-top: 20px;">
           <mat-card-title class="md-card-title">As Object</mat-card-title>
           <div class="card-text-content">
             <div fxLayout="row" fxLayoutWrap style="padding-top: 20px; padding-bottom: 20px;"
             *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asObject)">
               <div fxFlex="50%" style="text-align: right; padding-right: 60px;">
-                <h3 matLine> {{describeProperty}} </h3>
+                <h3 matLine> {{sparql.shortenUri(describeProperty)}} </h3>
               </div>
               <div fxFlex="50%">
                 <h3 matLine style="margin-bottom: 5px;"
                 *ngFor="let describeAsObject of describeHash[describeGraph].asObject[describeProperty]">
-                  {{describeAsObject}}
+                  {{sparql.shortenUri(describeAsObject)}}
                 </h3>
               </div>
             </div>

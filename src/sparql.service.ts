@@ -13,6 +13,15 @@ export class SparqlService {
 
   private sparqlEndpoint: string = 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg';
 
+  public prefixRegistry = {
+    bl: 'http://w3id.org/biolink/vocab/',
+    biolink: 'https://w3id.org/biolink/vocab/',
+    rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+    rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
+    dc: 'http://purl.org/dc/elements/1.1/',
+    owl: 'http://www.w3.org/2002/07/owl#'
+  };
+
   constructor(private http: HttpClient,
               private datasetsInfo: DatasetsInfoService) { }
 
@@ -263,6 +272,16 @@ export class SparqlService {
 
   private cleanUrl(urlToClean: string) {
     return urlToClean.replace(/\//gi, '').replace(':', '');
+  }
+
+  // resolve URI namespace to use a prefix and add link to full URI
+  public shortenUri(uriToShorten: string) {
+    for (const prefix in this.prefixRegistry){
+      if (uriToShorten.startsWith(this.prefixRegistry[prefix])) {
+        return uriToShorten.replace(this.prefixRegistry[prefix], prefix + ':');
+      }
+    }
+    return uriToShorten;
   }
 }
 
