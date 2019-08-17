@@ -29,6 +29,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { SparqlComponent } from './sparql/sparql.component';
 import { DescribeComponent } from './describe/describe.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { DescribeComponent } from './describe/describe.component';
     DatasetDetailsComponent,
     MainNavComponent,
     SparqlComponent,
-    DescribeComponent
+    DescribeComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

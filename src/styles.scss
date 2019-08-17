@@ -1,5 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/theming';
+@include mat-core();
+
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// @import '~@angular/material/_theming.scss';
+
+
+// Default theme (nice blue)
+$primary: mat-palette($mat-blue,A700);
+$accent: mat-palette($mat-indigo);
+$warn: mat-palette($mat-deep-orange, A200);
+$theme: mat-light-theme($primary, $accent, $warn);
+
+// 3f51b5
+// Use our theme
+@include angular-material-theme($theme);
+
+.primaryColorBG {
+  background-color: mat-color($primary);
+  color: white;
+}
 
 // Global background
 body {
