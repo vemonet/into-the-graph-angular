@@ -1,15 +1,15 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <div class="container"  fxLayout="column" fxFlex="80%" fxFlex.xs="100%" fxLayoutWrap fxLayoutGap="3%" style="text-align: left;"
   *ngIf="describeHash != undefined">
-    <h1 [innerHTML]="sparql.getUrlHtml(uriToDescribe)">
+    <h1 style="text-decoration: none; color: black;" [innerHTML]="sparql.getUrlHtml(uriToDescribe)">
     </h1>
 
     <!-- class="mat-elevation-z8" -->
     <mat-accordion [multi]="true">
       <mat-expansion-panel [expanded]="true" class="mat-elevation-z6"
       *ngFor="let describeGraph of Object.keys(describeHash)">
-        <mat-expansion-panel-header>
-          <mat-panel-title style="margin-bottom: 30px;"
+        <mat-expansion-panel-header style="text-align: center;">
+          <mat-panel-title style="margin-bottom: 30px;" style="text-decoration: none; color: black;"
           [innerHTML]="sparql.getUrlHtml(describeGraph)">
           </mat-panel-title>
         </mat-expansion-panel-header>

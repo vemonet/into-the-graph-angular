@@ -11,6 +11,7 @@ import { DatasetsInfoService } from './datasets-info.service';
 })
 export class SparqlService {
 
+  // TODO: make it a parameter
   private sparqlEndpoint: string = 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg';
 
   public prefixRegistry = {
@@ -285,15 +286,17 @@ export class SparqlService {
   public getUrlHtml(urlToRender: string) {
     if (urlToRender.startsWith('http://') || urlToRender.startsWith('https://')) {
       // TODO: make describe endpoint URL it a variable
-      const beginUrlToDisplay = `<a style="text-decoration: none; color: inherit;"
-      href="http://localhost:4200/describe?uri=` + urlToRender + `">`;
+
+      const prefixUrlToRender = `<a href="http://localhost:4200/describe?uri=`
+      + urlToRender + `" class="nicerUrl">`;
+      // console.log(prefixUrlToRender);
 
       for (const prefix in this.prefixRegistry) {
         if (urlToRender.startsWith(this.prefixRegistry[prefix])) {
-          return beginUrlToDisplay + urlToRender.replace(this.prefixRegistry[prefix], prefix + ':') + '</a>';
+          return prefixUrlToRender + urlToRender.replace(this.prefixRegistry[prefix], prefix + ':') + '</a>';
         }
       }
-      return beginUrlToDisplay + urlToRender + '</a>';
+      return prefixUrlToRender + urlToRender + '</a>';
     }
     return urlToRender;
   }

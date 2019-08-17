@@ -20,6 +20,19 @@ $theme: mat-light-theme($primary, $accent, $warn);
   color: white;
 }
 
+a.nicerUrl {
+  text-decoration: none;
+  color:black;
+}
+a.nicerUrl:visited {
+  text-decoration: none;
+  color:black;
+}
+a.nicerUrl:hover {
+  text-decoration: none;
+  color: mat-color($primary);
+}
+
 // Global background
 body {
     //background: #fafafa;
