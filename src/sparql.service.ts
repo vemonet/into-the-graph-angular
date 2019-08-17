@@ -277,10 +277,14 @@ export class SparqlService {
 
   // resolve URI namespace to use a prefix and add link to full URI
   public shortenUri(uriToShorten: string) {
-    for (const prefix in this.prefixRegistry){
-      if (uriToShorten.startsWith(this.prefixRegistry[prefix])) {
-        return uriToShorten.replace(this.prefixRegistry[prefix], prefix + ':');
+    if (uriToShorten.startsWith('http://') || uriToShorten.startsWith('https://')) {
+      const beginUrlToDisplay = `<a href="` + uriToShorten + `">`;
+      for (const prefix in this.prefixRegistry){
+        if (uriToShorten.startsWith(this.prefixRegistry[prefix])) {
+          return beginUrlToDisplay + uriToShorten.replace(this.prefixRegistry[prefix], prefix + ':') + '</a>';
+        }
       }
+      return beginUrlToDisplay + uriToShorten + '</a>';
     }
     return uriToShorten;
   }
