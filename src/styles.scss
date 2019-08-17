@@ -20,15 +20,16 @@ $theme: mat-light-theme($primary, $accent, $warn);
   color: white;
 }
 
-a.nicerUrl {
+// No other way to change describe page URLs style
+a.describeUrl {
   text-decoration: none;
   color:black;
 }
-a.nicerUrl:visited {
+a.describeUrl:visited {
   text-decoration: none;
   color:black;
 }
-a.nicerUrl:hover {
+a.describeUrl:hover {
   text-decoration: none;
   color: mat-color($primary);
 }

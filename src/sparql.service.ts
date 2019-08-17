@@ -288,7 +288,7 @@ export class SparqlService {
       // TODO: make describe endpoint URL it a variable
 
       const prefixUrlToRender = `<a href="http://localhost:4200/describe?uri=`
-      + urlToRender + `" class="nicerUrl">`;
+      + urlToRender + `" class="describeUrl">`;
       // console.log(prefixUrlToRender);
 
       for (const prefix in this.prefixRegistry) {

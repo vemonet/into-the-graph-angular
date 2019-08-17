@@ -1,11 +1,11 @@
-<div class="mainLayout">
+<div class="mainLayout" style="margin-right: 20px; margin-left: 20px;">
   <h1 class="mat-display-1">
     Overview of ncats-red-kg datasets
   </h1>
 
   <mat-card class="mat-elevation-z6">
     <mat-form-field>
-      <input matInput (keyup)="applyFilterTable($event.target.value)" placeholder="Filter">
+      <input matInput (keyup)="applyFilterTable($event.target.value)" placeholder="Filter"/>
     </mat-form-field>
 
     <mat-table #table [dataSource]="datasetsInfo.datasetsTableDataSource" matSort>

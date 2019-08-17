@@ -1,7 +1,8 @@
-<div fxLayout="row" fxLayoutAlign="center">
-  <div class="container"  fxLayout="column" fxFlex="80%" fxFlex.xs="100%" fxLayoutWrap fxLayoutGap="3%" style="text-align: left;"
+<div class="mainLayout" fxLayout="row" fxLayoutAlign="center">
+  <div fxLayout="column" fxFlex="80%" fxFlex.xs="100%" fxLayoutWrap fxLayoutGap="3%" style="text-align: left;"
   *ngIf="describeHash != undefined">
-    <h1 style="text-decoration: none; color: black;" [innerHTML]="sparql.getUrlHtml(uriToDescribe)">
+    <h1 class="mat-display-1" style="text-align:center; padding-top: 20px; padding-bottom: 20px;"
+    [innerHTML]="sparql.getUrlHtml(uriToDescribe)">
     </h1>
 
     <!-- class="mat-elevation-z8" -->
