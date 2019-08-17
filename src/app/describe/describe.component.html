@@ -21,19 +21,22 @@
         </div>
 
         <mat-card class="mat-elevation-z8" style="margin-top: 20px;">
-          <mat-card-title class="md-card-title">As Object</mat-card-title>
-          <div class="card-text-content">
+          <mat-card-title class="md-card-title">As an object</mat-card-title>
+          <div class="card-text-content" style="text-align: center;">
             <div fxLayout="row" fxLayoutWrap style="padding-top: 20px; padding-bottom: 20px;"
             *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asObject)">
 
-              <div fxFlex="50%" style="text-align: right; padding-right: 60px;">
-                <h3 matLine [innerHTML]="sparql.shortenUri(describeProperty)"></h3>
-              </div>
-              <div fxFlex="50%">
-                <h3 matLine style="margin-bottom: 5px;"
+              <div fxFlex="33%">
+                <h3 matLine style="text-align: right; padding-right: 60px; margin-bottom: 5px;"
                 *ngFor="let describeAsObject of describeHash[describeGraph].asObject[describeProperty]"
                 [innerHTML]="sparql.shortenUri(describeAsObject)">
                 </h3>
+              </div>
+              <div fxFlex="33%">
+                <h3 matLine [innerHTML]="sparql.shortenUri(describeProperty)"></h3>
+              </div>
+              <div fxFlex="33%">
+                <h3 matLine [innerHTML]="sparql.shortenUri(uriToDescribe)"></h3>
               </div>
             </div>
           </div>
