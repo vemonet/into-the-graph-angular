@@ -7,13 +7,22 @@
       <mat-card-title class="md-card-title">{{describeGraph}}</mat-card-title>
       <div class="card-text-content">
         <mat-list>
-          <mat-list-item *ngFor="let describeProperty of Object.keys(describeHash[describeGraph])">
+          <mat-list-item *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asSubject)">
             <h2 matLine> {{describeProperty}} </h2>
-            <p matLine *ngFor="let describeObject of describeHash[describeGraph][describeProperty]">
-              <span> {{describeObject}} </span>
+            <p matLine *ngFor="let describeAsSubject of describeHash[describeGraph].asSubject[describeProperty]">
+              <span> {{describeAsSubject}} </span>
             </p>
           </mat-list-item>
         </mat-list>
+        <p>As object:</p>
+        <mat-list>
+            <mat-list-item *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asObject)">
+              <h2 matLine> {{describeProperty}} </h2>
+              <p matLine *ngFor="let describeAsObject of describeHash[describeGraph].asObject[describeProperty]">
+                <span> {{describeAsObject}} </span>
+              </p>
+            </mat-list-item>
+          </mat-list>
       </div>    
     </mat-card>
 </div>

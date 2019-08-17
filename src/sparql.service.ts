@@ -243,17 +243,21 @@ export class SparqlService {
 
     // Define SPARQL query to retrieve statements about the URI to describe
     const describeSparqlHttpParams = new HttpParams()
-      .set('query', `SELECT distinct ?predicate ?object ?graph
-      WHERE {
-        GRAPH ?graph {
-          <` + uriToDescribe + `> ?predicate ?object .
+      .set('query', `SELECT DISTINCT ?subject ?predicate ?object ?graph WHERE {
+        {
+            GRAPH ?graph {
+              <` + uriToDescribe + `> ?predicate ?object .
+            }
+        } UNION {
+            GRAPH ?graph {
+              ?subject ?predicate <` + uriToDescribe + `> .
+            }
         }
-      }`)
-      .set('format', 'json');
+    }`).set('format', 'json');
 
     // Execute SPARQL query using HTTP GET
     return this.http.get(this.sparqlEndpoint, { params: describeSparqlHttpParams, headers: httpHeaders});
-    }
+  }
 
 
 
