@@ -1,41 +1,36 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="!(isHandset$ | async)">
-    <mat-toolbar color="primary" class="mat-elevation-z6">Menu</mat-toolbar>
-    <mat-nav-list>
-      <mat-list-item (click)="datasetsInfo.navigateTo('')">
-        <mat-icon mat-list-icon>home</mat-icon>
-        <h4 mat-line>Datasets overview</h4>
-      </mat-list-item>
-      <mat-list-item routerLink="/sparql">
-        <mat-icon mat-list-icon>share</mat-icon>
-        <h4 mat-line>SPARQL</h4>
-      </mat-list-item>
-      <!-- <mat-divider></mat-divider> -->
-      <!-- <md-input #myInput placeholder="Item name..." (input)="filterItem(myInput.value)"></md-input> -->
-      <mat-form-field style="padding: 0 16px;">
-        <input matInput (keyup)="applyFilterNav($event.target.value)" placeholder="Filter">
-      </mat-form-field>
-      <mat-list-item *ngFor="let dataset of datasetsInfo.arrayDatasetsNav" (click)="datasetsInfo.navigateTo(dataset)">
-        <h4 mat-line>{{ dataset }}</h4>
-      </mat-list-item>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary" class="mat-elevation-z6">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <span>{{datasetsInfo.datasetSelected?(datasetsInfo.datasetSelected.source.value):"rdf-graph-explorer" }}</span>
-    </mat-toolbar>
-    <!-- To be able to put the content in <app-main-nav> -->
-    <ng-content></ng-content>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<mat-toolbar color="primary" class="mat-elevation-z6">
+  <a mat-button routerLink="/" aria-label="RDF Graph Explorer">
+    <!-- <img class="nav-aphasia-logo"
+          src="/assets/images/logo_AphasiaHelp.svg"
+          alt=""> -->
+  </a>
+  <a mat-button routerLink="/" aria-label="Explore datasets">
+    <mat-icon mat-list-icon>explore</mat-icon>
+    Explore datasets
+  </a>
+  <a mat-button routerLink="/sparql" aria-label="YASGUI SPARQL">
+    <mat-icon mat-list-icon>share</mat-icon>
+    <span mat-h1>SPARQL</span>
+  </a>
+  <!-- <div class="flex-spacer"></div> -->
+  <a mat-button routerLink="/describe" [queryParams]="{uri:'http://identifiers.org/uniprot/O00222'}" aria-label="Describe URI">
+    <mat-icon mat-list-icon>search</mat-icon>
+    Describe URI
+  </a>
+</mat-toolbar>
+<ng-content></ng-content>
+
+
+  <!-- Dropdown menu
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon mat-list-icon>more_horiz</mat-icon>
+    More
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item aria-label="Contact">
+      <a href="contact">
+        <mat-icon mat-list-icon>email</mat-icon>
+        <span mat-h1>Contact</span>
+      </a>
+    </button>
+  </mat-menu> -->
