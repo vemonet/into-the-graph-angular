@@ -180,10 +180,10 @@ export class SparqlService {
                     class2: this.shortenUri(element.class2.value),
                     classCount2: element.classCount2.value
                   });
-                  // Generate the hash for the ngx-graph
-                  console.log('hashes:');
-                  console.log(this.cleanUrl(element.class1.value));
-                  console.log(this.cleanUrl(element.class2.value));
+                  // Generate the hash for the ngx-graph (lots of logs)
+                  // console.log('hashes:');
+                  // console.log(this.cleanUrl(element.class1.value));
+                  // console.log(this.cleanUrl(element.class2.value));
                   // TODO: We need to generate a hash to make sure nodes are uniques. Or try 2 SPARQL queries
                   if (this.cleanUrl(element.class1.value) !== this.cleanUrl(element.class2.value)) {
                     relationCount = relationCount + 1;
