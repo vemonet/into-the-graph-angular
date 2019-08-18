@@ -66,15 +66,15 @@
                 <div fxFlex="33%">
                   <h3 matLine [innerHTML]="sparql.getUrlHtml(uriToDescribe)"></h3>
                 </div>
-                <div fxFlex="33%">
-                  <h3 matLine
+                <div fxFlex="33%" style="text-align: left;">
+                  <h3 matLine style="margin-bottom: 5px;"
                   *ngFor="let describeAsPredicate of describeHash[describeGraph].asPredicate[describeSubject]"
                   [innerHTML]="sparql.getUrlHtml(describeAsPredicate)">
                   </h3>
 
                   <!-- Show extra statements if more than 5 -->
                   <div *ngIf="describeHash[describeGraph].asPredicateExtra[describeSubject].length > 0">
-                    <button mat-button class="primaryColorBG" style="margin-top: 10px;"
+                    <button mat-button class="primaryColorBG" style="margin-top: 10px; margin-bottom: 15px;"
                     *ngIf="describeHash[describeGraph].showExtra == false"
                     (click)="describeHash[describeGraph].showExtra = true">
                       Show {{describeHash[describeGraph].asPredicateExtra[describeSubject].length}} statements
@@ -85,7 +85,7 @@
                       Hide extra statements
                     </button>
                     <div *ngIf="describeHash[describeGraph].showExtra == true">
-                      <h4 style="text-align: right; padding-right: 20px; margin-bottom: 2px;"
+                      <h4 style="margin-left: 10px; margin-bottom: 2px;"
                       *ngFor="let describeAsPredicateExtra of describeHash[describeGraph].asPredicateExtra[describeSubject]"
                       [innerHTML]="sparql.getUrlHtml(describeAsPredicateExtra)">
                       </h4>
