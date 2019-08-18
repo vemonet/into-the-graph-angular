@@ -1,10 +1,7 @@
-<div class="mainLayout" fxLayout="row" fxLayoutAlign="center" style="text-align: center;">
+<div class="mainLayout" fxLayout="row" fxLayoutAlign="center" style="text-align: center;"
+*ngIf="entitiesRelationSparqlResultArray != null">
 
-  <div fxLayout="column" fxFlex="100%" fxFlex.gt-md="90%" fxLayoutWrap fxLayoutGap="1.5%"
-  *ngIf="entitiesRelationSparqlResultArray != null">
-
-<!-- <div class="mainLayout" style="margin-right: 20px; margin-left: 20px; text-align: center;"
-*ngIf="entitiesRelationSparqlResultArray != null" > -->
+  <div fxLayout="column" fxFlex="100%" fxFlex.gt-md="90%" fxLayoutWrap fxLayoutGap="3%">
 
   <h1 class="mat-display-1" style="padding-bottom: 15px; padding-top: 20px;">
     Overview of ncats-red-kg datasets
@@ -46,7 +43,7 @@
     </table>
   </mat-card>
 
-  <h1 class="mat-display-1" style="padding-bottom: 15px; padding-top: 90px;">
+  <h1 class="mat-display-1" style="padding-bottom: 15px;">
     Explore ncats-red-kg entities and relations
   </h1>
   
