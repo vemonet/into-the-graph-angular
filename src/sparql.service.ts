@@ -282,6 +282,7 @@ export class SparqlService {
     return urlToClean.replace(/\//gi, '').replace(':', '');
   }
 
+  // TODO: use yasgui.getUsedPrefixes() to resolve URIs?
   // resolve URI namespace to use a prefix and add link to full URI
   public getUrlHtml(urlToRender: string) {
     if (urlToRender.startsWith('http://') || urlToRender.startsWith('https://')) {
