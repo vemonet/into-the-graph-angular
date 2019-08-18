@@ -19,7 +19,6 @@ export class DatasetDetailsComponent implements OnInit {
   public entitiesRelationSparqlResultArray: any;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private http: HttpClient,
     private sparql: SparqlService,
@@ -84,12 +83,6 @@ export class DatasetDetailsComponent implements OnInit {
       });
     }
 
-
-
-
-  applyFilterRelationsTable(filterValue: string) {
-    this.datasetsInfo.datasetSelected.relationsTableDataSource.filter = filterValue.trim().toLowerCase();
-  }
 }
 
 // Example cytoscape graph data
