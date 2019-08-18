@@ -13,6 +13,7 @@ export class DatasetsOverviewComponent implements OnInit {
 
   public datasetStatSparqlResultArray: any;
   public entitiesRelationSparqlResultArray: any;
+  dtOptions: DataTables.Settings = {pageLength: 20};
 
   constructor(
     private http: HttpClient,

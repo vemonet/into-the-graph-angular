@@ -8,7 +8,7 @@
   </h1>
 
   <mat-card class="mat-elevation-z6">
-    <table id="datasetStatTable" datatable class="row-border hover">
+    <table id="datasetStatTable" datatable [dtOptions]="dtOptions" class="row-border hover">
       <thead>
         <tr>
           <th>Dataset</th>
@@ -48,7 +48,7 @@
   </h1>
   
   <mat-card class="mat-elevation-z6">
-      <table id="entitiesRelationTable" datatable class="row-border hover">
+      <table id="entitiesRelationTable" datatable [dtOptions]="dtOptions" class="row-border hover">
         <thead>
           <tr>
             <th>Dataset</th>

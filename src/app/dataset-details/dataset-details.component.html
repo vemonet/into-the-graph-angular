@@ -34,7 +34,7 @@
 
     <!-- Table of entities and their relations in the graph -->
     <mat-card class="mat-elevation-z6">
-      <table id="entitiesRelationTable" datatable class="row-border hover">
+      <table id="entitiesRelationTable" datatable [dtOptions]="dtOptions" class="row-border hover">
         <thead>
           <tr>
             <th># of instance of subject</th>
