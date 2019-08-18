@@ -1,13 +1,11 @@
 <div class="mainLayout" style="margin-right: 20px; margin-left: 20px;"
-*ngIf="datasetStatSparqlResultArray != null" >
-<!-- *ngIf="sparqlResultArrays.datasetStat != null" > -->
+*ngIf="entitiesRelationSparqlResultArray != null" >
 
   <h1 class="mat-display-1" style="padding-bottom: 15px;">
     Overview of ncats-red-kg datasets
   </h1>
 
   <button (click)="printConsole()">Click</button>
-  <!-- <button (click)="console.log(sparqlResultArrays.datasetStat);">Click</button> -->
 
   <mat-card class="mat-elevation-z6">
     <table id="datasetStatTable" datatable class="row-border hover">
@@ -23,7 +21,6 @@
       </thead>
       <tbody>
         <tr *ngFor="let row of datasetStatSparqlResultArray">
-        <!-- <tr *ngFor="let row of sparqlResultArrays.datasetStat"> -->
           <td [innerHTML]="row.source.value">
           </td>
           <td [innerHTML]="row.dateGenerated.value">
@@ -44,7 +41,7 @@
   <h1 class="mat-display-1" style="padding-bottom: 15px; padding-top: 60px;">
     Explore ncats-red-kg entities and relations
   </h1>
-<!--   
+  
   <mat-card class="mat-elevation-z6">
       <table id="entitiesRelationTable" datatable class="row-border hover">
         <thead>
@@ -80,6 +77,6 @@
           </tr>
         </tbody>
       </table>
-    </mat-card> -->
+    </mat-card>
 
 </div>
