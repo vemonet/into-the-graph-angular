@@ -34,16 +34,16 @@
                   <!-- Show extra statements if more than 5 -->
                   <div *ngIf="describeHash[describeGraph].asSubjectExtra[describeProperty].length > 0">
                     <button mat-button class="primaryColorBG" style="margin-top: 10px;"
-                    *ngIf="describeHash[describeGraph].showExtra == false"
-                    (click)="describeHash[describeGraph].showExtra = true">
+                    *ngIf="describeHash[describeGraph].showExtra[describeProperty] == false"
+                    (click)="describeHash[describeGraph].showExtra[describeProperty] = true">
                       Show {{describeHash[describeGraph].asSubjectExtra[describeProperty].length}} statements
                     </button>
                     <button mat-button class="primaryColorBG" style="margin-top: 10px; margin-bottom: 15px;"
-                    *ngIf="describeHash[describeGraph].showExtra == true"
-                    (click)="describeHash[describeGraph].showExtra = false">
+                    *ngIf="describeHash[describeGraph].showExtra[describeProperty] == true"
+                    (click)="describeHash[describeGraph].showExtra[describeProperty] = false">
                       Hide extra statements
                     </button>
-                    <div *ngIf="describeHash[describeGraph].showExtra == true">
+                    <div *ngIf="describeHash[describeGraph].showExtra[describeProperty] == true">
                       <h4 style="margin-left: 15px; margin-bottom: 2px;"
                       *ngFor="let describeAsSubjectExtra of describeHash[describeGraph].asSubjectExtra[describeProperty]"
                       [innerHTML]="sparql.getUrlHtml(describeAsSubjectExtra)">
@@ -75,16 +75,16 @@
                   <!-- Show extra statements if more than 5 -->
                   <div *ngIf="describeHash[describeGraph].asPredicateExtra[describeSubject].length > 0">
                     <button mat-button class="primaryColorBG" style="margin-top: 10px; margin-bottom: 15px;"
-                    *ngIf="describeHash[describeGraph].showExtra == false"
-                    (click)="describeHash[describeGraph].showExtra = true">
+                    *ngIf="describeHash[describeGraph].showExtra[describeSubject] == false"
+                    (click)="describeHash[describeGraph].showExtra[describeSubject] = true">
                       Show {{describeHash[describeGraph].asPredicateExtra[describeSubject].length}} statements
                     </button>
                     <button mat-button class="primaryColorBG" style="margin-top: 10px; margin-bottom: 15px;"
-                    *ngIf="describeHash[describeGraph].showExtra == true"
-                    (click)="describeHash[describeGraph].showExtra = false">
+                    *ngIf="describeHash[describeGraph].showExtra[describeSubject] == true"
+                    (click)="describeHash[describeGraph].showExtra[describeSubject] = false">
                       Hide extra statements
                     </button>
-                    <div *ngIf="describeHash[describeGraph].showExtra == true">
+                    <div *ngIf="describeHash[describeGraph].showExtra[describeSubject] == true">
                       <h4 style="margin-left: 10px; margin-bottom: 2px;"
                       *ngFor="let describeAsPredicateExtra of describeHash[describeGraph].asPredicateExtra[describeSubject]"
                       [innerHTML]="sparql.getUrlHtml(describeAsPredicateExtra)">
@@ -110,16 +110,16 @@
                   <!-- Show extra statements if more than 5 -->
                   <div *ngIf="describeHash[describeGraph].asObjectExtra[describeProperty].length > 0">
                     <button mat-button class="primaryColorBG" style="margin-top: 10px;"
-                    *ngIf="describeHash[describeGraph].showExtra == false"
-                    (click)="describeHash[describeGraph].showExtra = true">
+                    *ngIf="describeHash[describeGraph].showExtra[describeProperty] == false"
+                    (click)="describeHash[describeGraph].showExtra[describeProperty] = true">
                       Show {{describeHash[describeGraph].asObjectExtra[describeProperty].length}} statements
                     </button>
                     <button mat-button class="primaryColorBG" style="margin-top: 10px; margin-bottom: 15px;"
-                    *ngIf="describeHash[describeGraph].showExtra == true"
-                    (click)="describeHash[describeGraph].showExtra = false">
+                    *ngIf="describeHash[describeGraph].showExtra[describeProperty] == true"
+                    (click)="describeHash[describeGraph].showExtra[describeProperty] = false">
                       Hide extra statements
                     </button>
-                    <div *ngIf="describeHash[describeGraph].showExtra == true">
+                    <div *ngIf="describeHash[describeGraph].showExtra[describeProperty] == true">
                       <h4 style="text-align: right; padding-right: 20px; margin-bottom: 2px;"
                       *ngFor="let describeAsObjectExtra of describeHash[describeGraph].asObjectExtra[describeProperty]"
                       [innerHTML]="sparql.getUrlHtml(describeAsObjectExtra)">
