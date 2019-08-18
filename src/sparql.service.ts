@@ -108,11 +108,11 @@ export class SparqlService {
     // Execute SPARQL query using HTTP GET
     this.http.get(this.sparqlEndpoint, { params: datasetSparqlHttpParams, headers: httpHeaders})
       .subscribe(data => {
-        const sparqlResultArray = data['results']['bindings'];
+        this.datasetsInfo.datasetStatSparqlResultArray = data['results']['bindings'];
         this.datasetsInfo.hashAll = {};
 
         // Map the SPARQL query results to an object for each dataset in datasetsInfo.hashAll
-        sparqlResultArray.forEach((sparqlResultRow: any, index: number) => {
+        this.datasetsInfo.datasetStatSparqlResultArray.forEach((sparqlResultRow: any, index: number) => {
           const datasetId = sparqlResultRow.source.value;
           if (this.datasetsInfo.hashAll[datasetId] == null) {
             this.datasetsInfo.hashAll[datasetId] = {};
@@ -140,8 +140,8 @@ export class SparqlService {
         // Get relations for each dataset
         this.http.get(this.sparqlEndpoint, { params: relationSparqlHttpParams, headers: httpHeaders})
           .subscribe(relationData => {
-            const relationSparqlResultArray = relationData['results']['bindings'];
-            relationSparqlResultArray.forEach((sparqlResultRow: any, index: number) => {
+            this.datasetsInfo.entitiesRelationSparqlResultArray = relationData['results']['bindings'];
+            relationData['results']['bindings'].forEach((sparqlResultRow: any, index: number) => {
               const datasetId = sparqlResultRow.source.value;
               this.datasetsInfo.hashAll[datasetId].relationsArray.push({
                 classCount1: sparqlResultRow.classCount1,
@@ -242,7 +242,9 @@ export class SparqlService {
             }
             console.log('After getting the SPARQL query in sparql.service. datasetsInfo:');
             console.log(this.datasetsInfo);
-
+            // Just for DataTable (clean required in previous code):
+            return {entitiesRelations: this.datasetsInfo.entitiesRelationSparqlResultArray,
+              datasetStats: this.datasetsInfo.datasetStatSparqlResultArray};
           });
       });
   }

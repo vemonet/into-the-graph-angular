@@ -1,14 +1,15 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
   <button mat-flat-button class="navbar-button" routerLink="/">rdf-graph-explorer</button>
-  <a mat-button class="navbar-button" routerLink="/" aria-label="Explore datasets">
+  <!-- <a mat-button class="navbar-button" routerLink="/" aria-label="Explore datasets"> -->
+  <a mat-button class="navbar-button" href="/" aria-label="Explore datasets">
     <mat-icon mat-list-icon>explore</mat-icon>
     Explore datasets
   </a>
-  <a mat-button class="navbar-button" routerLink="/sparql" aria-label="YASGUI SPARQL">
+  <a mat-button class="navbar-button" href="/sparql" aria-label="YASGUI SPARQL">
     <mat-icon mat-list-icon>share</mat-icon>
     Run SPARQL queries
   </a>
-  <a mat-button class="navbar-button" routerLink="/describe" [queryParams]="{uri:'http://identifiers.org/uniprot/O00222'}" aria-label="Describe URI">
+  <a mat-button class="navbar-button" href="/describe?uri=http://identifiers.org/uniprot/O00222" aria-label="Describe URI">
     <mat-icon mat-list-icon>search</mat-icon>
     Describe URI
   </a>

@@ -12,6 +12,8 @@ import { SparqlService } from '../../sparql.service';
 })
 export class DatasetDetailsComponent implements OnInit {
 
+  sparqlResultArrays: any;
+
   displayedColumns = [];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatSort) set matSort(ms: MatSort) {
@@ -65,7 +67,9 @@ export class DatasetDetailsComponent implements OnInit {
     //   // Get datasets infos from data passed through router
     //   this.datasetsInfo = navigatedData;
     // }
-    this.sparql.getAllDatasetsInfo(null, this, this.route.snapshot.paramMap.get('datasetId'));
+
+    this.sparqlResultArrays = this.sparql.getAllDatasetsInfo(null, this, this.route.snapshot.paramMap.get('datasetId'));
+
     if (this.datasetsInfo.datasetSelected !== undefined) {
       this.datasetsInfo.datasetSelected.relationsTableDataSource.sort = this.sort;
       console.log('ngOnInit dataset-details: datasetSelected.relationsTableDataSource sorted');

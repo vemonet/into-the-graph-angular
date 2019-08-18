@@ -11,6 +11,8 @@ import { SparqlService } from '../../sparql.service';
 })
 export class DatasetsOverviewComponent implements OnInit {
 
+  sparqlResultArrays: any;
+
   displayedColumns = [];
   @ViewChild(MatSort) sort: MatSort;
 
@@ -29,7 +31,9 @@ export class DatasetsOverviewComponent implements OnInit {
   ngOnInit() {
     this.displayedColumns = this.columnNames.map(x => x.id);
     this.datasetsInfo.datasetSelected = null;
-    this.sparql.getAllDatasetsInfo(this, null, null);
+    this.sparqlResultArrays = this.sparql.getAllDatasetsInfo(this, null, null);
+    console.log("datasets info: yeah");
+    console.log(this.sparqlResultArrays);
   }
 
   applyFilterTable(filterValue: string) {

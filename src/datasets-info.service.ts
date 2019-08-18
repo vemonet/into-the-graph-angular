@@ -14,6 +14,9 @@ export class DatasetsInfoService {
   arrayDatasetsNav: any;
   filteredArrayDatasetsNav: any;
 
+  entitiesRelationSparqlResultArray: any; // for datatables
+  datasetStatSparqlResultArray: any;
+
   constructor(private router: Router) { }
 
   navigateTo(dataset: string) {
