@@ -47,7 +47,7 @@ export class SparqlService {
       PREFIX dc: <http://purl.org/dc/elements/1.1/>
       PREFIX foaf: <http://xmlns.com/foaf/0.1/>
       PREFIX void-ext: <http://ldf.fi/void-ext#>
-      SELECT DISTINCT ?source ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes ?graph
+      SELECT DISTINCT ?source ?description ?homepage ?dateGenerated ?license ?statements ?entities ?properties ?classes ?graph
       WHERE {
         GRAPH ?g {
           ?dataset a dctypes:Dataset ;
@@ -56,6 +56,9 @@ export class SparqlService {
             idot:preferredPrefix ?source .
           ?version dct:isVersionOf ?dataset ;
             dcat:distribution ?rdfDistribution .
+          OPTIONAL {
+            ?version dct:license ?license .
+          }
           ?rdfDistribution a void:Dataset ;
             dcat:accessURL ?graph ;
             void:triples ?statements ;
@@ -121,6 +124,7 @@ export class SparqlService {
           }
           this.datasetsInfo.hashAll[datasetId].description = sparqlResultRow.description;
           this.datasetsInfo.hashAll[datasetId].homepage = sparqlResultRow.homepage;
+          this.datasetsInfo.hashAll[datasetId].license = sparqlResultRow.license;
           this.datasetsInfo.hashAll[datasetId].dateGenerated = sparqlResultRow.dateGenerated;
           this.datasetsInfo.hashAll[datasetId].statements = sparqlResultRow.statements;
           this.datasetsInfo.hashAll[datasetId].entities = sparqlResultRow.entities;

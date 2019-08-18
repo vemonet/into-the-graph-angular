@@ -18,6 +18,12 @@
           {{datasetsInfo.datasetSelected.homepage.value}}
         </a>
       </p>
+      <p *ngIf="datasetsInfo.datasetSelected.license != undefined">
+        <i>License: </i>
+        <a href="{{datasetsInfo.datasetSelected.license.value}}" target="_blank">
+          {{datasetsInfo.datasetSelected.license.value}}
+        </a>
+      </p>
     </mat-card>
 
     <!-- Display stats about the graph (count of statements, entities, properties, classes) -->
