@@ -27,6 +27,22 @@ ng serve
 
 Navigate to [http://localhost:4200/](http://localhost:4200/). The app *should* automatically reload if you change any of the source files.
 
+## Deploy on GitHub Pages
+
+To push only `dist` folder to `gh-pages` branch to deploy a webapp
+
+```shell
+# Create and update
+git subtree push --prefix dist/rdf-graph-explorer origin gh-pages
+
+# Delete branch
+git push origin --delete gh-pages
+```
+
+https://medium.com/front-end-weekly/angularjs-github-pages-the-easy-way-7b9568b7b07c
+
+
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
