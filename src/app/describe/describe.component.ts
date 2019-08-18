@@ -35,39 +35,55 @@ export class DescribeComponent implements OnInit {
           // SPO case. Described URI is the subject
           if (!('subject' in sparqlResultRow)) {
             if (!(sparqlResultRow.graph.value in this.describeHash)) {
-              this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {}};
+              this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
+              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}};
             }
             if (!(sparqlResultRow.predicate.value in this.describeHash[sparqlResultRow.graph.value].asSubject)) {
               this.describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value] = [];
+              this.describeHash[sparqlResultRow.graph.value].asSubjectExtra[sparqlResultRow.predicate.value] = [];
             }
             if (this.describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value].length < 5) {
               this.describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value].push(sparqlResultRow.object.value);
+            } else {
+              // We store in another key the extra statements (when more than 5), to display them when asked
+              this.describeHash[sparqlResultRow.graph.value].asSubjectExtra[sparqlResultRow.predicate.value]
+              .push(sparqlResultRow.object.value);
             }
           }
 
           // OPS case. Described URI is the object
           if (!('object' in sparqlResultRow)) {
             if (!(sparqlResultRow.graph.value in this.describeHash)) {
-              this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {}};
+              this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
+              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}};
             }
             if (!(sparqlResultRow.predicate.value in this.describeHash[sparqlResultRow.graph.value].asObject)) {
               this.describeHash[sparqlResultRow.graph.value].asObject[sparqlResultRow.predicate.value] = [];
+              this.describeHash[sparqlResultRow.graph.value].asObjectExtra[sparqlResultRow.predicate.value] = [];
             }
             if (this.describeHash[sparqlResultRow.graph.value].asObject[sparqlResultRow.predicate.value].length < 5) {
               this.describeHash[sparqlResultRow.graph.value].asObject[sparqlResultRow.predicate.value].push(sparqlResultRow.subject.value);
+            } else {
+              this.describeHash[sparqlResultRow.graph.value].asObjectExtra[sparqlResultRow.predicate.value]
+              .push(sparqlResultRow.subject.value);
             }
           }
 
           // Described URI is the predicate (PSO?)
           if (!('predicate' in sparqlResultRow)) {
             if (!(sparqlResultRow.graph.value in this.describeHash)) {
-              this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {}};
+              this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
+              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}};
             }
             if (!(sparqlResultRow.subject.value in this.describeHash[sparqlResultRow.graph.value].asPredicate)) {
               this.describeHash[sparqlResultRow.graph.value].asPredicate[sparqlResultRow.subject.value] = [];
+              this.describeHash[sparqlResultRow.graph.value].asPredicateExtra[sparqlResultRow.subject.value] = [];
             }
             if (this.describeHash[sparqlResultRow.graph.value].asPredicate[sparqlResultRow.subject.value].length < 5) {
               this.describeHash[sparqlResultRow.graph.value].asPredicate[sparqlResultRow.subject.value].push(sparqlResultRow.object.value);
+            } else {
+              this.describeHash[sparqlResultRow.graph.value].asPredicateExtra[sparqlResultRow.subject.value]
+              .push(sparqlResultRow.object.value);
             }
           }
         });
