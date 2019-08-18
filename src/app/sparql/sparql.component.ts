@@ -1,5 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
-//  OnInit
+// Import YASGUI from external js file
 declare const YASGUI: any;
 
 @Component({
