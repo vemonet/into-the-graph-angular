@@ -7,13 +7,13 @@
 
     <!-- style="max-width: 140px;" -->
     <div fxFlex fxLayoutAlign="end start">
-      <button mat-raised-button class="primaryColorBG" *ngIf="allExpanded == false"
+      <button mat-raised-button class="primaryColorBG hoverBtn" *ngIf="allExpanded == false"
       (click)="accordion.openAll(); allExpanded = true"
       [ngClass]="{'mat-elevation-z6':hoverExpand}" (mouseover)="hoverExpand=true" (mouseout)="hoverExpand=false">
         <mat-icon mat-list-icon>expand_more</mat-icon>
         Expand All
       </button>
-      <button mat-raised-button class="primaryColorBG" *ngIf="allExpanded == true"
+      <button mat-raised-button class="primaryColorBG hoverBtn" *ngIf="allExpanded == true"
       (click)="accordion.closeAll(); allExpanded = false"
       [ngClass]="{'mat-elevation-z6':hoverExpand}" (mouseover)="hoverExpand=true" (mouseout)="hoverExpand=false">
         <mat-icon mat-list-icon>expand_less</mat-icon>
@@ -23,6 +23,7 @@
 
     <!-- class="mat-elevation-z8" -->
     <mat-accordion [multi]="true" #accordion="matAccordion">
+
       <mat-expansion-panel [expanded]="true" class="mat-elevation-z3"
       *ngFor="let describeGraph of Object.keys(describeHash)">
         <mat-expansion-panel-header>
@@ -33,6 +34,7 @@
         </mat-expansion-panel-header>
 
         <mat-tab-group>
+          <!-- As a Subject -->
           <mat-tab label="As subject ({{describeHash[describeGraph].asSubjectCount}})"
           *ngIf="describeHash[describeGraph].asSubjectCount > 0">
             <div style="margin-top: 25px;">
@@ -50,12 +52,12 @@
 
                   <!-- Show extra statements if more than 5 -->
                   <div *ngIf="describeHash[describeGraph].asSubjectExtra[describeProperty].length > 0">
-                    <button mat-button class="primaryColorBG" style="margin-top: 10px;"
+                    <button mat-raised-button class="primaryColorBG hoverBtn" style="margin-top: 10px;"
                     *ngIf="describeHash[describeGraph].showExtra[describeProperty] == false"
                     (click)="describeHash[describeGraph].showExtra[describeProperty] = true">
                       Show {{describeHash[describeGraph].asSubjectExtra[describeProperty].length}} statements
                     </button>
-                    <button mat-button class="primaryColorBG" style="margin-top: 10px; margin-bottom: 15px;"
+                    <button mat-raised-button class="primaryColorBG hoverBtn" style="margin-top: 10px; margin-bottom: 15px;"
                     *ngIf="describeHash[describeGraph].showExtra[describeProperty] == true"
                     (click)="describeHash[describeGraph].showExtra[describeProperty] = false">
                       Hide {{describeHash[describeGraph].asSubjectExtra[describeProperty].length}} statements
@@ -72,6 +74,7 @@
             </div>
           </mat-tab>
 
+          <!-- As a predicate -->
           <mat-tab label="As predicate ({{describeHash[describeGraph].asPredicateCount}})"
           *ngIf="describeHash[describeGraph].asPredicateCount > 0">
             <div style="text-align: center; margin-top: 20px;">
@@ -92,12 +95,12 @@
 
                   <!-- Show extra statements if more than 5 -->
                   <div *ngIf="describeHash[describeGraph].asPredicateExtra[describeSubject].length > 0">
-                    <button mat-button class="primaryColorBG" style="margin-top: 10px; margin-bottom: 15px;"
+                    <button mat-raised-button class="primaryColorBG hoverBtn" style="margin-top: 10px; margin-bottom: 15px;"
                     *ngIf="describeHash[describeGraph].showExtra[describeSubject] == false"
                     (click)="describeHash[describeGraph].showExtra[describeSubject] = true">
                       Show {{describeHash[describeGraph].asPredicateExtra[describeSubject].length}} statements
                     </button>
-                    <button mat-button class="primaryColorBG" style="margin-top: 10px; margin-bottom: 15px;"
+                    <button mat-raised-button class="primaryColorBG hoverBtn" style="margin-top: 10px; margin-bottom: 15px;"
                     *ngIf="describeHash[describeGraph].showExtra[describeSubject] == true"
                     (click)="describeHash[describeGraph].showExtra[describeSubject] = false">
                       Hide {{describeHash[describeGraph].asPredicateExtra[describeSubject].length}} statements
@@ -128,12 +131,12 @@
 
                   <!-- Show extra statements if more than 5 -->
                   <div *ngIf="describeHash[describeGraph].asObjectExtra[describeProperty].length > 0">
-                    <button mat-button class="primaryColorBG" style="margin-top: 10px;"
+                    <button mat-button class="primaryColorBG hoverBtn" style="margin-top: 10px;"
                     *ngIf="describeHash[describeGraph].showExtra[describeProperty] == false"
                     (click)="describeHash[describeGraph].showExtra[describeProperty] = true">
                       Show {{describeHash[describeGraph].asObjectExtra[describeProperty].length}} statements
                     </button>
-                    <button mat-button class="primaryColorBG" style="margin-top: 10px; margin-bottom: 15px;"
+                    <button mat-raised-button class="primaryColorBG hoverBtn" style="margin-top: 10px; margin-bottom: 15px;"
                     *ngIf="describeHash[describeGraph].showExtra[describeProperty] == true"
                     (click)="describeHash[describeGraph].showExtra[describeProperty] = false">
                       Hide {{describeHash[describeGraph].asObjectExtra[describeProperty].length}} statements
