@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material';
 
 import { DatasetsInfoService } from '../../datasets-info.service';
 import { SparqlService } from '../../sparql.service';
+import { DataTablesModule } from 'angular-datatables';
 
 @Component({
   selector: 'app-dataset-details',
@@ -30,11 +31,7 @@ export class DatasetDetailsComponent implements OnInit {
           {data: {source: 'j', target: 'k', faveColor: '#6FB1FC'}},
           {data: {source: 'j', target: 'g', faveColor: '#6FB1FC'}},
           {data: {source: 'e', target: 'j', faveColor: '#EDA1ED'}},
-          {data: {source: 'e', target: 'k', faveColor: '#EDA1ED'}},
-          {data: {source: 'k', target: 'j', faveColor: '#86B342'}},
-          {data: {source: 'k', target: 'e', faveColor: '#86B342'}},
-          {data: {source: 'k', target: 'g', faveColor: '#86B342'}},
-          {data: {source: 'g', target: 'j', faveColor: '#F5A45D'}}
+          {data: {source: 'e', target: 'k', faveColor: '#EDA1ED'}}
       ]
   };
 
