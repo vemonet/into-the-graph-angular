@@ -58,7 +58,7 @@
                     <button mat-button class="primaryColorBG" style="margin-top: 10px; margin-bottom: 15px;"
                     *ngIf="describeHash[describeGraph].showExtra[describeProperty] == true"
                     (click)="describeHash[describeGraph].showExtra[describeProperty] = false">
-                      Hide extra statements
+                      Hide {{describeHash[describeGraph].asSubjectExtra[describeProperty].length}} statements
                     </button>
                     <div *ngIf="describeHash[describeGraph].showExtra[describeProperty] == true">
                       <h4 style="margin-left: 15px; margin-bottom: 2px;"
@@ -100,7 +100,7 @@
                     <button mat-button class="primaryColorBG" style="margin-top: 10px; margin-bottom: 15px;"
                     *ngIf="describeHash[describeGraph].showExtra[describeSubject] == true"
                     (click)="describeHash[describeGraph].showExtra[describeSubject] = false">
-                      Hide extra statements
+                      Hide {{describeHash[describeGraph].asPredicateExtra[describeSubject].length}} statements
                     </button>
                     <div *ngIf="describeHash[describeGraph].showExtra[describeSubject] == true">
                       <h4 style="margin-left: 10px; margin-bottom: 2px;"
@@ -136,7 +136,7 @@
                     <button mat-button class="primaryColorBG" style="margin-top: 10px; margin-bottom: 15px;"
                     *ngIf="describeHash[describeGraph].showExtra[describeProperty] == true"
                     (click)="describeHash[describeGraph].showExtra[describeProperty] = false">
-                      Hide extra statements
+                      Hide {{describeHash[describeGraph].asObjectExtra[describeProperty].length}} statements
                     </button>
                     <div *ngIf="describeHash[describeGraph].showExtra[describeProperty] == true">
                       <h4 style="text-align: right; padding-right: 20px; margin-bottom: 2px;"
