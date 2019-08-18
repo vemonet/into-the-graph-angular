@@ -4,7 +4,6 @@ import { MatSort } from '@angular/material';
 
 import { DatasetsInfoService } from '../../datasets-info.service';
 import { SparqlService } from '../../sparql.service';
-import { DataTablesModule } from 'angular-datatables';
 
 @Component({
   selector: 'app-dataset-details',
