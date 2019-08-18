@@ -16,7 +16,7 @@ export class DatasetDetailsComponent implements OnInit {
   private datasetId: string;
   public datasetStatSparqlResultArray: any;
   public entitiesRelationSparqlResultArray: any;
-  dtOptions: DataTables.Settings = {pageLength: 20};
+  dtOptions: DataTables.Settings = {pageLength: 15};
 
   constructor(
     private route: ActivatedRoute,
