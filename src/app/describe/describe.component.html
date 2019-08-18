@@ -1,11 +1,11 @@
 <div class="mainLayout" fxLayout="row" fxLayoutAlign="center">
-  <div fxLayout="column" fxFlex="70%" fxFlex.xs="100%" fxLayoutWrap fxLayoutGap="1.5%" style="text-align: left;"
+  <div fxLayout="column" fxFlex="70%" fxFlex.xs="100%" fxLayoutWrap fxLayoutGap="1.5%"
   *ngIf="describeHash != undefined">
+
     <h1 class="mat-display-1" style="text-align:center; padding-top: 20px; padding-bottom: 20px;"
     [innerHTML]="sparql.getUrlHtml(uriToDescribe)">
     </h1>
 
-    <!-- style="max-width: 140px;" -->
     <div fxFlex fxLayoutAlign="end start">
       <button mat-raised-button class="primaryColorBG hoverBtn" *ngIf="allExpanded == false"
       (click)="accordion.openAll(); allExpanded = true">
@@ -19,7 +19,6 @@
       </button>
     </div>
 
-    <!-- class="mat-elevation-z8" -->
     <mat-accordion [multi]="true" #accordion="matAccordion">
 
       <mat-expansion-panel [expanded]="true" class="mat-elevation-z3"
@@ -161,6 +160,7 @@
         </mat-tab-group>
       </mat-expansion-panel>
 
+      <!-- As a graph -->
       <mat-expansion-panel [expanded]="true" class="mat-elevation-z3"
       *ngIf="graphClasses.length > 0">
         <mat-expansion-panel-header class="greyColorBG">
@@ -175,6 +175,7 @@
         [innerHTML]="sparql.getUrlHtml(graphClass)"
         *ngFor="let graphClass of graphClasses"></h3>
       </mat-expansion-panel>
+
     </mat-accordion>
   </div>
 </div>
