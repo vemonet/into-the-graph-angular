@@ -23,6 +23,10 @@
           <td [innerHTML]="row.source.value">
           </td>
           <td [innerHTML]="row.dateGenerated.value">
+            <!-- To handlethe date:
+              const dateGenerated: Date = new Date(sparqlResultRow.dateGenerated.value);
+              this.datasetsInfo.hashAll[datasetId].displayDateGenerated = dateGenerated.getFullYear() + '-'
+              + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString(); -->
           </td>
           <td [innerHTML]="row.statements.value">
           </td>

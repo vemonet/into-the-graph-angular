@@ -133,17 +133,15 @@ export class SparqlService {
           const dateGenerated: Date = new Date(sparqlResultRow.dateGenerated.value);
           this.datasetsInfo.hashAll[datasetId].displayDateGenerated = dateGenerated.getFullYear() + '-'
             + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
-          // TO REMOVE: if (this.datasetsInfo.hashAll[datasetId].relationsArray == null) {
-          //  this.datasetsInfo.hashAll[datasetId].relationsArray = [];
-          //}
         });
 
         // Get relations for each dataset
         this.http.get(this.sparqlEndpoint, { params: relationSparqlHttpParams, headers: httpHeaders})
           .subscribe(relationData => {
             this.datasetsInfo.entitiesRelationSparqlResultArray = relationData['results']['bindings'];
+
             this.datasetsInfo.entitiesRelationSparqlResultArray.forEach((sparqlResultRow: any, index: number) => {
-              const datasetId = sparqlResultRow.source.value;
+              // Required for cytoscape:
               this.datasetsInfo.hashAll[datasetId].relationsArray.push({
                 classCount1: sparqlResultRow.classCount1,
                 class1: sparqlResultRow.class1,
@@ -156,31 +154,13 @@ export class SparqlService {
             // Now generate array and tables for overview and relations from hash to avoid duplicates
             this.datasetsInfo.arrayDatasetsNav = Object.keys(this.datasetsInfo.hashAll);
             this.datasetsInfo.datasets = [];
-            const tableArr: Element[] = [];
             for (const key in this.datasetsInfo.hashAll) {
               if (this.datasetsInfo.hashAll.hasOwnProperty(key)) {
                 // Add dataset hash to an array of datasets (to have array and hash available)
                 this.datasetsInfo.datasets.push(this.datasetsInfo.hashAll[key]);
-                // Generate the array for datasets details tables
-                tableArr.push({ datasetId: this.datasetsInfo.hashAll[key].source.value,
-                  dateGenerated: this.datasetsInfo.hashAll[key].displayDateGenerated,
-                  triples: this.datasetsInfo.hashAll[key].statements.value,
-                  entities: this.datasetsInfo.hashAll[key].entities.value,
-                  properties: this.datasetsInfo.hashAll[key].properties.value,
-                  classes: this.datasetsInfo.hashAll[key].classes.value
-                });
-                const relationsArr: RelationElement[] = [];
                 let relationCount = 0;
                 this.datasetsInfo.hashAll[key].ngxGraph = {nodes: [], edges: []};
                 this.datasetsInfo.hashAll[key].relationsArray.forEach( (element) => {
-                  // Generate the array for datasets relations tables
-                  relationsArr.push({
-                    classCount1: element.classCount1.value,
-                    class1: this.shortenUri(element.class1.value),
-                    relationWith: this.shortenUri(element.relationWith.value),
-                    class2: this.shortenUri(element.class2.value),
-                    classCount2: element.classCount2.value
-                  });
                   // Generate the hash for the ngx-graph (lots of logs)
                   // console.log('hashes:');
                   // console.log(this.cleanUrl(element.class1.value));
@@ -214,38 +194,14 @@ export class SparqlService {
                     );
                   }
                 });
-                this.datasetsInfo.hashAll[key].relationsTableDataSource = new MatTableDataSource(relationsArr);
-                // this.datasetsInfo.datasetSelected.relationsTableDataSource = new MatTableDataSource(relationsArr);
-                if (detailComponent != null) {
-                  // this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
-                  console.log('detailComponent:');
-                  console.log(detailComponent);
-                  // console.log(detailComponent.sortRelations);
-                  // this.datasetsInfo.datasetSelected.relationsTableDataSource.sort = detailComponent['sortRelations'];
-
-                  // This one should work but says detailComponent is undefined:
-                  // this.datasetsInfo.hashAll[key].relationsTableDataSource.sortRelations = detailComponent.sortRelations;
-                  // this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
-                  this.datasetsInfo.hashAll[key].relationsTableDataSource.sort = detailComponent.sort;
-                }
               }
             }
             if (datasetId != null) {
               this.datasetsInfo.datasetSelected = this.datasetsInfo.hashAll[datasetId];
             }
-            this.datasetsInfo.datasetsTableDataSource = new MatTableDataSource(tableArr);
-            // Sort for overview and define selected dataset if a dataset has been selected
-            if (overviewComponent != null) {
-              console.log('overviewComponent:');
-              console.log(overviewComponent);
-              console.log(overviewComponent.sort);
-              this.datasetsInfo.datasetsTableDataSource.sort = overviewComponent.sort;
-            }
             console.log('After getting the SPARQL query in sparql.service. datasetsInfo:');
             console.log(this.datasetsInfo);
             // Just for DataTable (clean required in previous code):
-            return {entitiesRelations: this.datasetsInfo.entitiesRelationSparqlResultArray,
-              datasetStats: this.datasetsInfo.datasetStatSparqlResultArray};
           });
       });
   }
@@ -285,8 +241,6 @@ export class SparqlService {
     // Execute SPARQL query using HTTP GET
     return this.http.get(this.sparqlEndpoint, { params: describeSparqlHttpParams, headers: httpHeaders});
   }
-
-
 
   private cleanUrl(urlToClean: string) {
     return urlToClean.replace(/\//gi, '').replace(':', '');
