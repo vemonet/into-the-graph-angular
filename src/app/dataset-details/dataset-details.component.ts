@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { MatSort } from '@angular/material';
 
 import { DatasetsInfoService } from '../../datasets-info.service';
 import { SparqlService } from '../../sparql.service';
@@ -19,30 +18,6 @@ export class DatasetDetailsComponent implements OnInit {
   public datasetStatSparqlResultArray: any;
   public entitiesRelationSparqlResultArray: any;
 
-  displayedColumns = [];
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatSort) set matSort(ms: MatSort) {
-    this.sort = ms;
-  }
-
-  // Example
-  graphData = {
-      nodes: [
-          {data: {id: 'j', name: 'Jerry', faveColor: '#6FB1FC', faveShape: 'triangle'}},
-          {data: {id: 'e', name: 'Elaine', faveColor: '#EDA1ED', faveShape: 'ellipse'}},
-          {data: {id: 'k', name: 'Kramer', faveColor: '#86B342', faveShape: 'octagon'}},
-          {data: {id: 'g', name: 'George', faveColor: '#F5A45D', faveShape: 'rectangle'}}
-      ],
-      edges: [
-          {data: {source: 'j', target: 'e', faveColor: '#6FB1FC'}},
-          {data: {source: 'j', target: 'k', faveColor: '#6FB1FC'}},
-          {data: {source: 'j', target: 'g', faveColor: '#6FB1FC'}},
-          {data: {source: 'e', target: 'j', faveColor: '#EDA1ED'}},
-          {data: {source: 'e', target: 'k', faveColor: '#EDA1ED'}}
-      ]
-  };
-
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -50,17 +25,8 @@ export class DatasetDetailsComponent implements OnInit {
     private sparql: SparqlService,
     private datasetsInfo: DatasetsInfoService) { }
 
-  columnNames = [
-    { id: 'classCount1', value: '# of instance of subject' },
-    { id: 'class1', value: 'Subject class' },
-    { id: 'relationWith', value: 'Have relation with' },
-    { id: 'class2', value: 'Object class' },
-    { id: 'classCount2', value: '# of instance of object' }];
-
   ngOnInit() {
     this.datasetId = this.route.snapshot.paramMap.get('datasetId');
-    this.displayedColumns = this.columnNames.map(x => x.id);
-    console.log('before ngOnInit dataset-detail. getNavigatedData:');
 
     // TO REMOVE asap
     this.sparql.getAllDatasetsInfo(null, this, this.datasetId);
@@ -125,6 +91,22 @@ export class DatasetDetailsComponent implements OnInit {
     this.datasetsInfo.datasetSelected.relationsTableDataSource.filter = filterValue.trim().toLowerCase();
   }
 }
+
+// Example cytoscape graph data
+// graphData = {
+// nodes: [
+//     {data: {id: 'j', name: 'Jerry', faveColor: '#6FB1FC', faveShape: 'triangle'}},
+//     {data: {id: 'e', name: 'Elaine', faveColor: '#EDA1ED', faveShape: 'ellipse'}},
+//     {data: {id: 'k', name: 'Kramer', faveColor: '#86B342', faveShape: 'octagon'}},
+//     {data: {id: 'g', name: 'George', faveColor: '#F5A45D', faveShape: 'rectangle'}}
+// ],
+// edges: [
+//     {data: {source: 'j', target: 'e', faveColor: '#6FB1FC'}},
+//     {data: {source: 'j', target: 'k', faveColor: '#6FB1FC'}},
+//     {data: {source: 'j', target: 'g', faveColor: '#6FB1FC'}},
+//     {data: {source: 'e', target: 'j', faveColor: '#EDA1ED'}},
+//     {data: {source: 'e', target: 'k', faveColor: '#EDA1ED'}}
+// ]};
 
 // Trying to get data through the router to avoid doing useless calls:
 // this.route

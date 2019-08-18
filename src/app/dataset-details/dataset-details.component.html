@@ -2,13 +2,11 @@
 *ngIf="entitiesRelationSparqlResultArray != undefined">
   <div class="container"  fxLayout="column" fxFlex="70%" fxFlex.xs="100%" fxLayoutWrap fxLayoutGap="1.5%" style="text-align: left;">
 
-<!-- <div class="mainLayout" style="text-align: left;" fxLayout="column" fxLayoutWrap
-*ngIf="datasetsInfo.datasetSelected != undefined"> -->
-<!-- <div class="mainLayout" style="text-align: left;" fxLayout="column" fxLayoutWrap> -->
     <h1 class="mat-display-1" style="text-align: center; padding-bottom: 15px">
       {{ datasetsInfo.datasetSelected.source.value }}
     </h1>
 
+    <!-- Display descriptive statements about the graph (description, creation date, homepage) -->
     <mat-card class="mat-elevation-z8">
       {{ datasetsInfo.datasetSelected.description.value }}
       <p style="margin-top: 15px;">
@@ -22,7 +20,7 @@
       </p>
     </mat-card>
 
-    <!-- <div fxLayout="row" fxFlex.md="70" fxLayoutWrap class="card-deck-container mat-elevation-z4"> -->
+    <!-- Display stats about the graph (count of statements, entities, properties, classes) -->
     <div fxLayout="row" fxLayoutWrap>
       <div fxFlex *ngFor="let countInGraph of ['statements', 'entities', 'properties', 'classes']" class="card-item">
         <mat-card class="mat-elevation-z8">
@@ -34,36 +32,35 @@
       </div>
     </div>
 
-    <mat-card class="mat-elevation-z8">
-        <mat-card class="mat-elevation-z6">
-            <table id="entitiesRelationTable" datatable class="row-border hover">
-              <thead>
-                <tr>
-                  <th># of instance of subject</th>
-                  <th>Subject class</th>
-                  <th>Have relation with</th>
-                  <th>Object class</th>
-                  <th># of instance of object</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let row of entitiesRelationSparqlResultArray">
-                  <td>
-                    {{row.classCount1.value}}
-                  </td>
-                  <td [innerHTML]="sparql.getUrlHtml(row.class1.value)">
-                  </td>
-                  <td [innerHTML]="sparql.getUrlHtml(row.relationWith.value)">
-                  </td>
-                  <td [innerHTML]="sparql.getUrlHtml(row.class2.value)">
-                  </td>
-                  <td>
-                    {{row.classCount2.value}}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </mat-card>
+    <!-- Table of entities and their relations in the graph -->
+    <mat-card class="mat-elevation-z6">
+      <table id="entitiesRelationTable" datatable class="row-border hover">
+        <thead>
+          <tr>
+            <th># of instance of subject</th>
+            <th>Subject class</th>
+            <th>Have relation with</th>
+            <th>Object class</th>
+            <th># of instance of object</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of entitiesRelationSparqlResultArray">
+            <td>
+              {{row.classCount1.value}}
+            </td>
+            <td [innerHTML]="sparql.getUrlHtml(row.class1.value)">
+            </td>
+            <td [innerHTML]="sparql.getUrlHtml(row.relationWith.value)">
+            </td>
+            <td [innerHTML]="sparql.getUrlHtml(row.class2.value)">
+            </td>
+            <td>
+              {{row.classCount2.value}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </mat-card>
 
     <mat-card style="margin-top: 15px; height: 500px;">
