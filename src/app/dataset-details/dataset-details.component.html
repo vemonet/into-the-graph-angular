@@ -12,10 +12,10 @@
     <mat-card class="mat-elevation-z8">
       {{ datasetsInfo.datasetSelected.description.value }}
       <p style="margin-top: 15px;">
-        Generated on: {{datasetsInfo.datasetSelected.displayDateGenerated}}
+        <i>Generated on:</i> {{datasetsInfo.datasetSelected.displayDateGenerated}}
       </p>
       <p>
-        Homepage: <a href="{{datasetsInfo.datasetSelected.homepage.value}}">{{datasetsInfo.datasetSelected.homepage.value}}</a>
+        <i>Homepage: </i><a href="{{datasetsInfo.datasetSelected.homepage.value}}">{{datasetsInfo.datasetSelected.homepage.value}}</a>
       </p>
     </mat-card>
 
