@@ -56,7 +56,7 @@ export class SparqlService {
             dct:description ?description ;
             foaf:page ?homepage ;
             idot:preferredPrefix ?source .
-          ?version dct:isVersionOf ?dataset ; 
+          ?version dct:isVersionOf ?dataset ;
             dcat:distribution ?rdfDistribution .
           ?rdfDistribution a void:Dataset ;
             dcat:accessURL ?graph ;
@@ -142,7 +142,7 @@ export class SparqlService {
         this.http.get(this.sparqlEndpoint, { params: relationSparqlHttpParams, headers: httpHeaders})
           .subscribe(relationData => {
             this.datasetsInfo.entitiesRelationSparqlResultArray = relationData['results']['bindings'];
-            relationData['results']['bindings'].forEach((sparqlResultRow: any, index: number) => {
+            this.datasetsInfo.entitiesRelationSparqlResultArray.forEach((sparqlResultRow: any, index: number) => {
               const datasetId = sparqlResultRow.source.value;
               this.datasetsInfo.hashAll[datasetId].relationsArray.push({
                 classCount1: sparqlResultRow.classCount1,
@@ -249,6 +249,7 @@ export class SparqlService {
           });
       });
   }
+
 
   describeUri(uriToDescribe: string) {
     console.log('DescribeURI: ' + uriToDescribe);

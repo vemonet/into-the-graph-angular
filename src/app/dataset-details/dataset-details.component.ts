@@ -12,7 +12,9 @@ import { SparqlService } from '../../sparql.service';
 })
 export class DatasetDetailsComponent implements OnInit {
 
-  sparqlResultArrays: any;
+  // sparqlResultArrays: any;
+  // public datasetStatSparqlResultArray: any;
+  // public entitiesRelationSparqlResultArray: any;
 
   displayedColumns = [];
   @ViewChild(MatSort) sort: MatSort;
@@ -20,6 +22,7 @@ export class DatasetDetailsComponent implements OnInit {
     this.sort = ms;
   }
 
+  // Example
   graphData = {
       nodes: [
           {data: {id: 'j', name: 'Jerry', faveColor: '#6FB1FC', faveShape: 'triangle'}},
@@ -53,22 +56,8 @@ export class DatasetDetailsComponent implements OnInit {
   ngOnInit() {
     this.displayedColumns = this.columnNames.map(x => x.id);
     console.log('before ngOnInit dataset-detail. getNavigatedData:');
-    // Trying to get data through the router to avoid doing useless calls:
-    // this.route
-    //   .data
-    //   .subscribe(v => this.datasetsInfo = v.datasetsInfo);
-    // const navigatedData = this.router.getNavigatedData();
-    // console.log(navigatedData);
-    // if (navigatedData == null) {
-    //   // Execute SPARQL query to get datasets infos
-    //   console.log('no navigatedData. execute sparql');
-    //   this.sparql.getAllDatasetsInfo(null, this, this.route.snapshot.paramMap.get('datasetId'));
-    // } else {
-    //   // Get datasets infos from data passed through router
-    //   this.datasetsInfo = navigatedData;
-    // }
 
-    this.sparqlResultArrays = this.sparql.getAllDatasetsInfo(null, this, this.route.snapshot.paramMap.get('datasetId'));
+    this.sparql.getAllDatasetsInfo(null, this, this.route.snapshot.paramMap.get('datasetId'));
 
     if (this.datasetsInfo.datasetSelected !== undefined) {
       this.datasetsInfo.datasetSelected.relationsTableDataSource.sort = this.sort;
@@ -84,3 +73,18 @@ export class DatasetDetailsComponent implements OnInit {
     this.datasetsInfo.datasetSelected.relationsTableDataSource.filter = filterValue.trim().toLowerCase();
   }
 }
+
+// Trying to get data through the router to avoid doing useless calls:
+// this.route
+//   .data
+//   .subscribe(v => this.datasetsInfo = v.datasetsInfo);
+// const navigatedData = this.router.getNavigatedData();
+// console.log(navigatedData);
+// if (navigatedData == null) {
+//   // Execute SPARQL query to get datasets infos
+//   console.log('no navigatedData. execute sparql');
+//   this.sparql.getAllDatasetsInfo(null, this, this.route.snapshot.paramMap.get('datasetId'));
+// } else {
+//   // Get datasets infos from data passed through router
+//   this.datasetsInfo = navigatedData;
+// }
