@@ -24,7 +24,7 @@
 
       <mat-expansion-panel [expanded]="true" class="mat-elevation-z3"
       *ngFor="let describeGraph of Object.keys(describeHash)">
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header class="greyColorBG">
           <div fxLayout="column" fxFlex style="text-align: center; margin-top: 15px;">
             <span class="mat-headline" [innerHTML]="sparql.getUrlHtml(describeGraph)">
             </span>
@@ -163,7 +163,7 @@
 
       <mat-expansion-panel [expanded]="true" class="mat-elevation-z3"
       *ngIf="graphClasses.length > 0">
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header class="greyColorBG">
           <div fxLayout="column" fxFlex style="text-align: center; margin-top: 15px;">
             <span class="mat-headline">
               As a graph (classes)

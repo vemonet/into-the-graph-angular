@@ -20,6 +20,15 @@ $theme: mat-light-theme($primary, $accent, $warn);
   background-color: mat-color($primary);
   color: white;
 }
+.greyColorBG {
+  background-color: #f5f5f5;
+}
+.greyColorBG:hover {
+  background-color: #f5f5f5 !important;
+}
+.greyColorBG:focus {
+  background-color: #f5f5f5 !important;
+}
 
 // No other way to change describe page URLs style
 a.describeUrl {
