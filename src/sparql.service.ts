@@ -175,9 +175,9 @@ export class SparqlService {
                   // Generate the array for datasets relations tables
                   relationsArr.push({
                     classCount1: element.classCount1.value,
-                    class1: element.class1.value,
-                    relationWith: element.relationWith.value,
-                    class2: element.class2.value,
+                    class1: this.shortenUri(element.class1.value),
+                    relationWith: this.shortenUri(element.relationWith.value),
+                    class2: this.shortenUri(element.class2.value),
                     classCount2: element.classCount2.value
                   });
                   // Generate the hash for the ngx-graph
@@ -301,15 +301,15 @@ export class SparqlService {
     return urlToRender;
   }
 
-  // only resolve URI namespace to use a prefix (to factorise)
-  // public shortenUri(uriToShorten: string) {
-  //   for (const prefix in this.prefixRegistry) {
-  //     if (uriToShorten.startsWith(this.prefixRegistry[prefix])) {
-  //       return uriToShorten.replace(this.prefixRegistry[prefix], prefix + ':');
-  //     }
-  //   }
-  //   return uriToShorten;
-  // }
+  // Only resolve URI namespace to use a prefix (to factorise)
+  public shortenUri(uriToShorten: string) {
+    for (const prefix in this.prefixRegistry) {
+      if (uriToShorten.startsWith(this.prefixRegistry[prefix])) {
+        return uriToShorten.replace(this.prefixRegistry[prefix], prefix + ':');
+      }
+    }
+    return uriToShorten;
+  }
 }
 
 export interface Element {
