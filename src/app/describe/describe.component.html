@@ -9,10 +9,11 @@
     <mat-accordion [multi]="true">
       <mat-expansion-panel [expanded]="true" class="mat-elevation-z6"
       *ngFor="let describeGraph of Object.keys(describeHash)">
-        <mat-expansion-panel-header style="text-align: center;">
-          <mat-panel-title style="margin-bottom: 30px;" style="text-decoration: none; color: black;"
-          [innerHTML]="sparql.getUrlHtml(describeGraph)">
-          </mat-panel-title>
+        <mat-expansion-panel-header>
+          <div fxLayout="column" fxFlex style="text-align: center; margin-top: 15px;">
+            <span class="mat-headline" [innerHTML]="sparql.getUrlHtml(describeGraph)">
+            </span>
+          </div>
         </mat-expansion-panel-header>
 
         <mat-tab-group>
