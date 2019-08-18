@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { DatasetsInfoService } from '../../datasets-info.service';
 import { SparqlService } from '../../sparql.service';
@@ -99,6 +99,13 @@ export class DatasetsOverviewComponent implements OnInit {
     this.http.get(this.sparql.sparqlEndpoint, { params: datasetSparqlHttpParams, headers: this.sparql.httpHeaders})
       .subscribe(data => {
         this.datasetStatSparqlResultArray = data['results']['bindings'];
+
+        // Format date to be readable
+        this.datasetStatSparqlResultArray.forEach(sparqlResultRow => {
+          const dateGenerated: Date = new Date(sparqlResultRow.dateGenerated.value);
+          sparqlResultRow.dateGenerated.value = dateGenerated.getFullYear() + '-'
+          + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
+        });
 
         console.log('Data about datasets stats retrieved:');
         console.log(this.datasetStatSparqlResultArray );
