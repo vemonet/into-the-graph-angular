@@ -1,20 +1,21 @@
 <div class="mainLayout" fxLayout="row" fxLayoutAlign="center">
-  <div class="container"  fxLayout="column" fxFlex="70%" fxFlex.xs="100%" fxLayoutWrap fxLayoutGap="3%" style="text-align: left;"
+  <div class="container"  fxLayout="column" fxFlex="70%" fxFlex.xs="100%" fxLayoutWrap fxLayoutGap="1.5%" style="text-align: left;"
   *ngIf="datasetsInfo.datasetSelected != undefined">
 
 <!-- <div class="mainLayout" style="text-align: left;" fxLayout="column" fxLayoutWrap
 *ngIf="datasetsInfo.datasetSelected != undefined"> -->
 <!-- <div class="mainLayout" style="text-align: left;" fxLayout="column" fxLayoutWrap> -->
-    <h1 class="mat-display-1">
+    <h1 class="mat-display-1" style="text-align: center; padding-bottom: 15px">
       {{ datasetsInfo.datasetSelected.source.value }}
     </h1>
-    <mat-card class="mat-elevation-z8" style="margin-bottom: 20px;">
+
+    <mat-card class="mat-elevation-z8">
       {{ datasetsInfo.datasetSelected.description.value }}
       <p style="margin-top: 15px;">
-        <b>Generated on: </b>{{datasetsInfo.datasetSelected.displayDateGenerated}}
+        Generated on: {{datasetsInfo.datasetSelected.displayDateGenerated}}
       </p>
       <p>
-        <b>Homepage: </b><a href="{{datasetsInfo.datasetSelected.homepage.value}}">{{datasetsInfo.datasetSelected.homepage.value}}</a>
+        Homepage: <a href="{{datasetsInfo.datasetSelected.homepage.value}}">{{datasetsInfo.datasetSelected.homepage.value}}</a>
       </p>
     </mat-card>
 
@@ -30,7 +31,7 @@
       </div>
     </div>
 
-    <mat-card class="mat-elevation-z8" style="margin-top: 15px;">
+    <mat-card class="mat-elevation-z8">
       <mat-form-field>
         <input matInput (keyup)="applyFilterRelationsTable($event.target.value)" placeholder="Filter">
       </mat-form-field>
