@@ -5,8 +5,11 @@
     [innerHTML]="sparql.getUrlHtml(uriToDescribe)">
     </h1>
 
+    <button *ngIf="allExpanded == false" (click)="accordion.openAll(); allExpanded = true">Expand All </button>
+    <button *ngIf="allExpanded == true" (click)="accordion.closeAll(); allExpanded = false">Collapse All </button>
+
     <!-- class="mat-elevation-z8" -->
-    <mat-accordion [multi]="true">
+    <mat-accordion [multi]="true" #accordion="matAccordion">
       <mat-expansion-panel [expanded]="true" class="mat-elevation-z3"
       *ngFor="let describeGraph of Object.keys(describeHash)">
         <mat-expansion-panel-header>

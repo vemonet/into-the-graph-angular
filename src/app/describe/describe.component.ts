@@ -13,6 +13,7 @@ export class DescribeComponent implements OnInit {
   Object = Object; // To iterate over hash in html
   uriToDescribe: string;
   describeHash: {};
+  allExpanded = true;
 
   constructor(
     private activatedRoute: ActivatedRoute,
