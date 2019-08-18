@@ -1,12 +1,25 @@
 <div class="mainLayout" fxLayout="row" fxLayoutAlign="center">
-  <div fxLayout="column" fxFlex="70%" fxFlex.xs="100%" fxLayoutWrap fxLayoutGap="3%" style="text-align: left;"
+  <div fxLayout="column" fxFlex="70%" fxFlex.xs="100%" fxLayoutWrap fxLayoutGap="1.5%" style="text-align: left;"
   *ngIf="describeHash != undefined">
     <h1 class="mat-display-1" style="text-align:center; padding-top: 20px; padding-bottom: 20px;"
     [innerHTML]="sparql.getUrlHtml(uriToDescribe)">
     </h1>
 
-    <button *ngIf="allExpanded == false" (click)="accordion.openAll(); allExpanded = true">Expand All </button>
-    <button *ngIf="allExpanded == true" (click)="accordion.closeAll(); allExpanded = false">Collapse All </button>
+    <!-- style="max-width: 140px;" -->
+    <div fxFlex fxLayoutAlign="end start">
+      <button mat-raised-button class="primaryColorBG" *ngIf="allExpanded == false"
+      (click)="accordion.openAll(); allExpanded = true"
+      [ngClass]="{'mat-elevation-z6':hoverExpand}" (mouseover)="hoverExpand=true" (mouseout)="hoverExpand=false">
+        <mat-icon mat-list-icon>expand_more</mat-icon>
+        Expand All
+      </button>
+      <button mat-raised-button class="primaryColorBG" *ngIf="allExpanded == true"
+      (click)="accordion.closeAll(); allExpanded = false"
+      [ngClass]="{'mat-elevation-z6':hoverExpand}" (mouseover)="hoverExpand=true" (mouseout)="hoverExpand=false">
+        <mat-icon mat-list-icon>expand_less</mat-icon>
+        Collapse All
+      </button>
+    </div>
 
     <!-- class="mat-elevation-z8" -->
     <mat-accordion [multi]="true" #accordion="matAccordion">
