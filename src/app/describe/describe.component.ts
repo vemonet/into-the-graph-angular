@@ -12,7 +12,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 export class DescribeComponent implements OnInit {
   Object = Object; // To iterate over hash in html
   uriToDescribe: string;
-  describeHash: {};
+  describeHash = {};
+  graphClasses = [];
   allExpanded = true;
 
   constructor(
@@ -28,7 +29,6 @@ export class DescribeComponent implements OnInit {
     this.sparql.describeUri(this.uriToDescribe)
       .subscribe(data => {
         const sparqlResultArray = data['results']['bindings'];
-        this.describeHash = {};
 
         // Build describe object
         // {graph1: {asSubject: {property1: [object1, object2]}, asObject: {property1: [subject1]}}}
@@ -96,9 +96,16 @@ export class DescribeComponent implements OnInit {
             }
             this.describeHash[sparqlResultRow.graph.value].asPredicateCount++;
           }
+
+          // Only get classes for the graph
+          if (!('graph' in sparqlResultRow)) {
+            this.graphClasses.push(sparqlResultRow.object.value);
+          }
         });
         console.log('describe object:');
         console.log(this.describeHash);
+        console.log('describe classes as graph:');
+        console.log(this.graphClasses);
       });
   }
 
