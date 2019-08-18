@@ -24,10 +24,11 @@ export class DatasetsInfoService {
     if (dataset == ''){
       urlPath = '';
     }
-
-    // Keep only the info of the selected dataset
-    this.datasetSelected = this.datasets.filter(
-      datasetFilter => datasetFilter.source.value === dataset)[0];
+    if (this.datasets != null) {
+      // Keep only the info of the selected dataset
+      this.datasetSelected = this.datasets.filter(
+        datasetFilter => datasetFilter.source.value === dataset)[0];
+    }
 
     this.router.navigateByData({
       url: [urlPath],

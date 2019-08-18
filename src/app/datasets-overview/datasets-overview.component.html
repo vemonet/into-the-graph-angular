@@ -20,7 +20,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of datasetStatSparqlResultArray">
+        <tr *ngFor="let row of datasetStatSparqlResultArray"
+        (click)="datasetsInfo.navigateTo(row.source.value)">
           <td [innerHTML]="row.source.value">
           </td>
           <td [innerHTML]="row.dateGenerated.value">
@@ -38,7 +39,7 @@
     </table>
   </mat-card>
 
-  <h1 class="mat-display-1" style="padding-bottom: 15px; padding-top: 60px;">
+  <h1 class="mat-display-1" style="padding-bottom: 15px; padding-top: 90px;">
     Explore ncats-red-kg entities and relations
   </h1>
   
