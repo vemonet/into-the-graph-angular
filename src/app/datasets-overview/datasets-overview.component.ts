@@ -69,7 +69,7 @@ export class DatasetsOverviewComponent implements OnInit, AfterViewInit {
             dct:description ?description ;
             foaf:page ?homepage ;
             idot:preferredPrefix ?source .
-          ?version dct:isVersionOf ?dataset ; 
+          ?version dct:isVersionOf ?dataset ;
             dcat:distribution ?rdfDistribution .
           ?rdfDistribution a void:Dataset ;
             dcat:accessURL ?graph ;
@@ -101,7 +101,7 @@ export class DatasetsOverviewComponent implements OnInit, AfterViewInit {
         GRAPH ?g {
           ?dataset a dctypes:Dataset ;
             idot:preferredPrefix ?source .
-          ?version dct:isVersionOf ?dataset ; 
+          ?version dct:isVersionOf ?dataset ;
             dcat:distribution ?rdfDistribution .
           ?rdfDistribution a void:Dataset ;
             dcat:accessURL ?graph .
