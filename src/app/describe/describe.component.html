@@ -8,14 +8,12 @@
     <!-- style="max-width: 140px;" -->
     <div fxFlex fxLayoutAlign="end start">
       <button mat-raised-button class="primaryColorBG hoverBtn" *ngIf="allExpanded == false"
-      (click)="accordion.openAll(); allExpanded = true"
-      [ngClass]="{'mat-elevation-z6':hoverExpand}" (mouseover)="hoverExpand=true" (mouseout)="hoverExpand=false">
+      (click)="accordion.openAll(); allExpanded = true">
         <mat-icon mat-list-icon>expand_more</mat-icon>
         Expand All
       </button>
       <button mat-raised-button class="primaryColorBG hoverBtn" *ngIf="allExpanded == true"
-      (click)="accordion.closeAll(); allExpanded = false"
-      [ngClass]="{'mat-elevation-z6':hoverExpand}" (mouseover)="hoverExpand=true" (mouseout)="hoverExpand=false">
+      (click)="accordion.closeAll(); allExpanded = false">
         <mat-icon mat-list-icon>expand_less</mat-icon>
         Collapse All
       </button>
