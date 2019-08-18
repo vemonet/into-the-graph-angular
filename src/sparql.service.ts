@@ -13,6 +13,9 @@ export class SparqlService {
 
   // TODO: make it a parameter
   public sparqlEndpoint: string = 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg';
+  public httpHeaders = new HttpHeaders({
+    'Content-type': 'application/x-www-form-urlencoded'
+  });
 
   public prefixRegistry = {
     bl: 'http://w3id.org/biolink/vocab/',
@@ -31,11 +34,6 @@ export class SparqlService {
   // class too big, only used in datasets details now
   getAllDatasetsInfo(overviewComponent: any, detailComponent: any, datasetId: string) {
     console.log('getAllDatasetsInfo (execute SPARQL query)');
-
-    const httpHeaders = new HttpHeaders({
-      'Content-type': 'application/x-www-form-urlencoded'
-      //'Accept': 'application/json'
-    });
 
     // Define SPARQL query to retrieve informations on datasets
     const datasetSparqlHttpParams = new HttpParams()
@@ -107,7 +105,7 @@ export class SparqlService {
       .set('format', 'json');
 
     // Execute SPARQL query using HTTP GET
-    this.http.get(this.sparqlEndpoint, { params: datasetSparqlHttpParams, headers: httpHeaders})
+    this.http.get(this.sparqlEndpoint, { params: datasetSparqlHttpParams, headers: this.httpHeaders})
       .subscribe(data => {
         this.datasetsInfo.datasetStatSparqlResultArray = data['results']['bindings'];
         this.datasetsInfo.hashAll = {};
@@ -136,7 +134,7 @@ export class SparqlService {
         });
 
         // Get relations for each dataset
-        this.http.get(this.sparqlEndpoint, { params: relationSparqlHttpParams, headers: httpHeaders})
+        this.http.get(this.sparqlEndpoint, { params: relationSparqlHttpParams, headers: this.httpHeaders})
           .subscribe(relationData => {
             this.datasetsInfo.entitiesRelationSparqlResultArray = relationData['results']['bindings'];
 

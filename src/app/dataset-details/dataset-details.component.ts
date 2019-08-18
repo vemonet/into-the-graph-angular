@@ -35,10 +35,6 @@ export class DatasetDetailsComponent implements OnInit {
   }
 
   getDatasetData(datasetId: string) {
-    const httpHeaders = new HttpHeaders({
-      'Content-type': 'application/x-www-form-urlencoded'
-    });
-
     const relationSparqlHttpParams = new HttpParams()
       .set('query', `PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
       PREFIX dct: <http://purl.org/dc/terms/>
@@ -74,7 +70,7 @@ export class DatasetDetailsComponent implements OnInit {
       .set('format', 'json');
 
     // Get relations for each dataset
-    this.http.get(this.sparql.sparqlEndpoint, { params: relationSparqlHttpParams, headers: httpHeaders})
+    this.http.get(this.sparql.sparqlEndpoint, { params: relationSparqlHttpParams, headers: this.sparql.httpHeaders})
       .subscribe(relationData => {
         this.entitiesRelationSparqlResultArray = relationData['results']['bindings'];
         console.log('Data about entities relations retrieved:');
