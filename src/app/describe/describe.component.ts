@@ -36,7 +36,8 @@ export class DescribeComponent implements OnInit {
           if (!('subject' in sparqlResultRow)) {
             if (!(sparqlResultRow.graph.value in this.describeHash)) {
               this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
-              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: {}};
+              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: {},
+              asSubjectCount: 0, asPredicateCount: 0, asObjectCount: 0};
             }
             if (!(sparqlResultRow.predicate.value in this.describeHash[sparqlResultRow.graph.value].asSubject)) {
               this.describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value] = [];
@@ -50,13 +51,15 @@ export class DescribeComponent implements OnInit {
               this.describeHash[sparqlResultRow.graph.value].asSubjectExtra[sparqlResultRow.predicate.value]
               .push(sparqlResultRow.object.value);
             }
+            this.describeHash[sparqlResultRow.graph.value].asSubjectCount++;
           }
 
           // OPS case. Described URI is the object
           if (!('object' in sparqlResultRow)) {
             if (!(sparqlResultRow.graph.value in this.describeHash)) {
               this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
-              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: {}};
+              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: {},
+              asSubjectCount: 0, asPredicateCount: 0, asObjectCount: 0};
             }
             if (!(sparqlResultRow.predicate.value in this.describeHash[sparqlResultRow.graph.value].asObject)) {
               this.describeHash[sparqlResultRow.graph.value].asObject[sparqlResultRow.predicate.value] = [];
@@ -69,13 +72,15 @@ export class DescribeComponent implements OnInit {
               this.describeHash[sparqlResultRow.graph.value].asObjectExtra[sparqlResultRow.predicate.value]
               .push(sparqlResultRow.subject.value);
             }
+            this.describeHash[sparqlResultRow.graph.value].asObjectCount++;
           }
 
           // Described URI is the predicate (OSO?)
           if (!('predicate' in sparqlResultRow)) {
             if (!(sparqlResultRow.graph.value in this.describeHash)) {
               this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
-              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: {}};
+              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: {},
+              asSubjectCount: 0, asPredicateCount: 0, asObjectCount: 0};
             }
             if (!(sparqlResultRow.subject.value in this.describeHash[sparqlResultRow.graph.value].asPredicate)) {
               this.describeHash[sparqlResultRow.graph.value].asPredicate[sparqlResultRow.subject.value] = [];
@@ -88,6 +93,7 @@ export class DescribeComponent implements OnInit {
               this.describeHash[sparqlResultRow.graph.value].asPredicateExtra[sparqlResultRow.subject.value]
               .push(sparqlResultRow.object.value);
             }
+            this.describeHash[sparqlResultRow.graph.value].asPredicateCount++;
           }
         });
         console.log('describe object:');

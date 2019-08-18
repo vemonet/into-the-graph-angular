@@ -17,7 +17,7 @@
         </mat-expansion-panel-header>
 
         <mat-tab-group>
-          <mat-tab label="As subject">
+          <mat-tab label="As subject ({{describeHash[describeGraph].asSubjectCount}})">
             <div style="margin-top: 25px;">
               <div fxLayout="row" fxLayoutWrap
               *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asSubject)">
@@ -55,7 +55,7 @@
             </div>
           </mat-tab>
 
-          <mat-tab label="As predicate">
+          <mat-tab *ngIf="describeHash[describeGraph].asPredicateCount > 0" label="As predicate">
             <div style="text-align: center; margin-top: 20px;">
               <div fxLayout="row" fxLayoutWrap
               *ngFor="let describeSubject of Object.keys(describeHash[describeGraph].asPredicate)">
