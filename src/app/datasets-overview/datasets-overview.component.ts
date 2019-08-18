@@ -1,18 +1,15 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { DatasetsInfoService } from '../../datasets-info.service';
 import { SparqlService } from '../../sparql.service';
-// import { DataTableModule } from 'datatables-angular';
 
 @Component({
   selector: 'app-datasets-overview',
   templateUrl: './datasets-overview.component.html',
   styleUrls: ['./datasets-overview.component.scss'],
 })
-export class DatasetsOverviewComponent implements OnInit, AfterViewInit {
-
-  // public sparqlResultArrays = {};
+export class DatasetsOverviewComponent implements OnInit {
 
   public datasetStatSparqlResultArray: any;
   public entitiesRelationSparqlResultArray: any;
@@ -22,23 +19,9 @@ export class DatasetsOverviewComponent implements OnInit, AfterViewInit {
     private sparql: SparqlService,
     private datasetsInfo: DatasetsInfoService) { }
 
-  columnNames = [
-    { id: 'datasetId', value: 'Dataset' }, 
-    { id: 'dateGenerated', value: 'Date generated' },
-    { id: 'triples', value: '# of triples' },
-    { id: 'entities', value: '# of entities' },
-    { id: 'properties', value: '# of properties' },
-    { id: 'classes', value: '# of classes' }];
-
   ngOnInit() {
     this.datasetsInfo.datasetSelected = null;
     this.getOverviewData();
-    // this.sparqlResultArrays = this.getOverviewData();
-  }
-
-  ngAfterViewInit() {
-    this.datasetsInfo.datasetSelected = null;
-    //this.getOverviewData();
   }
 
   printConsole() {
