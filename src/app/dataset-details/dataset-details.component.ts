@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Router, ActivatedRoute } from '@angular/router';
+import {  ActivatedRoute } from '@angular/router';
 
 
 import { DatasetsInfoService } from '../../datasets-info.service';
@@ -13,7 +13,6 @@ import { SparqlService } from '../../sparql.service';
 })
 export class DatasetDetailsComponent implements OnInit {
 
-  // sparqlResultArrays: any;
   private datasetId: string;
   public datasetStatSparqlResultArray: any;
   public entitiesRelationSparqlResultArray: any;
@@ -27,7 +26,7 @@ export class DatasetDetailsComponent implements OnInit {
   ngOnInit() {
     this.datasetId = this.route.snapshot.paramMap.get('datasetId');
 
-    // TO REMOVE asap
+    // TO REMOVE after fixing cytoscape
     this.sparql.getAllDatasetsInfo(null, this, this.datasetId);
     this.getDatasetData(this.datasetId);
 

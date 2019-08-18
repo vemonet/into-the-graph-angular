@@ -24,10 +24,6 @@ export class DatasetsOverviewComponent implements OnInit {
     this.getOverviewData();
   }
 
-  printConsole() {
-    console.log(this.datasetStatSparqlResultArray);
-  }
-
   getOverviewData() {
     const httpHeaders = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded'
@@ -105,12 +101,7 @@ export class DatasetsOverviewComponent implements OnInit {
     // Execute SPARQL query using HTTP GET
     this.http.get(this.sparql.sparqlEndpoint, { params: datasetSparqlHttpParams, headers: httpHeaders})
       .subscribe(data => {
-        // data['results']['bindings'].forEach(element => {
-        //   this.datasetStatSparqlResultArray.push(jQuery.extend(true, {}, element)); // deep copy
-        // });
-
         this.datasetStatSparqlResultArray = data['results']['bindings'];
-        //this.datasetsInfo.datasetStatSparqlResultArray = data['results']['bindings'];
 
         console.log('Data about datasets stats retrieved:');
         console.log(this.datasetStatSparqlResultArray );
