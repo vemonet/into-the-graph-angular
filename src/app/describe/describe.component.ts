@@ -36,7 +36,7 @@ export class DescribeComponent implements OnInit {
           if (!('subject' in sparqlResultRow)) {
             if (!(sparqlResultRow.graph.value in this.describeHash)) {
               this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
-              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}};
+              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: false};
             }
             if (!(sparqlResultRow.predicate.value in this.describeHash[sparqlResultRow.graph.value].asSubject)) {
               this.describeHash[sparqlResultRow.graph.value].asSubject[sparqlResultRow.predicate.value] = [];
@@ -55,7 +55,7 @@ export class DescribeComponent implements OnInit {
           if (!('object' in sparqlResultRow)) {
             if (!(sparqlResultRow.graph.value in this.describeHash)) {
               this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
-              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}};
+              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: false};
             }
             if (!(sparqlResultRow.predicate.value in this.describeHash[sparqlResultRow.graph.value].asObject)) {
               this.describeHash[sparqlResultRow.graph.value].asObject[sparqlResultRow.predicate.value] = [];
@@ -73,7 +73,7 @@ export class DescribeComponent implements OnInit {
           if (!('predicate' in sparqlResultRow)) {
             if (!(sparqlResultRow.graph.value in this.describeHash)) {
               this.describeHash[sparqlResultRow.graph.value] = {asSubject: {}, asObject: {}, asPredicate: {},
-              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}};
+              asSubjectExtra: {}, asPredicateExtra: {}, asObjectExtra: {}, showExtra: false};
             }
             if (!(sparqlResultRow.subject.value in this.describeHash[sparqlResultRow.graph.value].asPredicate)) {
               this.describeHash[sparqlResultRow.graph.value].asPredicate[sparqlResultRow.subject.value] = [];
