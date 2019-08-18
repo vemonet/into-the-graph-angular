@@ -12,7 +12,7 @@ import { DatasetsInfoService } from './datasets-info.service';
 export class SparqlService {
 
   // TODO: make it a parameter
-  private sparqlEndpoint: string = 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg';
+  public sparqlEndpoint: string = 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg';
 
   public prefixRegistry = {
     bl: 'http://w3id.org/biolink/vocab/',
@@ -28,6 +28,7 @@ export class SparqlService {
   constructor(private http: HttpClient,
               private datasetsInfo: DatasetsInfoService) { }
 
+  // class too big, only used in datasets details now
   getAllDatasetsInfo(overviewComponent: any, detailComponent: any, datasetId: string) {
     console.log('getAllDatasetsInfo (execute SPARQL query)');
 

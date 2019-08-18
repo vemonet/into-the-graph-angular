@@ -1,10 +1,16 @@
-<div class="mainLayout" style="margin-right: 20px; margin-left: 20px;">
+<div class="mainLayout" style="margin-right: 20px; margin-left: 20px;"
+*ngIf="datasetStatSparqlResultArray != null" >
+<!-- *ngIf="sparqlResultArrays.datasetStat != null" > -->
+
   <h1 class="mat-display-1" style="padding-bottom: 15px;">
     Overview of ncats-red-kg datasets
   </h1>
 
+  <button (click)="printConsole()">Click</button>
+  <!-- <button (click)="console.log(sparqlResultArrays.datasetStat);">Click</button> -->
+
   <mat-card class="mat-elevation-z6">
-    <table id="datatableId" datatable class="row-border hover">
+    <table id="datasetStatTable" datatable class="row-border hover">
       <thead>
         <tr>
           <th>Dataset</th>
@@ -16,24 +22,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of datasetsInfo.datasetStatSparqlResultArray">
-          <td>
-            {{row.source.value}}
+        <tr *ngFor="let row of datasetStatSparqlResultArray">
+        <!-- <tr *ngFor="let row of sparqlResultArrays.datasetStat"> -->
+          <td [innerHTML]="row.source.value">
           </td>
-          <td>
-            {{row.dateGenerated.value}}
+          <td [innerHTML]="row.dateGenerated.value">
           </td>
-          <td>
-            {{row.statements.value}}
+          <td [innerHTML]="row.statements.value">
           </td>
-          <td>
-            {{row.entities.value}}
+          <td [innerHTML]="row.entities.value">
           </td>
-          <td>
-            {{row.properties.value}}
+          <td [innerHTML]="row.properties.value">
           </td>
-          <td>
-            {{row.classes.value}}
+          <td [innerHTML]="row.classes.value">
           </td>
         </tr>
       </tbody>
@@ -43,9 +44,9 @@
   <h1 class="mat-display-1" style="padding-bottom: 15px; padding-top: 60px;">
     Explore ncats-red-kg entities and relations
   </h1>
-  
+<!--   
   <mat-card class="mat-elevation-z6">
-      <table id="datatableId" datatable class="row-border hover">
+      <table id="entitiesRelationTable" datatable class="row-border hover">
         <thead>
           <tr>
             <th>Dataset</th>
@@ -57,7 +58,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let row of datasetsInfo.entitiesRelationSparqlResultArray">
+          <tr *ngFor="let row of entitiesRelationSparqlResultArray">
             <td>
               {{row.source.value}}
             </td>
@@ -79,6 +80,6 @@
           </tr>
         </tbody>
       </table>
-    </mat-card>
+    </mat-card> -->
 
 </div>
