@@ -7,7 +7,7 @@ import { DatasetsInfoService } from '../datasets-info.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'rdf-graph-explorer';
+  title = 'into-the-graph';
 
   constructor(private datasetsInfo: DatasetsInfoService) { }
 

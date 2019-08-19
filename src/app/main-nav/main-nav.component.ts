@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./main-nav.component.css']
 })
 export class MainNavComponent {
-  title = 'rdf-graph-explorer';
+  title = 'into-the-graph';
 
   constructor() {}
 
