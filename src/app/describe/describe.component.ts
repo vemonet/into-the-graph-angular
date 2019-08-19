@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 import { SparqlService } from '../../sparql.service';
+
+//declare const FileSaver: any;
 
 @Component({
   selector: 'app-describe',
@@ -14,8 +17,11 @@ export class DescribeComponent implements OnInit {
   graphClasses = [];
   allExpanded = true;
 
+  downloadFile;
+
   constructor(
     private activatedRoute: ActivatedRoute,
+    private sanitizer: DomSanitizer,
     private sparql: SparqlService
     ) {
     this.activatedRoute.queryParams.subscribe(params => {
@@ -23,7 +29,16 @@ export class DescribeComponent implements OnInit {
     });
   }
 
+  downloadRdf() {
+    // const blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+    // FileSaver.saveAs(blob, "hello_world.txt");
+    const data = 'RDF coming...';
+    const blob = new Blob([data], { type: 'application/octet-stream' });
+    this.downloadFile = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+  }
+
   ngOnInit() {
+    this.downloadRdf();
     this.sparql.describeUri(this.uriToDescribe)
       .subscribe(data => {
         const sparqlResultArray = data['results']['bindings'];

@@ -29,6 +29,7 @@
     "cytoscape": "^3.6.2",
     "datatables.net": "^1.10.19",
     "datatables.net-dt": "^1.10.19",
+    "file-saver": "^2.0.2",
     "jquery": "^3.4.1",
     "ngx-cytoscape": "^0.5.24",
     "rxjs": "~6.3.3",
