@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { MatTableDataSource, MatSort } from '@angular/material';
 
 import 'rxjs/add/operator/map';
 
@@ -208,40 +207,40 @@ export class SparqlService {
       });
   }
 
+  // Factorise with CONSTRUCT?
+  getDescribeQuery(uriToDescribe: string) {
+    return `SELECT DISTINCT ?subject ?predicate ?object ?graph WHERE {
+      {
+          GRAPH ?graph {
+            <` + uriToDescribe + `> ?predicate ?object .
+          }
+      } UNION {
+          GRAPH ?graph {
+            ?subject ?predicate <` + uriToDescribe + `> .
+          }
+      } UNION {
+        GRAPH ?graph {
+          ?subject <` + uriToDescribe + `> ?object .
+        }
+      } UNION {
+        GRAPH <` + uriToDescribe + `> {
+          [] a ?object .
+          BIND("dummy subject" AS ?subject)
+          BIND("dummy predicate" AS ?predicate)
+        }
+      }
+    } LIMIT 1000`;
+  }
 
   describeUri(uriToDescribe: string) {
     console.log('DescribeURI: ' + uriToDescribe);
 
-    const httpHeaders = new HttpHeaders({
-      'Content-type': 'application/x-www-form-urlencoded'
-    });
-
     // Define SPARQL query to retrieve statements about the URI to describe
     const describeSparqlHttpParams = new HttpParams()
-      .set('query', `SELECT DISTINCT ?subject ?predicate ?object ?graph WHERE {
-        {
-            GRAPH ?graph {
-              <` + uriToDescribe + `> ?predicate ?object .
-            }
-        } UNION {
-            GRAPH ?graph {
-              ?subject ?predicate <` + uriToDescribe + `> .
-            }
-        } UNION {
-          GRAPH ?graph {
-            ?subject <` + uriToDescribe + `> ?object .
-          }
-        } UNION {
-          GRAPH <` + uriToDescribe + `> {
-            [] a ?object .
-            BIND("dummy subject" AS ?subject)
-            BIND("dummy predicate" AS ?predicate)
-          }
-        }
-      } LIMIT 1000`).set('format', 'json');
+      .set('query', this.getDescribeQuery(uriToDescribe)).set('format', 'json');
 
     // Execute SPARQL query using HTTP GET
-    return this.http.get(this.sparqlEndpoint, { params: describeSparqlHttpParams, headers: httpHeaders});
+    return this.http.get(this.sparqlEndpoint, { params: describeSparqlHttpParams, headers: this.httpHeaders});
   }
 
   private cleanUrl(urlToClean: string) {
@@ -266,6 +265,28 @@ export class SparqlService {
       return prefixUrlToRender + urlToRender + '</a>';
     }
     return urlToRender;
+  }
+
+  getDescribeConstruct(uriToDescribe: string) {
+    return `CONSTRUCT { ?subject ?predicate ?object
+    } WHERE {
+      {
+        GRAPH ?graph {
+          ?subject ?predicate ?object .
+          <` + uriToDescribe + `> ?predicate ?object .
+        }
+      } UNION {
+        GRAPH ?graph {
+          ?subject ?predicate ?object .
+          ?subject ?predicate <` + uriToDescribe + `> .
+        }
+      } UNION {
+        GRAPH ?graph {
+          ?subject ?predicate ?object .
+          ?subject <` + uriToDescribe + `> ?object .
+        }
+      }
+    }`;
   }
 
   // Only resolve URI namespace to use a prefix (to factorise)
