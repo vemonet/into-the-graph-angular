@@ -5,16 +5,16 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Build
 
 ```shell
-docker build -t rdf-graph-explorer .
+docker build -t into-the-graph .
 ```
 
 ## Run
 
 ```shell
-docker run -it -p 8081:80 rdf-graph-explorer
+docker run -it -p 8081:80 into-the-graph
 ```
 
-At the moment rdf-graph-explorer use by default the SPARQL endpoint http://graphdb.dumontierlab.com/repositories/ncats-red-kg, using precomputed HCLS statistics.
+At the moment into-the-graph use by default the SPARQL endpoint http://graphdb.dumontierlab.com/repositories/ncats-red-kg, using precomputed HCLS statistics.
 
 The SPARQL endpoint can be changed in `src/sparql.service.ts`
 
@@ -33,7 +33,7 @@ To push only `dist` folder to `gh-pages` branch to deploy a webapp
 
 ```shell
 # Create and update
-git subtree push --prefix dist/rdf-graph-explorer origin gh-pages
+git subtree push --prefix dist/into-the-graph origin gh-pages
 
 # Delete branch
 git push origin --delete gh-pages

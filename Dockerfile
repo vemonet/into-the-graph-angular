@@ -21,6 +21,6 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Remove default nginx website and copy dist folder from 'builder' to default nginx public folder
 RUN rm -rf /usr/share/nginx/html/*
-COPY --from=builder /webapp/dist/rdf-graph-explorer/ /usr/share/nginx/html
+COPY --from=builder /webapp/dist/into-the-graph/ /usr/share/nginx/html
 
 CMD ["nginx", "-g", "daemon off;"]
