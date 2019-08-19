@@ -253,8 +253,9 @@ export class SparqlService {
     if (urlToRender.startsWith('http://') || urlToRender.startsWith('https://')) {
       // TODO: make describe endpoint URL it a variable
 
+      // Replace # as it bugs otherwise. Should we completely encode the URI?
       const prefixUrlToRender = `<a href="http://localhost:4200/describe?uri=`
-      + urlToRender + `" class="describeUrl">`;
+      + urlToRender.replace('#', '%23') + `" class="describeUrl">`;
       // console.log(prefixUrlToRender);
 
       for (const prefix in this.prefixRegistry) {
