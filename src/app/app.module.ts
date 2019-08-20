@@ -17,7 +17,7 @@ import { MatButtonModule,
   MatSortModule,
   MatTableModule,
   MatCheckboxModule, MatSidenavModule, MatListModule,
-  MatExpansionModule, MatTabsModule
+  MatExpansionModule, MatTabsModule, MatBadgeModule
 } from '@angular/material';
 import { DataTablesModule } from 'angular-datatables';
 import 'angular2-navigate-with-data';
@@ -67,6 +67,7 @@ import { FooterComponent } from './footer/footer.component';
     MatListModule,
     MatExpansionModule,
     MatTabsModule,
+    MatBadgeModule,
     DataTablesModule,
     CytoscapeModule
   ],

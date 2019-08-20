@@ -38,8 +38,10 @@
 
         <mat-tab-group>
           <!-- As a Subject -->
-          <mat-tab label="As subject ({{describeHash[describeGraph].asSubjectCount}})"
-          *ngIf="describeHash[describeGraph].asSubjectCount > 0">
+          <mat-tab *ngIf="describeHash[describeGraph].asSubjectCount > 0">
+            <ng-template matTabLabel>
+              <span matBadge="{{describeHash[describeGraph].asSubjectCount}}" matBadgeOverlap="false">As subject</span>
+            </ng-template>
             <div style="margin-top: 25px;">
               <div fxLayout="row" fxLayoutWrap
               *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asSubject)">
@@ -78,8 +80,10 @@
           </mat-tab>
 
           <!-- As a predicate -->
-          <mat-tab label="As predicate ({{describeHash[describeGraph].asPredicateCount}})"
-          *ngIf="describeHash[describeGraph].asPredicateCount > 0">
+          <mat-tab *ngIf="describeHash[describeGraph].asPredicateCount > 0">
+            <ng-template matTabLabel>
+              <span matBadge="{{describeHash[describeGraph].asPredicateCount}}" matBadgeOverlap="false">As predicate</span>
+            </ng-template>
             <div style="text-align: center; margin-top: 20px;">
               <div fxLayout="row" fxLayoutWrap
               *ngFor="let describeSubject of Object.keys(describeHash[describeGraph].asPredicate)">
@@ -120,8 +124,11 @@
             </div>
           </mat-tab>
 
-          <mat-tab label="As object ({{describeHash[describeGraph].asObjectCount}})"
-          *ngIf="describeHash[describeGraph].asObjectCount > 0">
+          <!-- As object -->
+          <mat-tab *ngIf="describeHash[describeGraph].asObjectCount > 0">
+            <ng-template matTabLabel>
+              <span matBadge="{{describeHash[describeGraph].asObjectCount}}" matBadgeOverlap="false">As object</span>
+            </ng-template>
             <div style="text-align: center;">
               <div fxLayout="row" fxLayoutWrap style="padding-top: 20px; padding-bottom: 20px;"
               *ngFor="let describeProperty of Object.keys(describeHash[describeGraph].asObject)">
