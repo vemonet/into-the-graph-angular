@@ -6,6 +6,25 @@
       {{ datasetsInfo.datasetSelected.source.value }}
     </h1>
 
+    <div fxFlex fxLayoutAlign="end start">
+        <a mat-raised-button class="hoverBtn"
+        href="{{sparql.sparqlEndpoint}}/statements?context=<{{datasetsInfo.datasetSelected.graph.value}}>"
+        style="margin-right: 40px;">
+          <mat-icon mat-list-icon>cloud_download</mat-icon>
+          Download RDF
+        </a>
+        <button mat-raised-button class="primaryColorBG hoverBtn" *ngIf="allExpanded == false"
+        (click)="accordion.openAll(); allExpanded = true">
+          <mat-icon mat-list-icon>expand_more</mat-icon>
+          Expand All
+        </button>
+        <button mat-raised-button class="primaryColorBG hoverBtn" *ngIf="allExpanded == true"
+        (click)="accordion.closeAll(); allExpanded = false">
+          <mat-icon mat-list-icon>expand_less</mat-icon>
+          Collapse All
+        </button>
+      </div>
+
     <!-- Display descriptive statements about the graph (description, creation date, homepage) -->
     <mat-card class="mat-elevation-z8">
       {{ datasetsInfo.datasetSelected.description.value }}
