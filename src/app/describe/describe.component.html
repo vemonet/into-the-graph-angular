@@ -8,7 +8,30 @@
 
     <!-- [href]="downloadFile" download="file.txt" for blob download -->
     <div fxFlex fxLayoutAlign="end start">
-      <a mat-raised-button class="greyColorBG hoverBtn"
+
+        <mat-expansion-panel [expanded]="true" class="mat-elevation-z3"
+        *ngIf="graphClasses.length > 0">
+          <mat-expansion-panel-header class="greyColorBG">
+            <div fxLayout="column" fxFlex style="text-align: center; margin-top: 15px;">
+              <span class="mat-headline">
+                As a graph (classes)
+              </span>
+            </div>
+          </mat-expansion-panel-header>
+  
+          <h3 matLine style="text-align: center;"
+          [innerHTML]="sparql.getUrlHtml(graphClass)"
+          *ngFor="let graphClass of graphClasses"></h3>
+        </mat-expansion-panel>
+
+        <a mat-raised-button class="hoverBtn"
+      href="{{sparql.sparqlEndpoint}}/statements?context=<{{this.uriToDescribe}}>"
+      style="margin-right: 40px;">
+        <mat-icon mat-list-icon>cloud_download</mat-icon>
+        Download RDF of the graph
+      </a>
+
+      <a mat-raised-button class="hoverBtn"
       href="{{sparql.sparqlEndpoint}}?query={{sparql.getDescribeConstruct(this.uriToDescribe)}}"
       style="margin-right: 40px;">
         <mat-icon mat-list-icon>cloud_download</mat-icon>
