@@ -3,33 +3,9 @@
 
   <div fxLayout="column" fxFlex="100%" fxFlex.gt-md="90%" fxLayoutWrap fxLayoutGap="3%">
 
-  <h1 class="mat-display-1" style="padding-bottom: 15px; padding-top: 20px;">
+  <h1 class="mat-display-1" style="padding-bottom: 15px;">
     Overview of ncats-red-kg datasets
-  </h1>
-
-  <div fxFlex fxLayoutAlign="center center">
-    <mat-accordion [multi]="true" #accordion="matAccordion">
-      <mat-expansion-panel [expanded]="false" class="mat-elevation-z3">
-        <mat-expansion-panel-header>
-          <div fxLayout="column" fxFlex style="text-align: center; margin-top: 15px;">
-            <span class="mat-title">
-              <mat-icon mat-list-icon>cloud_download</mat-icon>
-              Download all graphs
-            </span>
-          </div>
-        </mat-expansion-panel-header>
-
-        <div>
-          <!-- No reason why the outline is not picking the primary color, so it's in style.scss -->
-          <mat-form-field appearance="outline" color="primary" style="min-width: 500px;">
-            <mat-label>Shell command</mat-label>
-            <input matInput placeholder="Placeholder" style="padding-top: 1px; padding-bottom: 1px;"
-            value="wget {{sparql.sparqlEndpoint}}/statements --header 'Accept: text/x-nquads'" readonly>
-          </mat-form-field>
-        </div>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </div>
+  </h1>  
 
   <mat-card class="mat-elevation-z6">
     <table id="datasetStatTable" datatable [dtOptions]="dtOptions" class="row-border hover">
@@ -75,6 +51,31 @@
       </tbody>
     </table>
   </mat-card>
+
+  <div fxFlex fxLayoutAlign="center center">
+    <mat-accordion [multi]="true" #accordion="matAccordion">
+      <mat-expansion-panel [expanded]="false" class="mat-elevation-z3">
+        <mat-expansion-panel-header>
+          <div fxLayout="column" fxFlex style="text-align: center; margin-top: 15px;">
+            <span class="mat-title">
+              <mat-icon mat-list-icon>cloud_download</mat-icon>
+              Download all graphs
+            </span>
+          </div>
+        </mat-expansion-panel-header>
+
+        <div>
+          <!-- No reason why the outline is not picking the primary color, so it's in style.scss -->
+          <mat-form-field appearance="outline" color="primary" style="min-width: 500px;">
+            <mat-label>Shell command</mat-label>
+            <input matInput placeholder="Placeholder" style="padding-top: 1px; padding-bottom: 1px;"
+            value="wget {{sparql.sparqlEndpoint}}/statements --header 'Accept: text/x-nquads'" readonly>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
 
   <h1 class="mat-display-1" style="padding-bottom: 15px;">
     Explore ncats-red-kg entities and relations
