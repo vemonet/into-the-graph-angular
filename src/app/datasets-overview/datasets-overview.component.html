@@ -21,28 +21,29 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of datasetStatSparqlResultArray" style="cursor: pointer;"
-        (click)="datasetsInfo.navigateTo(row.source.value)">
-          <td [innerHTML]="row.source.value">
+        <tr *ngFor="let row of datasetStatSparqlResultArray" style="cursor: pointer;">
+          <td [innerHTML]="row.source.value"
+          (click)="datasetsInfo.navigateTo(row.source.value)">
           </td>
-          <td [innerHTML]="row.dateGenerated.value">
-            <!-- To handlethe date:
-              const dateGenerated: Date = new Date(sparqlResultRow.dateGenerated.value);
-              this.datasetsInfo.hashAll[datasetId].displayDateGenerated = dateGenerated.getFullYear() + '-'
-              + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString(); -->
+          <td [innerHTML]="row.dateGenerated.value"
+          (click)="datasetsInfo.navigateTo(row.source.value)">
           </td>
-          <td [innerHTML]="row.statements.value">
+          <td [innerHTML]="row.statements.value"
+          (click)="datasetsInfo.navigateTo(row.source.value)">
           </td>
-          <td [innerHTML]="row.entities.value">
+          <td [innerHTML]="row.entities.value"
+          (click)="datasetsInfo.navigateTo(row.source.value)">
           </td>
-          <td [innerHTML]="row.properties.value">
+          <td [innerHTML]="row.properties.value"
+          (click)="datasetsInfo.navigateTo(row.source.value)">
           </td>
-          <td [innerHTML]="row.classes.value">
+          <td [innerHTML]="row.classes.value"
+          (click)="datasetsInfo.navigateTo(row.source.value)">
           </td>
           <td>
             <a mat-raised-button class="hoverBtn"
             href="{{sparql.sparqlEndpoint}}/statements?context=<{{row.graph.value}}>"
-            target="_blank" style="margin-right: 40px;">
+            style="margin-right: 40px;">
               <mat-icon mat-list-icon>cloud_download</mat-icon>
               Download RDF
             </a>
