@@ -7,6 +7,30 @@
     Overview of ncats-red-kg datasets
   </h1>
 
+  <div fxFlex fxLayoutAlign="center center">
+    <mat-accordion [multi]="true" #accordion="matAccordion">
+      <mat-expansion-panel [expanded]="false" class="mat-elevation-z3">
+        <mat-expansion-panel-header>
+          <div fxLayout="column" fxFlex style="text-align: center; margin-top: 15px;">
+            <span class="mat-title">
+              <mat-icon mat-list-icon>cloud_download</mat-icon>
+              Download all graphs
+            </span>
+          </div>
+        </mat-expansion-panel-header>
+
+        <div>
+          <!-- No reason why the outline is not picking the primary color, so it's in style.scss -->
+          <mat-form-field appearance="outline" color="primary" style="min-width: 500px;">
+            <mat-label>Shell command</mat-label>
+            <input matInput placeholder="Placeholder" style="padding-top: 1px; padding-bottom: 1px;"
+            value="wget {{sparql.sparqlEndpoint}}/statements --header 'Accept: text/x-nquads'" readonly>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
   <mat-card class="mat-elevation-z6">
     <table id="datasetStatTable" datatable [dtOptions]="dtOptions" class="row-border hover">
       <thead>
@@ -17,6 +41,7 @@
           <th># of entities</th>
           <th># of properties</th>
           <th># of classes</th>
+          <th>Download as RDF/XML</th>
         </tr>
       </thead>
       <tbody>
@@ -37,6 +62,14 @@
           <td [innerHTML]="row.properties.value">
           </td>
           <td [innerHTML]="row.classes.value">
+          </td>
+          <td>
+            <a mat-raised-button class="hoverBtn"
+            href="{{sparql.sparqlEndpoint}}/statements?context=<{{row.graph.value}}>"
+            target="_blank" style="margin-right: 40px;">
+              <mat-icon mat-list-icon>cloud_download</mat-icon>
+              Download RDF
+            </a>
           </td>
         </tr>
       </tbody>

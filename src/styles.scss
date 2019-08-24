@@ -5,7 +5,6 @@
 // @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 // @import '~@angular/material/_theming.scss';
 
-
 // Blue 700: #1976d2
 // Indigo 500 : #3f51b5
 $primary: mat-palette($mat-blue,700); 
@@ -28,6 +27,18 @@ $theme: mat-light-theme($primary, $accent, $warn);
 }
 .greyColorBG:focus {
   background-color: #f5f5f5 !important;
+}
+
+// Change color of mat form field to primary 
+// (because the angular color directive never work as expected)
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: mat-color($primary) !important;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  color: mat-color($primary) !important;
+}
+.mat-form-field-label {
+  color: mat-color($primary) !important;
 }
 
 // No other way to change describe page URLs style
