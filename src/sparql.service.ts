@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpUrlEncodingCodec } from '@angular/common/http';
 
 // import 'rxjs/add/operator/map';
 
@@ -269,25 +269,25 @@ export class SparqlService {
   }
 
   getDescribeConstruct(uriToDescribe: string) {
-    return `CONSTRUCT { ?subject ?predicate ?object
+    return encodeURIComponent(`CONSTRUCT { ?subject ?predicate ?object
     } WHERE {
       {
         GRAPH ?graph {
           ?subject ?predicate ?object .
-          <` + uriToDescribe + `> ?predicate ?object .
+          FILTER(?subject = <` + uriToDescribe + `>)
         }
       } UNION {
         GRAPH ?graph {
           ?subject ?predicate ?object .
-          ?subject ?predicate <` + uriToDescribe + `> .
+          FILTER(?predicate = <` + uriToDescribe + `>)
         }
       } UNION {
         GRAPH ?graph {
           ?subject ?predicate ?object .
-          ?subject <` + uriToDescribe + `> ?object .
+          FILTER(?object = <` + uriToDescribe + `>)
         }
       }
-    }`;
+    }`);
   }
 
   // Only resolve URI namespace to use a prefix (to factorise)

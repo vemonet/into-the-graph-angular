@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpUrlEncodingCodec } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SparqlService } from '../../sparql.service';
 
@@ -31,33 +31,33 @@ export class DescribeComponent implements OnInit {
     });
   }
 
-  downloadRdf() {
-    // const blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
-    // FileSaver.saveAs(blob, "hello_world.txt");
+  // downloadRdf() {
+  //   // const blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+  //   // FileSaver.saveAs(blob, "hello_world.txt");
 
-    const downloadHttpHeaders = new HttpHeaders({
-      'Content-type': 'text/turtle',
-      Accept: 'text/turtle'
-    });
+  //   const downloadHttpHeaders = new HttpHeaders({
+  //     'Content-type': 'text/turtle',
+  //     Accept: 'text/turtle'
+  //   });
 
-    const describeSparqlHttpParams = new HttpParams()
-      .set('query', this.sparql.getDescribeConstruct(this.uriToDescribe));
-      // .set('format', 'csv');
+  //   const describeSparqlHttpParams = new HttpParams()
+  //     .set('query', this.sparql.getDescribeConstruct(this.uriToDescribe));
+  //     // .set('format', 'csv');
 
-    // responseType?: 'arraybuffer' | 'blob' | 'json' | 'text'
-    this.http.get(this.sparql.sparqlEndpoint,
-      { params: describeSparqlHttpParams, headers: downloadHttpHeaders, responseType: 'text'})
-      .subscribe(relationData => {
+  //   // responseType?: 'arraybuffer' | 'blob' | 'json' | 'text'
+  //   this.http.get(this.sparql.sparqlEndpoint,
+  //     { params: describeSparqlHttpParams, headers: downloadHttpHeaders, responseType: 'text'})
+  //     .subscribe(relationData => {
 
-        var blob = new Blob([relationData], { type: 'text/csv;charset=utf-8;' });
-        this.downloadFile = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
-      });
-    // const blob = new Blob([data], { type: 'application/octet-stream' });
-    // this.downloadFile = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
-  }
+  //       var blob = new Blob([relationData], { type: 'text/csv;charset=utf-8;' });
+  //       this.downloadFile = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+  //     });
+  //   // const blob = new Blob([data], { type: 'application/octet-stream' });
+  //   // this.downloadFile = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
+  // }
 
   ngOnInit() {
-    this.downloadRdf();
+    //this.downloadRdf();
     this.sparql.describeUri(this.uriToDescribe)
       .subscribe(data => {
         const sparqlResultArray = data['results']['bindings'];

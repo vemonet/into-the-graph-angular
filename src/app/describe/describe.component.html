@@ -6,10 +6,11 @@
     [innerHTML]="sparql.getUrlHtml(uriToDescribe)">
     </h1>
 
+    <!-- [href]="downloadFile" download="file.txt" for blob download -->
     <div fxFlex fxLayoutAlign="end start">
       <a mat-raised-button class="greyColorBG hoverBtn"
-      [href]="downloadFile" download="file.txt"
-      style="margin-right: 40px;">
+      href="{{sparql.sparqlEndpoint}}?query={{sparql.getDescribeConstruct(this.uriToDescribe)}}"
+      target="_blank" style="margin-right: 40px;">
         <mat-icon mat-list-icon>cloud_download</mat-icon>
         Download RDF
       </a>
