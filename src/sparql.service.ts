@@ -20,12 +20,22 @@ export class SparqlService {
   public prefixRegistry = {
     bl: 'http://w3id.org/biolink/vocab/',
     biolink: 'https://w3id.org/biolink/vocab/',
+    wp: 'http://vocabularies.wikipathways.org/wp#',
     d2s: 'https://w3id.org/data2services/',
     rdf: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
     rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
+    skos: 'http://www.w3.org/2004/02/skos/core#',
     dc: 'http://purl.org/dc/elements/1.1/',
+    dct: 'http://purl.org/dc/terms/',
+    foaf: 'http://xmlns.com/foaf/0.1/',
     obo: 'http://purl.obolibrary.org/obo/',
-    owl: 'http://www.w3.org/2002/07/owl#'
+    owl: 'http://www.w3.org/2002/07/owl#',
+    prov: 'http://www.w3.org/ns/prov#',
+    dbo: 'http://dbpedia.org/ontology/',
+    dbr: 'http://dbpedia.org/resource/',
+    dbp: 'http://dbpedia.org/resource/',
+    wd: 'http://www.wikidata.org/entity/',
+    wdt: 'http://www.wikidata.org/prop/direct/'
   };
 
   constructor(private http: HttpClient,
