@@ -22,7 +22,7 @@ export class DatasetDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     private sparql: SparqlService,
-    private datasetsInfo: DatasetsInfoService) { }
+    public datasetsInfo: DatasetsInfoService) { }
 
   ngOnInit() {
     this.datasetId = this.route.snapshot.paramMap.get('datasetId');
