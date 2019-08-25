@@ -1,4 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { environment } from '../../environments/environment';
 // Import YASGUI from external js file
 declare const YASGUI: any;
 
@@ -69,7 +70,7 @@ export class SparqlComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit() {
-    YASGUI.defaults.yasqe.sparql.endpoint = 'http://graphdb.dumontierlab.com/repositories/test';
+    YASGUI.defaults.yasqe.sparql.endpoint = environment.sparqlEndpoint;
     // var config = {"api":{"urlShortener":"//yasgui.org/shorten"}};
     const yasgui = YASGUI(document.getElementById('yasguiDiv'));
     yasgui.addTab('statisticsTab');

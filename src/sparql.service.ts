@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpUrlEncodingCodec } from '@angular/common/http';
+import { environment } from './environments/environment';
 
 // import 'rxjs/add/operator/map';
 
@@ -11,7 +12,7 @@ import { DatasetsInfoService } from './datasets-info.service';
 export class SparqlService {
 
   // TODO: make it a parameter
-  public sparqlEndpoint: string = 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg';
+  public sparqlEndpoint = environment.sparqlEndpoint;
   public httpHeaders = new HttpHeaders({
     'Content-type': 'application/x-www-form-urlencoded'
   });

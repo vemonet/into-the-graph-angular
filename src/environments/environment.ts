@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  sparqlEndpoint: 'http://dbpedia.org/sparql'
+  // sparqlEndpoint: 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg'
 };
 
 /*
