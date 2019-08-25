@@ -70,7 +70,7 @@
           <mat-form-field appearance="outline" color="primary" style="min-width: 500px;">
             <mat-label>Shell command</mat-label>
             <input matInput placeholder="Placeholder" style="padding-top: 1px; padding-bottom: 1px;"
-            value="wget {{sparql.sparqlEndpoint}}/statements --header 'Accept: text/x-nquads'" readonly>
+            value="wget --header 'Accept: text/x-nquads' {{sparql.sparqlEndpoint}}/statements" readonly>
           </mat-form-field>
         </div>
       </mat-expansion-panel>
