@@ -16,7 +16,7 @@ docker run -it -p 8081:80 into-the-graph
 
 At the moment into-the-graph use by default the SPARQL endpoint http://graphdb.dumontierlab.com/repositories/ncats-red-kg, using precomputed HCLS statistics.
 
-The SPARQL endpoint can be changed in `src/sparql.service.ts`
+The SPARQL endpoint can be changed in [src/environments/environment.ts](src/environments/environment.ts)
 
 ## Development server
 
