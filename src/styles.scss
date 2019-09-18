@@ -91,7 +91,7 @@ h1.mat-display-1 {
 // $body-1: mat-typography-level(24px, 38px, 100)
 @import '~@angular/material/theming';
 $custom-typography: mat-typography-config(
-  $font-family: 'Open Sans',
+  $font-family: 'Open Sans, Roboto, Lato, Sans serif',
   $headline: mat-typography-level(24px, 32px, 300)
 );
 @include angular-material-typography($custom-typography);
