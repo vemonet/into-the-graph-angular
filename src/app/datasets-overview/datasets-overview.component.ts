@@ -99,12 +99,12 @@ export class DatasetsOverviewComponent implements OnInit {
 
         // Format date to be readable
         this.datasetStatSparqlResultArray.forEach(sparqlResultRow => {
-          if (sparqlResultRow.dateGenerated.value) {
+          if (sparqlResultRow.dateGenerated == null) {
+            sparqlResultRow.dateGenerated = { value: 'Not defined'};
+          } else {
             const dateGenerated: Date = new Date(sparqlResultRow.dateGenerated.value);
             sparqlResultRow.dateGenerated.value = dateGenerated.getFullYear() + '-'
             + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
-          } else {
-            sparqlResultRow.dateGenerated.value = 'Not defined';
           }
         });
 

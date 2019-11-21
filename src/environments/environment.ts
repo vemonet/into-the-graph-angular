@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   // sparqlEndpoint: 'http://dbpedia.org/sparql'
-  sparqlEndpoint: 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg'
+  sparqlEndpoint: 'http://graphdb.dumontierlab.com/repositories/bio2rdf-ammar'
+  // sparqlEndpoint: 'http://graphdb.dumontierlab.com/repositories/ncats-red-kg'
 };
 
 /*
