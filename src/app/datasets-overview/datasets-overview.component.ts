@@ -38,22 +38,24 @@ export class DatasetsOverviewComponent implements OnInit {
       PREFIX dc: <http://purl.org/dc/elements/1.1/>
       PREFIX foaf: <http://xmlns.com/foaf/0.1/>
       PREFIX void-ext: <http://ldf.fi/void-ext#>
-      SELECT DISTINCT ?source ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes ?graph
+      SELECT DISTINCT ?graph ?description ?homepage ?dateGenerated ?statements ?entities ?properties ?classes
       WHERE {
         GRAPH ?g {
-          ?dataset a dctypes:Dataset ;
-            dct:description ?description ;
-            foaf:page ?homepage ;
-            idot:preferredPrefix ?source .
-          ?version dct:isVersionOf ?dataset ;
-            dcat:distribution ?rdfDistribution .
-          ?rdfDistribution a void:Dataset ;
-            dcat:accessURL ?graph ;
+          OPTIONAL {
+            ?dataset a dctypes:Dataset ;
+              dct:description ?description ;
+              foaf:page ?homepage .
+            ?version dct:isVersionOf ?dataset ;
+              dcat:distribution ?graph .
+          }
+          ?graph a void:Dataset ;
             void:triples ?statements ;
             void:entities ?entities ;
-            void:properties ?properties ;
-            dct:issued ?dateGenerated .
-          ?rdfDistribution void:classPartition [
+            void:properties ?properties .
+          OPTIONAL {
+            ?graph dct:issued ?dateGenerated .
+          }
+          ?graph void:classPartition [
             void:class rdfs:Class ;
             void:distinctSubjects ?classes
           ] .
@@ -72,16 +74,11 @@ export class DatasetsOverviewComponent implements OnInit {
       PREFIX dc: <http://purl.org/dc/elements/1.1/>
       PREFIX foaf: <http://xmlns.com/foaf/0.1/>
       PREFIX void-ext: <http://ldf.fi/void-ext#>
-      SELECT DISTINCT ?source ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
+      SELECT DISTINCT ?graph ?classCount1 ?class1 ?relationWith ?classCount2 ?class2
       WHERE {
         GRAPH ?g {
-          ?dataset a dctypes:Dataset ;
-            idot:preferredPrefix ?source .
-          ?version dct:isVersionOf ?dataset ;
-            dcat:distribution ?rdfDistribution .
-          ?rdfDistribution a void:Dataset ;
-            dcat:accessURL ?graph .
-          ?rdfDistribution void:propertyPartition [
+          ?graph a void:Dataset .
+          ?graph void:propertyPartition [
               void:property ?relationWith ;
               void:classPartition [
                   void:class ?class1 ;
