@@ -99,9 +99,13 @@ export class DatasetsOverviewComponent implements OnInit {
 
         // Format date to be readable
         this.datasetStatSparqlResultArray.forEach(sparqlResultRow => {
-          const dateGenerated: Date = new Date(sparqlResultRow.dateGenerated.value);
-          sparqlResultRow.dateGenerated.value = dateGenerated.getFullYear() + '-'
-          + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
+          if (sparqlResultRow.dateGenerated.value) {
+            const dateGenerated: Date = new Date(sparqlResultRow.dateGenerated.value);
+            sparqlResultRow.dateGenerated.value = dateGenerated.getFullYear() + '-'
+            + (dateGenerated.getMonth() + 1).toString() + '-' + dateGenerated.getDate().toString();
+          } else {
+            sparqlResultRow.dateGenerated.value = 'Not defined';
+          }
         });
 
         console.log('Data about datasets stats retrieved:');

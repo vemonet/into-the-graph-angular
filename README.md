@@ -27,6 +27,15 @@ ng serve
 
 Navigate to [http://localhost:4200/](http://localhost:4200/). The app *should* automatically reload if you change any of the source files.
 
+### Installation
+
+```bash
+npm install -g @angular/cli
+npm rebuild node-sass
+```
+
+
+
 ## Deploy on GitHub Pages
 
 To push only `dist` folder to `gh-pages` branch to deploy a webapp

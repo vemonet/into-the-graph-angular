@@ -22,23 +22,23 @@
       </thead>
       <tbody>
         <tr *ngFor="let row of datasetStatSparqlResultArray" style="cursor: pointer;">
-          <td [innerHTML]="row.source.value"
-          (click)="datasetsInfo.navigateTo(row.source.value)">
+          <td [innerHTML]="row.graph.value"
+          (click)="datasetsInfo.navigateTo(row.graph.value)">
           </td>
           <td [innerHTML]="row.dateGenerated.value"
-          (click)="datasetsInfo.navigateTo(row.source.value)">
+          (click)="datasetsInfo.navigateTo(row.graph.value)">
           </td>
           <td [innerHTML]="row.statements.value"
-          (click)="datasetsInfo.navigateTo(row.source.value)">
+          (click)="datasetsInfo.navigateTo(row.graph.value)">
           </td>
           <td [innerHTML]="row.entities.value"
-          (click)="datasetsInfo.navigateTo(row.source.value)">
+          (click)="datasetsInfo.navigateTo(row.graph.value)">
           </td>
           <td [innerHTML]="row.properties.value"
-          (click)="datasetsInfo.navigateTo(row.source.value)">
+          (click)="datasetsInfo.navigateTo(row.graph.value)">
           </td>
           <td [innerHTML]="row.classes.value"
-          (click)="datasetsInfo.navigateTo(row.source.value)">
+          (click)="datasetsInfo.navigateTo(row.graph.value)">
           </td>
           <td>
             <a mat-raised-button class="hoverBtn"
@@ -97,7 +97,7 @@
         <tbody>
           <tr *ngFor="let row of entitiesRelationSparqlResultArray">
             <td>
-              {{row.source.value}}
+              {{row.graph.value}}
             </td>
             <td>
               {{row.classCount1.value}}
