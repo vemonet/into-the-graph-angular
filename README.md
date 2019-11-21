@@ -14,9 +14,11 @@ docker build -t into-the-graph .
 docker run -it -p 8081:80 into-the-graph
 ```
 
-At the moment into-the-graph use by default the SPARQL endpoint http://graphdb.dumontierlab.com/repositories/ncats-red-kg, using precomputed HCLS statistics.
+At the moment into-the-graph use by default the SPARQL endpoint http://graphdb.dumontierlab.com/repositories/ncats-red-kg, using precomputed [HCLS statistics](https://www.w3.org/TR/hcls-dataset/).
 
 The SPARQL endpoint can be changed in [src/environments/environment.ts](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/src/environments/environment.prod.ts) and [src/environments/environment.prod.ts](https://github.com/MaastrichtU-IDS/into-the-graph/blob/master/src/environments/environment.ts)
+
+The HCLS statistics can easily be computed on any triplestore by just providing the triplestore insert credentials and the graph URI to a Docker container. See [this documentation](https://github.com/MaastrichtU-IDS/data2services-transform-repository/tree/master/sparql/compute-hcls-stats). 
 
 ## Development server
 
