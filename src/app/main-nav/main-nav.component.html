@@ -22,6 +22,11 @@
     Describe URI
   </a>
   <div class="flex-spacer"></div>
+  <form class="search-form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="search-full-width">
+      <input matInput placeholder="Search" value="Lepirudin" formControlName="SearchText">
+    </mat-form-field>
+  </form>  
   <a mat-button class="navbar-button" href="https://github.com/MaastrichtU-IDS/into-the-graph" target="_blank" aria-label="Source on GitHub">
     <mat-icon mat-list-icon>code</mat-icon>
     Source on GitHub
