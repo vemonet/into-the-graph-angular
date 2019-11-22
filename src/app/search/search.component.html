@@ -1,4 +1,17 @@
-<p>
-  search works!
-  {{searchText}}
-</p>
+<div class="mainLayout" fxLayout="row" fxLayoutAlign="center" style="text-align: center;"
+*ngIf="searchSparqlResultArray != null">
+
+  <div fxLayout="column" fxFlex="100%" fxFlex.gt-md="90%" fxLayoutWrap fxLayoutGap="3%">
+
+  <h1 class="mat-display-1" style="padding-bottom: 15px; padding-top: 20px;">
+    Results for {{searchText}}
+  </h1>  
+
+  <mat-list>
+    <mat-list-item *ngFor="let resultRow of searchSparqlResultArray">
+      <mat-card>
+        <span [innerHTML]="sparql.getUrlHtml(resultRow.searchResult.value)"></span>
+        <!-- {{resultRow.searchResult.value}} -->
+      </mat-card>
+    </mat-list-item>
+  </mat-list>

@@ -22,7 +22,7 @@ export class SearchComponent implements OnInit {
     private sparql: SparqlService) { }
 
   ngOnInit() {
-    this.searchText = this.route.snapshot.paramMap.get('searchText');
+    this.searchText = decodeURIComponent(this.route.snapshot.paramMap.get('searchText'));
     // this.sparql.getAllDatasetsInfo(null, this, this.datasetId);
   
     this.getDatasetData(this.searchText);

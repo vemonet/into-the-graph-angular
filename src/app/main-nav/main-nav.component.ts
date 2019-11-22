@@ -28,8 +28,8 @@ export class MainNavComponent implements OnInit {
     //   url: ['/search'],
     //   data: { searchText: this.searchForm.get('SearchText').value }
     // });
-    // this.router.navigate(['/search', encodeURIComponent(this.searchForm.get('SearchText').value)]);
-    this.router.navigate(['/search', this.searchForm.get('SearchText').value]);
+    this.router.navigate(['/search', encodeURIComponent(this.searchForm.get('SearchText').value)]);
+    // this.router.navigate(['/search', this.searchForm.get('SearchText').value]);
   }
 
 }
