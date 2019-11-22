@@ -32,6 +32,7 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { SparqlComponent } from './sparql/sparql.component';
 import { DescribeComponent } from './describe/describe.component';
 import { FooterComponent } from './footer/footer.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,8 @@ import { FooterComponent } from './footer/footer.component';
     MatExpansionModule,
     MatTabsModule,
     MatBadgeModule,
+    FormsModule,
+    ReactiveFormsModule,
     DataTablesModule,
     CytoscapeModule
   ],

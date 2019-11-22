@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -11,11 +11,17 @@ import { Router } from "@angular/router";
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.css']
 })
-export class MainNavComponent {
+export class MainNavComponent implements OnInit {
   title = 'into-the-graph';
   searchForm: FormGroup;
 
   constructor(private router: Router) {}
+
+  ngOnInit(){
+    this.searchForm = new FormGroup({
+      SearchText: new FormControl()
+    });
+  }
 
   onSubmit(){
     this.router.navigateByData({
