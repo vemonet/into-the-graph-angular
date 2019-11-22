@@ -18,14 +18,17 @@
   <!-- TODO: Change this -->
   <!-- <a mat-button class="navbar-button" href="/describe?uri=http://identifiers.org/uniprot/O00222" aria-label="Describe URI"> -->
   <a mat-button class="navbar-button" href="/describe?uri=http:%2F%2Fbio2rdf.org%2Fdrugbank_resource:f9e3bfa310df6a9054278bc8f2cc8c8d" aria-label="Describe URI">
-    <mat-icon mat-list-icon>search</mat-icon>
+    <mat-icon mat-list-icon>format_list_bulleted</mat-icon>
     Describe URI
   </a>
   <div class="flex-spacer"></div>
-  <form class="search-form" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-    <!-- <mat-form-field class="search-full-width"> -->
-    <input matInput placeholder="Search..." formControlName="SearchText">
-    <!-- </mat-form-field> -->
+  <form class="searchForm" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div>
+      <mat-icon mat-list-icon style="vertical-align: middle;">search</mat-icon>
+      <mat-form-field>
+        <input matInput placeholder="Search URI" formControlName="SearchText">
+      </mat-form-field>
+    </div>
   </form>  
   <a mat-button class="navbar-button" href="https://github.com/MaastrichtU-IDS/into-the-graph" target="_blank" aria-label="Source on GitHub">
     <mat-icon mat-list-icon>code</mat-icon>

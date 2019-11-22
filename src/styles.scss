@@ -31,15 +31,16 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 // Change color of mat form field to primary 
 // (because the angular color directive never work as expected)
-.mat-form-field-appearance-outline .mat-form-field-outline {
-  color: mat-color($primary) !important;
-}
-.mat-form-field-appearance-outline .mat-form-field-outline-thick {
-  color: mat-color($primary) !important;
-}
-.mat-form-field-label {
-  color: mat-color($primary) !important;
-}
+// .mat-form-field-appearance-outline .mat-form-field-outline {
+//   color: mat-color($primary) !important;
+// }
+// .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+//   color: mat-color($primary) !important;
+// }
+// .mat-form-field-label {
+//   color: mat-color($primary) !important;
+// }
+
 
 // No other way to change describe page URLs style
 a.describeUrl {
