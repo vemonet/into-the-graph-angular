@@ -49,6 +49,7 @@ export class SearchComponent implements OnInit {
     const searchTextSparqlHttpParams = new HttpParams()
       .set('query', `SELECT ?searchResult WHERE {
         ?searchResult ?p ?o .
+        VALUES ?p {<http://www.w3.org/2000/01/rdf-schema#label> <https://w3id.org/biolink/vocab/name>} .
         FILTER(isLiteral(?o))
         FILTER contains(?o, "` + this.searchText + `")
         } LIMIT 5`)
