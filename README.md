@@ -1,17 +1,26 @@
 # RdfGraphExplorer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+**DEPRECATED**: rewritten in ReactJS at [MaastrichtU-IDS/into-the-graph](https://github.com/MaastrichtU-IDS/into-the-graph).
+
+Lightweight RDF linked data browser supporting graphs. Written with [Angular](https://github.com/angular/angular-cli) (cli version 7.3.8).
+
+## Clone
+
+```bash
+git clone https://github.com/MaastrichtU-IDS/into-the-graph-angular.git
+cd into-the-graph-angular
+```
 
 ## Build
 
-```shell
-docker build -t into-the-graph .
+```bash
+docker build -t into-the-graph-angular .
 ```
 
 ## Run
 
-```shell
-docker run -it -p 8081:80 into-the-graph
+```bash
+docker run -it -p 8081:80 into-the-graph-angular
 ```
 
 At the moment into-the-graph use by default the SPARQL endpoint http://graphdb.dumontierlab.com/repositories/ncats-red-kg, using precomputed [HCLS statistics](https://www.w3.org/TR/hcls-dataset/).
@@ -44,7 +53,7 @@ To push only `dist` folder to `gh-pages` branch to deploy a webapp
 
 ```shell
 # Create and update
-git subtree push --prefix dist/into-the-graph origin gh-pages
+git subtree push --prefix dist/into-the-graph-angular origin gh-pages
 
 # Delete branch
 git push origin --delete gh-pages
